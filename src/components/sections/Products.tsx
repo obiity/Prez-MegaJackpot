@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useRef } from "react"
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, type Variants } from "framer-motion"
 import Image from "next/image"
 import { PRODUCTS } from "@/lib/constants"
 import { Sparkles } from "lucide-react"
 import { toast } from "sonner"
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: {},
   show: {
     transition: { staggerChildren: 0.2 }
   }
 }
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 50 },
   show: {
     opacity: 1,

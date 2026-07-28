@@ -1,7 +1,7 @@
 "use client";
 
 import { Ticket, CreditCard, Gift } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 import Image from "next/image"
 
 export function StepsSection() {
@@ -39,7 +39,7 @@ export function StepsSection() {
     }
   ];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: {},
     visible: {
       transition: {
@@ -48,7 +48,7 @@ export function StepsSection() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   };
