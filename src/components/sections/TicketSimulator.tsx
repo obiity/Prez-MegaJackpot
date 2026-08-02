@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ShieldCheck,
@@ -97,6 +97,7 @@ export function TicketSimulator() {
   const [isSpinning, setIsSpinning] = useState(false);
   const [generatedCount, setGeneratedCount] = useState(1);
   const [copied, setCopied] = useState(false);
+  const ticketCardRef = useRef<HTMLDivElement>(null);
 
   const product = PRODUCTS_CONFIG[selectedProduct];
   const Icon = product.icon;
@@ -104,6 +105,12 @@ export function TicketSimulator() {
   const handleGenerate = () => {
     setIsSpinning(true);
     playSound.click();
+
+    // Auto-scroll on mobile to the ticket code card
+    if (window.innerWidth < 1024 && ticketCardRef.current) {
+      ticketCardRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
     let spins = 0;
     const interval = setInterval(() => {
       setSerialNumber(generateRandomSerial());
@@ -254,7 +261,7 @@ export function TicketSimulator() {
         </div>
 
         {/* Right Column: Holographic Physical Ticket Forge */}
-        <div className="lg:col-span-7 flex flex-col">
+        <div ref={ticketCardRef} className="lg:col-span-7 flex flex-col scroll-mt-24">
           <div className="relative h-full flex flex-col justify-between rounded-3xl bg-gradient-to-br from-[#0c1f44] via-[#05132e] to-[#081736] border border-[#fbb505]/40 shadow-[0_10px_40px_rgba(0,0,0,0.6)] text-white overflow-hidden p-5 sm:p-6 space-y-4">
             
             {/* Holographic Laser Background Grid */}
