@@ -41,7 +41,7 @@ export function HeroSpotlightOfficial() {
   }, [emblaApi]);
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#021a3c] border-b border-[#fbb505]/20 shadow-[0_20px_50px_rgba(0,0,0,0.6)] pt-0 transition-all">
+    <section className="relative w-full overflow-hidden bg-[#021a3c] shadow-[0_20px_50px_rgba(0,0,0,0.6)] pt-0 transition-all">
       {/* Embla Drag Carousel */}
       <div className="overflow-hidden cursor-grab active:cursor-grabbing select-none" ref={emblaRef}>
         <div className="flex w-full">

@@ -90,8 +90,8 @@ export function HeaderV2() {
       <header 
         className={`fixed top-0 z-50 w-full text-white transition-all duration-300 ${
           isScrolled 
-            ? "bg-[#021a3c]/95 backdrop-blur-md shadow-lg border-b border-[#fbb505]/20 shadow-[0_4px_30px_rgba(251,181,5,0.05)]" 
-            : "bg-gradient-to-b from-[#021a3c]/90 via-[#021a3c]/50 to-transparent sm:bg-transparent border-b border-white/5 sm:border-transparent"
+            ? "bg-[#021a3c]/90 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.5)]" 
+            : "bg-transparent"
         }`}
       >
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
