@@ -51,15 +51,16 @@ export function OpportunitesOfficialGrid() {
   return (
     <div className="mb-10 text-center">
       {/* Header Row */}
-      <div className="mb-6 flex flex-col items-center">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#fbb505]/10 border border-[#fbb505]/40 text-[var(--color-mj-gold)] text-[10px] font-mono font-bold uppercase tracking-widest mb-2">
-          <Sparkles className="w-3 h-3" /> Vos Opportunités Majeures
+      <div className="mb-10 flex flex-col items-center">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#fbb505]/10 border border-[#fbb505]/40 text-[var(--color-mj-gold)] text-[10px] font-mono font-bold uppercase tracking-widest mb-4 shadow-[0_0_15px_rgba(251,181,5,0.2)]">
+          <Sparkles className="w-3.5 h-3.5" /> Vos Opportunités Majeures
         </div>
-        <h2 className="text-2xl sm:text-3xl font-heading font-black text-white uppercase tracking-tight">
-          CHOISISSEZ VOTRE <span className="text-[var(--color-mj-gold)]">DESTIN</span>
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-black text-white uppercase tracking-tighter drop-shadow-xl mb-3">
+          CHOISISSEZ VOTRE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-mj-gold)] to-yellow-300 drop-shadow-[0_0_25px_rgba(251,181,5,0.6)]">DESTIN</span>
         </h2>
-        <p className="text-xs text-gray-400 font-mono mt-1">
-          Tentez de remporter l&apos;un de nos 3 grands lots d&apos;exception.
+        <div className="h-1 w-24 bg-gradient-to-r from-transparent via-[var(--color-mj-gold)] to-transparent opacity-50 mb-4 rounded-full"></div>
+        <p className="text-sm sm:text-base text-gray-400 font-medium max-w-lg">
+          Tentez de remporter l&apos;un de nos 3 grands lots d&apos;exception. Un ticket peut tout changer.
         </p>
       </div>
 
