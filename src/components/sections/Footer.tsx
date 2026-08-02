@@ -52,6 +52,7 @@ export function Footer() {
               <li><button onClick={() => { const el = document.getElementById('jeux'); if(el) el.scrollIntoView({behavior: 'smooth'}) }} className="hover:text-[var(--color-mj-gold)] transition-colors">Nos Opportunités</button></li>
               <li><button onClick={() => { const el = document.getElementById('comment-jouer'); if(el) el.scrollIntoView({behavior: 'smooth'}) }} className="hover:text-[var(--color-mj-gold)] transition-colors">Comment Jouer</button></li>
               <li><button onClick={() => { const el = document.getElementById('gagnants'); if(el) el.scrollIntoView({behavior: 'smooth'}) }} className="hover:text-[var(--color-mj-gold)] transition-colors">Témoignages</button></li>
+              <li><Link href="/support" className="text-[var(--color-mj-gold)] hover:underline font-bold transition-colors">Aide & Support 24/7</Link></li>
             </ul>
           </div>
           
@@ -93,7 +94,7 @@ export function Footer() {
         
         <div className="border-t border-gray-200 dark:border-white/10 pt-8 text-xs text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4 transition-colors">
           <div className="flex items-center gap-3">
-            <span className="text-[var(--color-mj-red)] font-bold border border-[var(--color-mj-red)]/50 px-2 py-1 rounded text-[10px] bg-[var(--color-mj-red)]/10">18+</span>
+            <span className="text-[var(--color-mj-red)] font-bold border border-[#da151f]/50 px-2 py-1 rounded text-[10px] bg-[var(--color-mj-red)]/10">18+</span>
             <p className="opacity-70 transition-colors">
               Jeu Responsable : Jouer comporte des risques (endettement, isolement, dépendance). 
             </p>

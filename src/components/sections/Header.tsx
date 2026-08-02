@@ -27,7 +27,6 @@ export function Header() {
         
         <div className="hidden md:flex items-center gap-4">
           <Button variant="ghost">Connexion</Button>
-          <Button variant="default">Jouer maintenant</Button>
         </div>
 
         <button className="md:hidden p-2 text-white">

@@ -66,13 +66,13 @@ export const MOCK_TICKETS: PlayerTicket[] = [
 export const MOCK_RESULTS: DrawResult[] = [
   {
     id: "res-001",
-    productId: "business",
-    productName: "Opportunité Business",
-    drawDate: "01 Juil 2026",
-    winningSerialNumber: "MJ-2026-••••-4921",
-    prizeDescription: "Capital de 15M FCFA + Voyage Dubaï",
-    winnerName: "Amadou K.",
-    winnerCity: "Abidjan"
+    productId: "maison",
+    productName: "Opportunité Maison",
+    drawDate: "15 Déc 2025",
+    winningSerialNumber: "MJ-2025-••••-8812",
+    prizeDescription: "Villa de Luxe (Valeur 100M FCFA)",
+    winnerName: "Mamadou S.",
+    winnerCity: "Dakar"
   },
   {
     id: "res-002",
@@ -86,13 +86,13 @@ export const MOCK_RESULTS: DrawResult[] = [
   },
   {
     id: "res-003",
-    productId: "maison",
-    productName: "Opportunité Maison",
-    drawDate: "15 Déc 2025",
-    winningSerialNumber: "MJ-2025-••••-8812",
-    prizeDescription: "Villa de Luxe (Valeur 100M FCFA)",
-    winnerName: "Sarah M.",
-    winnerCity: "Yamoussoukro"
+    productId: "business",
+    productName: "Opportunité Business",
+    drawDate: "15 Jan 2026",
+    winningSerialNumber: "MJ-2026-••••-4921",
+    prizeDescription: "Capital de 15M FCFA + Voyage Dubaï",
+    winnerName: "Amadou K.",
+    winnerCity: "Abidjan"
   }
 ];
 

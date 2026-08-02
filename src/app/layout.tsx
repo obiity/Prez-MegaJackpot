@@ -8,6 +8,7 @@ import { HeaderV2 } from "@/components/sections/HeaderV2";
 import { Footer } from "@/components/sections/Footer";
 import { BottomNav } from "@/components/sections/BottomNav";
 import { DesktopNav } from "@/components/sections/DesktopNav";
+import { FloatingSupportButton } from "@/components/ui/FloatingSupportButton";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -48,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${montserrat.variable} ${chakraPetch.variable} ${shareTechMono.variable} h-full antialiased`}
+      className={`dark ${montserrat.variable} ${chakraPetch.variable} ${shareTechMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -56,32 +57,27 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.documentElement.classList.add('dark')
-                } else {
-                  document.documentElement.classList.remove('dark')
-                }
+                document.documentElement.classList.add('dark');
               } catch (_) {}
             `,
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans transition-colors duration-300 bg-[var(--bg-base)] text-[var(--text-primary)]">
+      <body className="min-h-full flex flex-col font-sans bg-[#010919] text-white">
         <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange={false}
+          defaultTheme="dark"
+          disableTransitionOnChange
         >
           <HudBackground />
           <HeaderV2 />
-          <main className="flex flex-col flex-1 pb-16 md:pb-24">
+          <main className="flex flex-col flex-1">
             {children}
           </main>
           <Footer />
           <BottomNav />
           <DesktopNav />
-          <Toaster position="bottom-center" richColors theme="system" />
+          <FloatingSupportButton />
+          <Toaster position="bottom-center" richColors theme="dark" />
         </ThemeProvider>
       </body>
     </html>

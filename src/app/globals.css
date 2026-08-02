@@ -14,12 +14,12 @@
 }
 
 :root {
-  /* Light Mode Tokens */
-  --bg-base: #f8fafc;
-  --bg-surface: #ffffff;
-  --text-primary: #021a3c;
-  --text-secondary: #4b5563;
-  --border-subtle: #f3f4f6;
+  /* Default Dark Mode Tokens */
+  --bg-base: #010d1e;
+  --bg-surface: #021a3c;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-subtle: #102a58;
   
   --background: var(--bg-base);
   --foreground: var(--text-primary);
@@ -64,8 +64,14 @@ body {
   .text-hero {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 56px;
+    font-size: 32px;
     line-height: 1.1;
+  }
+
+  @media (min-width: 640px) {
+    .text-hero {
+      font-size: 56px;
+    }
   }
   
   .text-h2 {
@@ -140,3 +146,21 @@ body {
     }
   }
 }
+
+/* Force pointer cursor on all clickable elements */
+button,
+a,
+select,
+summary,
+[role="button"],
+[tabindex],
+.cursor-pointer,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+input[type="checkbox"],
+input[type="radio"],
+label[for] {
+  cursor: pointer !important;
+}
+

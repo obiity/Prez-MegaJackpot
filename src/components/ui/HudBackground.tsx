@@ -35,15 +35,15 @@ export function HudBackground() {
       
       {/* Top Right Glow (Gold) */}
       <div 
-        className={`absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full blur-[120px] transition-opacity duration-700 ${
-          isDark ? 'bg-[var(--color-mj-gold)] opacity-15' : 'bg-[var(--color-mj-gold)] opacity-5'
+        className={`absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full blur-[140px] transition-opacity duration-700 ${
+          isDark ? 'bg-[var(--color-mj-gold)] opacity-20' : 'bg-[var(--color-mj-gold)] opacity-5'
         }`}
       />
 
       {/* Bottom Left Glow (Red) */}
       <div 
-        className={`absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full blur-[120px] transition-opacity duration-700 ${
-          isDark ? 'bg-[var(--color-mj-red)] opacity-20' : 'bg-[var(--color-mj-red)] opacity-[0.03]'
+        className={`absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full blur-[140px] transition-opacity duration-700 ${
+          isDark ? 'bg-[var(--color-mj-red)] opacity-25' : 'bg-[var(--color-mj-red)] opacity-[0.03]'
         }`}
       />
     </div>

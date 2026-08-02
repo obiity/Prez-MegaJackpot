@@ -16,10 +16,10 @@ export function LiveTicker() {
   if (winners.length === 0) return null;
 
   return (
-    <div className="w-full bg-[#0a0a0a] dark:bg-black border-y border-[var(--border-subtle)] overflow-hidden flex items-center h-10 group relative z-20 shadow-md">
+    <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-[#0a0a0a] dark:bg-black border-y border-white/10 overflow-hidden flex items-center h-11 group z-20 shadow-xl">
       {/* Gradient Fades for Smooth Edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-r from-[#0a0a0a] dark:from-black to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-l from-[#0a0a0a] dark:from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#0a0a0a] dark:from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#0a0a0a] dark:from-black to-transparent z-10 pointer-events-none" />
       
       {/* Marquee Wrapper */}
       <div className="flex w-max animate-[scrollX_30s_linear_infinite] hover:[animation-play-state:paused] active:[animation-play-state:paused] motion-reduce:animate-none motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:w-full motion-reduce:py-2">
@@ -45,7 +45,7 @@ export function LiveTicker() {
 
 function TickerItem({ winner }: { winner: DrawResult }) {
   return (
-    <div className="flex items-center gap-2 md:gap-3 px-4 md:px-6 border-r border-white/10 last:border-none motion-reduce:border-none motion-reduce:py-1">
+    <div className="flex items-center gap-2 md:gap-3 px-6 md:px-8 border-r border-white/10 last:border-none motion-reduce:border-none motion-reduce:py-1">
       {winner.productId === 'business' ? (
         <ArrowRight className="w-4 h-4 text-[var(--color-mj-red)] shrink-0" />
       ) : winner.productId === 'maison' ? (

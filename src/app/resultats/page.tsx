@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from 'react';
 import { NextDrawHighlight } from '@/components/ui/NextDrawHighlight';
@@ -20,6 +20,11 @@ export default function ResultatsPage() {
   const [activeTab, setActiveTab] = useState('tous');
   const [results, setResults] = useState<DrawResult[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Hover states to activate node blinking ONLY on mouse hover
+  const [isNextHovered, setIsNextHovered] = useState(false);
+  const [isFeaturedHovered, setIsFeaturedHovered] = useState(false);
+  const [hoveredRowId, setHoveredRowId] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadData() {
@@ -73,34 +78,62 @@ export default function ResultatsPage() {
           ) : filteredResults.length > 0 || activeTab === 'tous' ? (
             <div className="relative">
               
-              {/* TIMELINE TRUNK */}
-              <div className="absolute left-6 md:left-[2.25rem] top-8 bottom-0 w-[3px] bg-gray-200 dark:bg-white/10" />
+              {/* TIMELINE TRUNK (Centered at 26px mobile / 38px desktop) */}
+              <div className="absolute left-[24.5px] md:left-[36.5px] top-8 bottom-0 w-[3px] bg-gray-200 dark:bg-white/10" />
 
               <div className="flex flex-col gap-10 md:gap-14">
                 
                 {/* 1. Upcoming Draw Node (Top of Timeline) */}
-                {(activeTab === 'tous' || activeTab === 'maison') && (
-                  <div className="relative pl-16 md:pl-24">
-                    {/* Node Marker */}
-                    <div className="absolute left-3.5 md:left-6 top-10 w-6 h-6 rounded-full bg-white dark:bg-[#0a1628] border-[3px] border-dashed border-[var(--color-mj-gold)] shadow-[0_0_15px_rgba(251,181,5,0.3)] z-10">
-                      <div className="animate-ping absolute inset-0 rounded-full bg-[var(--color-mj-gold)] opacity-40"></div>
+                {(activeTab === 'tous' || activeTab === 'business') && (
+                  <div 
+                    className="relative pl-16 md:pl-24"
+                    onMouseEnter={() => setIsNextHovered(true)}
+                    onMouseLeave={() => setIsNextHovered(false)}
+                  >
+                    {/* Node Marker (Blinks ONLY when hovered) */}
+                    <div className={`absolute left-[14px] md:left-[26px] top-10 w-6 h-6 rounded-full bg-white dark:bg-[#0a1628] border-[3px] border-dashed border-[var(--color-mj-red)] shadow-[0_0_15px_rgba(218,21,31,0.5)] z-10 flex items-center justify-center transition-all duration-300 ${isNextHovered ? 'scale-125 shadow-[0_0_25px_rgba(218,21,31,0.9)]' : ''}`}>
+                      {isNextHovered && (
+                        <>
+                          <div className="animate-ping absolute inset-0 rounded-full bg-[var(--color-mj-red)] opacity-75" />
+                          <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-mj-red)] animate-pulse" />
+                        </>
+                      )}
                     </div>
+
                     {/* Node Content */}
-                    <NextDrawHighlight />
+                    <NextDrawHighlight
+                      productName="OPPORTUNITÉ BUSINESS"
+                      prize="15 000 000 FCFA + Voyage Dubaï"
+                      date="01 Juillet 2026"
+                    />
                   </div>
                 )}
 
                 {/* 2. Featured Result Node (Most Recent) */}
                 {featuredResult && (
-                  <div className="relative pl-16 md:pl-24">
-                    {/* Node Marker */}
+                  <div 
+                    className="relative pl-16 md:pl-24"
+                    onMouseEnter={() => setIsFeaturedHovered(true)}
+                    onMouseLeave={() => setIsFeaturedHovered(false)}
+                  >
+                    {/* Node Marker (Blinks ONLY when hovered) */}
                     <div 
-                      className="absolute left-3.5 md:left-6 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full border-4 border-white dark:border-[#0a1628] shadow-sm z-10"
+                      className={`absolute left-[14px] md:left-[26px] top-1/2 -translate-y-1/2 w-6 h-6 rounded-full border-4 border-white dark:border-[#0a1628] shadow-md z-10 flex items-center justify-center transition-all duration-300 ${isFeaturedHovered ? 'scale-125 shadow-[0_0_20px_rgba(251,181,5,0.9)]' : ''}`}
                       style={{ 
                         backgroundColor: featuredResult.productId === 'maison' ? 'var(--color-mj-gold)' : 
                                          featuredResult.productId === 'business' ? 'var(--color-mj-red)' : 'var(--color-mj-blue)' 
                       }}
-                    />
+                    >
+                      {isFeaturedHovered && (
+                        <div 
+                          className="animate-ping absolute inset-0 rounded-full opacity-75"
+                          style={{ 
+                            backgroundColor: featuredResult.productId === 'maison' ? 'var(--color-mj-gold)' : 
+                                             featuredResult.productId === 'business' ? 'var(--color-mj-red)' : 'var(--color-mj-blue)' 
+                          }}
+                        />
+                      )}
+                    </div>
                     <FeaturedDrawCard result={featuredResult} />
                   </div>
                 )}
@@ -108,19 +141,34 @@ export default function ResultatsPage() {
                 {/* 3. Older Results Nodes */}
                 {olderResults.length > 0 && (
                   <div className="flex flex-col gap-6">
-                    {olderResults.map((result, index) => (
-                      <div key={result.id} className="relative pl-16 md:pl-24">
-                        {/* Node Marker */}
+                    {olderResults.map((result) => {
+                      const isHovered = hoveredRowId === result.id;
+                      const nodeColor = result.productId === 'maison' ? 'var(--color-mj-gold)' : 
+                                        result.productId === 'business' ? 'var(--color-mj-red)' : 'var(--color-mj-blue)';
+
+                      return (
                         <div 
-                          className="absolute left-[1.125rem] md:left-[1.625rem] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-[3px] border-white dark:border-[#0a1628] shadow-sm z-10"
-                          style={{ 
-                            backgroundColor: result.productId === 'maison' ? 'var(--color-mj-gold)' : 
-                                             result.productId === 'business' ? 'var(--color-mj-red)' : 'var(--color-mj-blue)' 
-                          }}
-                        />
-                        <CompactDrawRow result={result} />
-                      </div>
-                    ))}
+                          key={result.id} 
+                          className="relative pl-16 md:pl-24"
+                          onMouseEnter={() => setHoveredRowId(result.id)}
+                          onMouseLeave={() => setHoveredRowId(null)}
+                        >
+                          {/* Node Marker (Blinks ONLY when hovered) */}
+                          <div 
+                            className={`absolute left-[18px] md:left-[30px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-[3px] border-white dark:border-[#0a1628] shadow-sm z-10 flex items-center justify-center transition-all duration-300 ${isHovered ? 'scale-150 shadow-[0_0_15px_rgba(251,181,5,0.9)]' : ''}`}
+                            style={{ backgroundColor: nodeColor }}
+                          >
+                            {isHovered && (
+                              <div 
+                                className="animate-ping absolute inset-0 rounded-full opacity-75"
+                                style={{ backgroundColor: nodeColor }}
+                              />
+                            )}
+                          </div>
+                          <CompactDrawRow result={result} />
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
                 

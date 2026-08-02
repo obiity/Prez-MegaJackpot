@@ -6,7 +6,7 @@ import { AnimatedNumber } from "@/components/ui/AnimatedNumber"
 export function TrustStats() {
   const stats = [
     { icon: <Users className="w-6 h-6" />, value: 150000, suffix: "+", format: (v: number) => Math.floor(v).toLocaleString('fr-FR'), label: "Joueurs inscrits" },
-    { icon: <Banknote className="w-6 h-6" />, value: 2.5, suffix: " Milliards", format: (v: number) => v.toFixed(1), label: "FCFA distribués" },
+    { icon: <Banknote className="w-6 h-6" />, value: 2, suffix: " Milliards", format: (v: number) => Math.floor(v).toString(), label: "FCFA distribués" },
     { icon: <Trophy className="w-6 h-6" />, value: 12400, suffix: "+", format: (v: number) => Math.floor(v).toLocaleString('fr-FR'), label: "Gagnants" },
     { icon: <Home className="w-6 h-6" />, value: 8, suffix: "", format: (v: number) => Math.floor(v).toString(), label: "Maisons" },
     { icon: <Briefcase className="w-6 h-6" />, value: 45, suffix: "", format: (v: number) => Math.floor(v).toString(), label: "Entreprises" },

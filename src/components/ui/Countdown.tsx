@@ -52,14 +52,14 @@ export function Countdown({ className }: { className?: string }) {
   ];
 
   if (!mounted) {
-    return <div className={cn("flex gap-2 sm:gap-4 justify-center items-center h-24", className)} />;
+    return <div className={cn("flex gap-1.5 sm:gap-4 justify-center items-center h-16 sm:h-24", className)} />;
   }
 
   return (
-    <div className={cn("flex gap-2 sm:gap-4 justify-center items-center", className)}>
+    <div className={cn("flex gap-1.5 sm:gap-4 justify-center items-center", className)}>
       {timeBlocks.map((block, i) => (
         <div key={i} className="flex flex-col items-center">
-          <div className="relative bg-[var(--bg-surface)] text-[var(--text-primary)] font-mono w-14 h-16 sm:w-16 sm:h-20 rounded-xl flex items-center justify-center text-2xl sm:text-3xl shadow-lg border border-[var(--border-subtle)] overflow-hidden">
+          <div className="relative bg-[var(--bg-surface)] text-[var(--text-primary)] font-mono w-11 h-13 sm:w-16 sm:h-20 rounded-lg sm:rounded-xl flex items-center justify-center text-xl sm:text-3xl shadow-lg border border-[var(--border-subtle)] overflow-hidden">
             <AnimatePresence mode="popLayout">
               <motion.span
                 key={block.value}
@@ -75,7 +75,7 @@ export function Countdown({ className }: { className?: string }) {
             {/* Glossy overlay for premium feel */}
             <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent pointer-events-none" />
           </div>
-          <span className="text-xs sm:text-sm mt-2 font-semibold tracking-wider text-[var(--text-primary)] dark:text-white uppercase opacity-80 transition-colors">{block.label}</span>
+          <span className="text-[9px] sm:text-xs mt-1 sm:mt-2 font-semibold tracking-wider text-[var(--text-primary)] dark:text-white uppercase opacity-80 transition-colors">{block.label}</span>
         </div>
       ))}
     </div>

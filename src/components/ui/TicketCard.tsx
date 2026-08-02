@@ -10,7 +10,7 @@ export function TicketCard({ children, headerContent, className, ...props }: Tic
   return (
     <div 
       className={cn(
-        "relative flex flex-col w-full rounded-2xl overflow-hidden bg-[var(--bg-surface)] shadow-lg hover:shadow-xl transition-all duration-300 border border-[var(--border-subtle)]/50 group",
+        "relative flex flex-col w-full rounded-2xl overflow-hidden bg-[var(--bg-surface)] shadow-lg hover:shadow-xl transition-all duration-300 border-none group",
         className
       )}
       {...props}
@@ -25,9 +25,9 @@ export function TicketCard({ children, headerContent, className, ...props }: Tic
       {/* Perforated Divider (Ticket Tear Line) */}
       <div className="relative h-8 w-full flex items-center bg-[var(--bg-surface)] overflow-hidden z-10">
         {/* Left Notch */}
-        <div className="absolute left-0 -ml-4 w-8 h-8 rounded-full bg-[var(--bg-base)] border border-[var(--border-subtle)]/50 z-20" />
+        <div className="absolute left-0 -ml-4 w-8 h-8 rounded-full bg-[var(--bg-base)] border-none z-20" />
         {/* Right Notch */}
-        <div className="absolute right-0 -mr-4 w-8 h-8 rounded-full bg-[var(--bg-base)] border border-[var(--border-subtle)]/50 z-20" />
+        <div className="absolute right-0 -mr-4 w-8 h-8 rounded-full bg-[var(--bg-base)] border-none z-20" />
         {/* Dashed Line */}
         <div className="w-full border-t-2 border-dashed border-[var(--border-subtle)] mx-6 opacity-60 transition-opacity duration-300 group-hover:opacity-100" />
       </div>
