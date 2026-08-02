@@ -86,7 +86,7 @@ export function Footer() {
             <h4 className="text-[var(--text-primary)] dark:text-white mb-6 text-label transition-colors">Contact</h4>
             <ul className="space-y-3 text-sm font-mono opacity-90 transition-colors">
               <li>support@megajackpot.com</li>
-              <li>+221 77 000 00 00</li>
+              <li>+221 33 000 00 00</li>
               <li>Dakar, Sénégal</li>
             </ul>
           </div>
