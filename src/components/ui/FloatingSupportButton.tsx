@@ -9,7 +9,7 @@ export function FloatingSupportButton() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-20 right-4 sm:bottom-8 sm:right-6 z-40">
+    <div className="fixed bottom-[calc(4rem+env(safe-area-inset-bottom)+16px)] right-4 sm:bottom-8 sm:right-6 z-[110]">
       {/* Quick Popup Drawer */}
       <AnimatePresence>
         {isOpen && (
