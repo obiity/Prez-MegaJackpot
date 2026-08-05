@@ -41,7 +41,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className={`p-2.5 transition-colors duration-300 flex items-center justify-center cursor-pointer ${
+      className={`p-1.5 sm:p-2 transition-colors duration-300 flex items-center justify-center cursor-pointer ${
         theme === "light"
           ? "text-amber-500 hover:text-amber-600"
           : "text-[var(--color-mj-gold)] hover:text-amber-400"
@@ -50,9 +50,9 @@ export function ThemeToggle() {
       title={theme === "dark" ? "Activer le Mode Jour (Clair)" : "Activer le Mode Nuit (Sombre)"}
     >
       {theme === "dark" ? (
-        <Sun className="w-5 h-5 text-[var(--color-mj-gold)] stroke-[2.2] animate-in zoom-in spin-in-90 duration-300" />
+        <Sun className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-[var(--color-mj-gold)] stroke-[2.2] animate-in zoom-in spin-in-90 duration-300" />
       ) : (
-        <Moon className="w-5 h-5 text-amber-500 stroke-[2.2] animate-in zoom-in spin-in-90 duration-300" />
+        <Moon className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-amber-500 stroke-[2.2] animate-in zoom-in spin-in-90 duration-300" />
       )}
     </button>
   );

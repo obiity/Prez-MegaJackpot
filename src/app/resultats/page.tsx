@@ -49,7 +49,7 @@ export default function ResultatsPage() {
   const olderResults = filteredResults.length > 1 ? filteredResults.slice(1) : [];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--bg-default)] text-[var(--text-primary)] pt-12 pb-32">
+    <div className="min-h-screen flex flex-col bg-[var(--bg-default)] text-[var(--text-primary)] pt-24 sm:pt-28 md:pt-32 pb-32">
       <div className="container mx-auto px-4 max-w-4xl">
         
         {/* Page Header */}

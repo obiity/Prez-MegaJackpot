@@ -18,6 +18,7 @@ import {
   Settings,
   HeadphonesIcon,
   LogIn,
+  UserPlus,
   X,
   CheckCircle2,
 } from "lucide-react";
@@ -287,11 +288,19 @@ export function AccountDropdown({ isOpen, onClose }: AccountDropdownProps) {
 
             {/* Popover Footer: Connection & Support Links */}
             <div className="p-4 border-t border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-black/50 space-y-2.5">
-              <Link href="/compte" onClick={onClose} className="block">
-                <button className="w-full py-3 bg-[var(--color-mj-red)] hover:bg-red-600 text-white font-heading font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer">
-                  <LogIn className="w-4 h-4" /> Accéder à mon compte
-                </button>
-              </Link>
+              <div className="grid grid-cols-2 gap-2.5">
+                <Link href="/inscription" onClick={onClose} className="block">
+                  <button className="w-full py-2.5 bg-[var(--color-mj-gold)] hover:bg-yellow-400 text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center justify-center gap-1.5 cursor-pointer">
+                    <UserPlus className="w-4 h-4 stroke-[2.5]" /> S&apos;inscrire
+                  </button>
+                </Link>
+
+                <Link href="/compte" onClick={onClose} className="block">
+                  <button className="w-full py-2.5 bg-[var(--color-mj-red)] hover:bg-red-600 text-white font-heading font-black text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center justify-center gap-1.5 cursor-pointer">
+                    <LogIn className="w-4 h-4" /> Connexion
+                  </button>
+                </Link>
+              </div>
 
               <Link
                 href="/support"

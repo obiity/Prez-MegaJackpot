@@ -109,21 +109,21 @@ export function HeroSpotlightOfficial() {
                     {/* Countdown Clock Block */}
                     <div className="pt-2">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-gray-200 block mb-2 font-bold drop-shadow">Tirage certifié dans</span>
-                      <div className="flex items-center gap-2.5">
-                        <div className="text-center px-3.5 py-2 bg-black/75 backdrop-blur-md rounded-xl border border-[#fbb505]/30 min-w-[54px] shadow-lg">
-                          <span className="font-mono font-bold text-lg text-white block">{String(timeLeft.days).padStart(2, '0')}</span>
+                      <div className="flex items-center gap-1.5 sm:gap-2.5">
+                        <div className="text-center px-2.5 sm:px-3.5 py-2 bg-black/75 backdrop-blur-md rounded-xl border border-[#fbb505]/30 min-w-[48px] sm:min-w-[54px] shadow-lg">
+                          <span className="font-mono font-bold text-base sm:text-lg text-white block">{String(timeLeft.days).padStart(2, '0')}</span>
                           <span className="text-[9px] font-mono text-[var(--color-mj-gold)] uppercase font-bold">Jours</span>
                         </div>
-                        <div className="text-center px-3.5 py-2 bg-black/75 backdrop-blur-md rounded-xl border border-[#fbb505]/30 min-w-[54px] shadow-lg">
-                          <span className="font-mono font-bold text-lg text-white block">{String(timeLeft.hours).padStart(2, '0')}</span>
+                        <div className="text-center px-2.5 sm:px-3.5 py-2 bg-black/75 backdrop-blur-md rounded-xl border border-[#fbb505]/30 min-w-[48px] sm:min-w-[54px] shadow-lg">
+                          <span className="font-mono font-bold text-base sm:text-lg text-white block">{String(timeLeft.hours).padStart(2, '0')}</span>
                           <span className="text-[9px] font-mono text-[var(--color-mj-gold)] uppercase font-bold">Heures</span>
                         </div>
-                        <div className="text-center px-3.5 py-2 bg-black/75 backdrop-blur-md rounded-xl border border-[#fbb505]/30 min-w-[54px] shadow-lg">
-                          <span className="font-mono font-bold text-lg text-white block">{String(timeLeft.minutes).padStart(2, '0')}</span>
+                        <div className="text-center px-2.5 sm:px-3.5 py-2 bg-black/75 backdrop-blur-md rounded-xl border border-[#fbb505]/30 min-w-[48px] sm:min-w-[54px] shadow-lg">
+                          <span className="font-mono font-bold text-base sm:text-lg text-white block">{String(timeLeft.minutes).padStart(2, '0')}</span>
                           <span className="text-[9px] font-mono text-[var(--color-mj-gold)] uppercase font-bold">Min</span>
                         </div>
-                        <div className="text-center px-3.5 py-2 bg-black/75 backdrop-blur-md rounded-xl border border-[#fbb505]/30 min-w-[54px] shadow-lg">
-                          <span className="font-mono font-bold text-lg text-white block">{String(timeLeft.seconds).padStart(2, '0')}</span>
+                        <div className="text-center px-2.5 sm:px-3.5 py-2 bg-black/75 backdrop-blur-md rounded-xl border border-[#fbb505]/30 min-w-[48px] sm:min-w-[54px] shadow-lg">
+                          <span className="font-mono font-bold text-base sm:text-lg text-white block">{String(timeLeft.seconds).padStart(2, '0')}</span>
                           <span className="text-[9px] font-mono text-[var(--color-mj-gold)] uppercase font-bold">Sec</span>
                         </div>
                       </div>
@@ -132,7 +132,7 @@ export function HeroSpotlightOfficial() {
                     {/* CTA Button */}
                     <div className="pt-3">
                       <Link href="/tickets">
-                        <button className="px-8 py-3.5 bg-gradient-to-r from-[var(--color-mj-red)] via-rose-600 to-[var(--color-mj-red-dark)] hover:from-red-600 hover:to-[var(--color-mj-red)] text-white font-heading font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-[0_0_25px_rgba(218,21,31,0.6)] transition-all transform hover:scale-105 cursor-pointer flex items-center gap-2">
+                        <button className="w-full sm:w-auto px-5 sm:px-8 py-3.5 bg-gradient-to-r from-[var(--color-mj-red)] via-rose-600 to-[var(--color-mj-red-dark)] hover:from-red-600 hover:to-[var(--color-mj-red)] text-white font-heading font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-[0_0_25px_rgba(218,21,31,0.6)] transition-all transform hover:scale-105 cursor-pointer flex items-center justify-center gap-2">
                           <span>PARTICIPER À L'OPPORTUNITÉ</span>
                           <ArrowRight className="w-4 h-4" />
                         </button>

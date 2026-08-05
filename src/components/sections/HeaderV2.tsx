@@ -116,26 +116,20 @@ export function HeaderV2() {
               />
             </Link>
 
-            {/* Slogan officiel en ROUGE */}
-            <div className="hidden lg:flex items-center pl-4 border-l-2 border-[var(--color-mj-red)]/40 dark:border-[var(--color-mj-gold)]/50 py-0.5">
-              <span className="text-xs sm:text-sm font-heading font-black tracking-wider uppercase text-[var(--color-mj-red)] dark:text-[var(--color-mj-gold)] drop-shadow-sm leading-snug">
-                « CHAQUE TICKET, UNE CHANCE DE CHANGER DE VIE »
+            {/* Slogan officiel en 2 LIGNES */}
+            <div className="flex flex-col justify-center border-l-2 border-[var(--color-mj-red)]/40 dark:border-[var(--color-mj-gold)]/50 pl-2 sm:pl-3.5 py-0.5 leading-none shrink-0">
+              <span className="text-[8.5px] xs:text-[9.5px] sm:text-xs font-heading font-black tracking-wider uppercase text-[var(--color-mj-red)] dark:text-[var(--color-mj-gold)] drop-shadow-xs">
+                « CHAQUE TICKET,
+              </span>
+              <span className="text-[7.5px] xs:text-[8.5px] sm:text-[10px] font-heading font-extrabold tracking-tight uppercase text-slate-800 dark:text-gray-200 mt-0.5">
+                UNE CHANCE DE CHANGER DE VIE »
               </span>
             </div>
           </div>
 
           {/* Right: Actions */}
-          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-            {/* Glowing S'inscrire CTA */}
-            <Link href="/inscription" className="flex">
-              <button 
-                className="flex items-center gap-1.5 px-3 sm:px-5 py-1.5 rounded-full bg-[var(--color-mj-gold)] text-black font-heading font-bold text-xs sm:text-sm uppercase tracking-[0.1em] transition-all hover:scale-105 shadow-[0_4px_14px_rgba(251,181,5,0.4)] dark:shadow-[0_0_20px_rgba(251,181,5,0.4)] cursor-pointer"
-              >
-                S'inscrire
-              </button>
-            </Link>
-
-            {/* Inline Header Search Bar Aligned in Location */}
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+            {/* Inline Header Search Bar */}
             <div ref={searchRef} className="relative flex items-center">
               {isSearchOpen ? (
                 <div className="relative flex items-center animate-in fade-in zoom-in-95 duration-200">
@@ -145,7 +139,7 @@ export function HeaderV2() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Rechercher..."
-                    className="w-36 xs:w-48 sm:w-60 pl-8 pr-7 py-1.5 rounded-full bg-black/10 dark:bg-black/70 border border-[#fbb505]/50 text-xs sm:text-sm text-[var(--text-primary)] dark:text-white placeholder-gray-400 focus:outline-none shadow-md"
+                    className="w-32 xs:w-44 sm:w-60 pl-8 pr-7 py-1 rounded-full bg-black/10 dark:bg-black/70 border border-[#fbb505]/50 text-xs sm:text-sm text-[var(--text-primary)] dark:text-white placeholder-gray-400 focus:outline-none shadow-md"
                     autoFocus
                   />
                   <button
@@ -196,11 +190,11 @@ export function HeaderV2() {
               ) : (
                 <button
                   onClick={() => setIsSearchOpen(true)}
-                  className="p-2.5 text-[var(--text-secondary)] hover:text-[var(--color-mj-gold)] transition-colors cursor-pointer"
+                  className="p-1.5 sm:p-2 text-[var(--text-secondary)] hover:text-[var(--color-mj-gold)] transition-colors cursor-pointer"
                   aria-label="Recherche"
                   title="Rechercher dans la plateforme"
                 >
-                  <Search className="w-6 h-6 stroke-[2.2]" />
+                  <Search className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[2.2]" />
                 </button>
               )}
             </div>
@@ -209,14 +203,14 @@ export function HeaderV2() {
             <div className="relative">
               <button 
                 onClick={() => setIsNotifOpen(!isNotifOpen)} 
-                className={`relative p-2.5 transition-colors cursor-pointer ${isNotifOpen ? 'text-[var(--color-mj-gold)]' : 'text-[var(--text-secondary)] hover:text-[var(--color-mj-gold)]'}`} 
+                className={`relative p-1.5 sm:p-2 transition-colors cursor-pointer ${isNotifOpen ? 'text-[var(--color-mj-gold)]' : 'text-[var(--text-secondary)] hover:text-[var(--color-mj-gold)]'}`} 
                 aria-label="Notifications"
               >
-                <Bell className="w-6 h-6 stroke-[2.2]" />
+                <Bell className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[2.2]" />
                 {unreadCount > 0 && (
-                  <span className="absolute top-1.5 right-1.5 flex h-3 w-3">
+                  <span className="absolute top-1 right-1 flex h-2.5 w-2.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-mj-red)] opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-[var(--color-mj-red)]"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--color-mj-red)]"></span>
                   </span>
                 )}
               </button>
@@ -237,10 +231,10 @@ export function HeaderV2() {
             <div className="relative flex">
               <button 
                 onClick={() => setIsAccountOpen(!isAccountOpen)}
-                className={`p-2.5 flex items-center justify-center transition-all cursor-pointer ${isAccountOpen ? 'text-[var(--color-mj-gold)]' : 'text-[var(--text-secondary)] hover:text-[var(--color-mj-gold)]'}`} 
+                className={`p-1.5 sm:p-2 flex items-center justify-center transition-all cursor-pointer ${isAccountOpen ? 'text-[var(--color-mj-gold)]' : 'text-[var(--text-secondary)] hover:text-[var(--color-mj-gold)]'}`} 
                 aria-label="Profil"
               >
-                <User className="w-6 h-6 stroke-[2.2]" />
+                <User className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[2.2]" />
               </button>
               
               <AccountDropdown 

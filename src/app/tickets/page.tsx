@@ -35,7 +35,7 @@ export default function TicketsPage() {
   const filteredTickets = tickets.filter(t => activeTab === 'tous' || t.productId === activeTab);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--bg-default)] text-[var(--text-primary)] pt-12 pb-32">
+    <div className="min-h-screen flex flex-col bg-[var(--bg-default)] text-[var(--text-primary)] pt-24 sm:pt-28 md:pt-32 pb-32">
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="mb-12">
           <h1 className="text-4xl md:text-5xl font-bold font-heading mb-4 text-[var(--text-primary)] dark:text-white uppercase tracking-tight">Mes Tickets</h1>

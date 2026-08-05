@@ -168,16 +168,16 @@ export function DrawCalendarSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4 }}
-              className="relative rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-[#da151f] via-[#a00c17] to-[#60050c] dark:from-[#0c1f44] dark:via-[#05132e] dark:to-[#030d22] border border-amber-400/40 dark:border-white/10 text-white shadow-xl hover:shadow-2xl transition-all group overflow-hidden"
+              className="relative rounded-3xl p-4 sm:p-6 bg-gradient-to-br from-[#da151f] via-[#a00c17] to-[#60050c] dark:from-[#0c1f44] dark:via-[#05132e] dark:to-[#030d22] border border-amber-400/40 dark:border-white/10 text-white shadow-xl hover:shadow-2xl transition-all group overflow-hidden"
             >
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center justify-between gap-3 sm:gap-4">
                 
                 {/* Left Date Box */}
-                <div className="shrink-0 w-20 sm:w-24 text-center p-3 rounded-2xl bg-black/50 dark:bg-black/60 border border-white/20 dark:border-white/15 shadow-md flex flex-col justify-center">
-                  <span className="font-heading font-black text-lg sm:text-xl text-[var(--color-mj-gold)] block leading-tight">
+                <div className="shrink-0 w-[76px] sm:w-24 text-center p-2.5 sm:p-3 rounded-2xl bg-black/50 dark:bg-black/60 border border-white/20 dark:border-white/15 shadow-md flex flex-col justify-center">
+                  <span className="font-heading font-black text-base sm:text-xl text-[var(--color-mj-gold)] block leading-tight">
                     {event.dayMonth}
                   </span>
-                  <span className="font-mono text-xs text-amber-200 dark:text-gray-400 font-bold block mt-0.5">
+                  <span className="font-mono text-[11px] sm:text-xs text-amber-200 dark:text-gray-400 font-bold block mt-0.5">
                     {event.year}
                   </span>
                   <div className="mt-1 pt-1 border-t border-white/20 dark:border-white/10 text-[9px] font-mono text-red-100 dark:text-gray-400 flex items-center justify-center gap-1">
@@ -187,11 +187,11 @@ export function DrawCalendarSection() {
                 </div>
 
                 {/* Right Event Content */}
-                <div className="flex-1 space-y-2">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/40 border border-amber-300/40 text-[var(--color-mj-gold)] text-[10px] font-mono font-bold uppercase">
-                      <EventIcon className="w-3 h-3" />
-                      {event.productName}
+                <div className="flex-1 min-w-0 flex flex-col justify-center space-y-1">
+                  <div className="flex items-center justify-between gap-1.5 flex-wrap sm:flex-nowrap">
+                    <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-black/40 border border-amber-300/40 text-[var(--color-mj-gold)] text-[10px] font-mono font-bold uppercase">
+                      <EventIcon className="w-3 h-3 shrink-0" />
+                      <span>{event.productName}</span>
                     </div>
 
                     {event.isNext && (
@@ -201,11 +201,11 @@ export function DrawCalendarSection() {
                     )}
                   </div>
 
-                  <h3 className="font-heading font-extrabold text-sm sm:text-base leading-snug text-balance text-white min-h-[2.5rem] sm:min-h-[2.75rem] flex items-center">
+                  <h3 className="font-heading font-black text-xs xs:text-sm sm:text-base leading-snug text-white dark:text-white tracking-wide my-0.5 drop-shadow-sm">
                     {event.prize}
                   </h3>
 
-                  <div className="flex items-center gap-4 text-xs font-mono text-red-100 dark:text-gray-300 pt-1">
+                  <div className="flex items-center gap-2 sm:gap-4 text-[11px] sm:text-xs font-mono text-red-100 dark:text-gray-300 pt-0.5 flex-wrap">
                     <span className="flex items-center gap-1 text-[var(--color-mj-gold)] font-bold">
                       <CalendarIcon className="w-3.5 h-3.5" />
                       {event.date}
@@ -217,7 +217,7 @@ export function DrawCalendarSection() {
               </div>
 
               {/* Action Buttons Row */}
-              <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between gap-3">
+              <div className="mt-4 pt-3.5 border-t border-white/10 flex items-center justify-between gap-2.5 sm:gap-3">
                 <button
                   onClick={() => toggleReminder(event.id, event.date)}
                   className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono transition-all cursor-pointer ${

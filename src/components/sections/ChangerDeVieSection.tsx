@@ -24,9 +24,9 @@ export function ChangerDeVieSection() {
   ];
 
   return (
-    <div className="space-y-6 text-left py-2 relative">
+    <div className="space-y-6 text-center flex flex-col items-center py-2 relative">
       {/* Title */}
-      <div>
+      <div className="text-center">
         <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#021a3c] dark:text-white uppercase tracking-wide leading-tight">
           CHAQUE TICKET,
         </h2>
@@ -35,15 +35,15 @@ export function ChangerDeVieSection() {
         </h2>
       </div>
 
-      {/* Star Separator Line */}
-      <div className="flex items-center gap-3 py-1">
-        <div className="h-[1.5px] w-24 bg-gradient-to-r from-[var(--color-mj-gold)] via-[var(--color-mj-gold)]/60 to-transparent" />
-        <Star className="w-4 h-4 text-[var(--color-mj-gold)] fill-[var(--color-mj-gold)] animate-pulse" />
-        <div className="h-[1.5px] w-24 bg-gradient-to-r from-transparent via-[var(--color-mj-gold)]/60 to-transparent" />
+      {/* Star Separator Line - Centered */}
+      <div className="flex items-center justify-center gap-3 py-1 w-full">
+        <div className="h-[1.5px] w-20 sm:w-28 bg-gradient-to-r from-transparent via-[var(--color-mj-gold)]/60 to-[var(--color-mj-gold)]" />
+        <Star className="w-4 h-4 text-[var(--color-mj-gold)] fill-[var(--color-mj-gold)] animate-pulse shrink-0" />
+        <div className="h-[1.5px] w-20 sm:w-28 bg-gradient-to-r from-[var(--color-mj-gold)] via-[var(--color-mj-gold)]/60 to-transparent" />
       </div>
 
       {/* 4 Key Value Props */}
-      <div className="space-y-3.5 py-1">
+      <div className="space-y-3.5 py-1 text-left w-full max-w-md">
         {valueProps.map((item, idx) => {
           const IconComp = item.icon;
           return (
@@ -60,9 +60,9 @@ export function ChangerDeVieSection() {
       </div>
 
       {/* CTA Button */}
-      <div className="pt-2">
-        <Link href="/#jeux" className="block">
-          <button className="w-full sm:max-w-md py-4 px-6 rounded-full bg-gradient-to-r from-[#fbb505] via-[#ffd000] to-[#fbb505] hover:brightness-110 text-black font-heading font-black text-sm uppercase tracking-widest shadow-[0_6px_25px_rgba(251,181,5,0.45)] transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-between cursor-pointer">
+      <div className="pt-2 w-full flex justify-center">
+        <Link href="/#jeux" className="block w-full max-w-md">
+          <button className="w-full py-4 px-6 rounded-full bg-gradient-to-r from-[#fbb505] via-[#ffd000] to-[#fbb505] hover:brightness-110 text-black font-heading font-black text-sm uppercase tracking-widest shadow-[0_6px_25px_rgba(251,181,5,0.45)] transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-between cursor-pointer">
             <span className="flex-1 text-center font-black tracking-wider text-black">
               JOUER MAINTENANT
             </span>

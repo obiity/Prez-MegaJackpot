@@ -79,7 +79,7 @@ export default function SupportPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)] pt-20 pb-28 px-4 transition-colors duration-300">
+    <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)] pt-24 sm:pt-28 pb-32 px-4 transition-colors duration-300">
       <div className="container mx-auto max-w-4xl">
         
         {/* Top Navigation Back Header */}
