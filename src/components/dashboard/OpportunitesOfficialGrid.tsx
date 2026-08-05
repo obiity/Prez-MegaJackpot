@@ -56,7 +56,7 @@ export function OpportunitesOfficialGrid() {
           <Sparkles className="w-3.5 h-3.5" /> Vos Opportunités Majeures
         </div>
         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-black text-[#021a3c] dark:text-white uppercase tracking-tighter drop-shadow-xl mb-3">
-          CHOISISSEZ VOTRE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-mj-gold)] to-yellow-400 drop-shadow-[0_0_25px_rgba(251,181,5,0.6)]">DESTIN</span>
+          CHOISISSEZ VOTRE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-mj-gold)] to-yellow-400 dark:to-amber-500 drop-shadow-[0_0_25px_rgba(251,181,5,0.6)]">DESTIN</span>
         </h2>
         <div className="h-1 w-24 bg-gradient-to-r from-transparent via-[var(--color-mj-gold)] to-transparent opacity-50 mb-4 rounded-full"></div>
         <p className="text-sm sm:text-base text-slate-600 dark:text-gray-400 font-medium max-w-lg">
@@ -79,7 +79,8 @@ export function OpportunitesOfficialGrid() {
                     src={card.image}
                     alt={card.title}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    unoptimized
+                    className="object-cover group-hover:brightness-110 transition-[filter] duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
                   
@@ -96,7 +97,7 @@ export function OpportunitesOfficialGrid() {
                     <h3 className="font-heading font-black text-base uppercase tracking-wider mb-1.5 text-white group-hover:text-[var(--color-mj-gold)] transition-colors">
                       {card.title}
                     </h3>
-                    <p className="text-xs text-rose-100 dark:text-gray-300 leading-relaxed font-medium mb-3">
+                    <p className="text-xs text-red-100 dark:text-gray-300 leading-relaxed font-medium mb-3">
                       {card.subtitle}
                     </p>
                   </div>
@@ -105,9 +106,9 @@ export function OpportunitesOfficialGrid() {
                   <div className="pt-3.5 border-t border-white/20 dark:border-white/10 flex items-center justify-between">
                     <div>
                       <span className="text-[9px] font-mono uppercase tracking-widest text-amber-200 dark:text-gray-400 block mb-0.5">Grand Lot</span>
-                      <span className={`font-heading font-extrabold text-sm sm:text-base ${card.id === 'maison' ? 'text-[#fbb505]' : card.id === 'business' ? 'text-rose-200 dark:text-red-400' : 'text-amber-300 dark:text-blue-400'}`}>{card.lot}</span>
+                      <span className={`font-heading font-extrabold text-sm sm:text-base ${card.id === 'maison' ? 'text-[#fbb505]' : card.id === 'business' ? 'text-[var(--color-mj-red)]' : 'text-amber-300 dark:text-blue-400'}`}>{card.lot}</span>
                     </div>
-                    <span className="px-3.5 py-2 bg-gradient-to-r from-[var(--color-mj-gold)] via-yellow-400 to-[var(--color-mj-gold)] text-black font-mono font-black text-[10px] uppercase rounded-xl shadow-md transition-all group-hover:scale-105">
+                    <span className="px-3.5 py-2 bg-gradient-to-r from-[var(--color-mj-gold)] via-yellow-400 dark:via-amber-500 to-[var(--color-mj-gold)] text-black font-mono font-black text-[10px] uppercase rounded-xl shadow-md transition-all group-hover:scale-105">
                       Découvrir
                     </span>
                   </div>

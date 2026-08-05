@@ -842,7 +842,7 @@ export default function InscriptionPage() {
               {/* Go to games button */}
               <div className="pt-6 border-t border-white/10">
                 <Link href="/#jeux">
-                  <button className="w-full py-3.5 bg-[var(--color-mj-gold)] hover:bg-yellow-400 text-black font-heading font-black text-xs uppercase tracking-widest rounded-xl shadow-lg transition-all cursor-pointer">
+                  <button className="w-full py-3.5 bg-[var(--color-mj-gold)] hover:bg-yellow-400 dark:hover:bg-amber-500 text-black font-heading font-black text-xs uppercase tracking-widest rounded-xl shadow-lg transition-all cursor-pointer">
                     ACCÉDER À NOS JEUX
                   </button>
                 </Link>

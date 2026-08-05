@@ -59,7 +59,7 @@ export function NextDrawHighlight({
           <Countdown className="justify-center md:justify-end scale-90 sm:scale-100 origin-center md:origin-right" />
           
           <Link href="/tickets" onClick={() => playSound.click()} className="mt-3">
-            <button className="px-5 py-2 bg-gradient-to-r from-[var(--color-mj-gold)] to-yellow-400 text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 cursor-pointer active:scale-95">
+            <button className="px-5 py-2 bg-gradient-to-r from-[var(--color-mj-gold)] to-yellow-400 dark:to-amber-500 text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 cursor-pointer active:scale-95">
               <span>PARTICIPER MAINTENANT</span>
               <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
             </button>

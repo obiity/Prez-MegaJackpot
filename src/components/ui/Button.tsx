@@ -11,7 +11,7 @@ const buttonVariants = cva(
         secondary: "bg-[var(--color-mj-blue-dark)] text-white hover:bg-[var(--color-mj-blue)]",
         outline: "border-2 border-[var(--color-mj-blue-dark)] text-[var(--color-mj-blue-dark)] hover:bg-[var(--color-mj-blue-dark)] hover:text-white",
         ghost: "hover:bg-gray-100 text-[var(--color-mj-gray-dark)]",
-        gold: "bg-[var(--color-mj-gold)] text-[var(--color-mj-blue-dark)] hover:bg-yellow-500 hover:shadow-[0_4px_14px_0_rgba(251,181,5,0.39)]",
+        gold: "bg-[var(--color-mj-gold)] text-[var(--color-mj-blue-dark)] hover:bg-yellow-500 dark:hover:bg-amber-600 hover:shadow-[0_4px_14px_0_rgba(251,181,5,0.39)]",
       },
       size: {
         default: "h-11 px-6 py-2",

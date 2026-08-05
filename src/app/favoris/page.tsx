@@ -163,7 +163,7 @@ export default function FavorisPage() {
               Vous n'avez pas encore ajouté d'opportunité à vos favoris. Découvrez nos jeux !
             </p>
             <Link href="/#jeux">
-              <button className="py-3 px-6 bg-[var(--color-mj-gold)] text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl shadow-md hover:bg-yellow-400 transition-all cursor-pointer">
+              <button className="py-3 px-6 bg-[var(--color-mj-gold)] text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl shadow-md hover:bg-yellow-400 dark:hover:bg-amber-500 transition-all cursor-pointer">
                 Découvrir nos Jeux
               </button>
             </Link>

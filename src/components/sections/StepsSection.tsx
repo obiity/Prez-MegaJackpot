@@ -68,7 +68,7 @@ export function StepsSection() {
             </div>
 
             <h3 className="font-heading font-black text-sm text-white uppercase mb-2">{step.title}</h3>
-            <p className="text-xs text-rose-100 dark:text-gray-300 leading-relaxed font-sans">{step.desc}</p>
+            <p className="text-xs text-red-100 dark:text-gray-300 leading-relaxed font-sans">{step.desc}</p>
           </motion.div>
         ))}
       </motion.div>

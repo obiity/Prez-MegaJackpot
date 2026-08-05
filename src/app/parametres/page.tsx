@@ -139,7 +139,7 @@ export default function ParametresPage() {
 
               <button
                 type="submit"
-                className="py-2.5 px-6 bg-[var(--color-mj-gold)] text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl hover:bg-yellow-400 transition-all cursor-pointer"
+                className="py-2.5 px-6 bg-[var(--color-mj-gold)] text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl hover:bg-yellow-400 dark:hover:bg-amber-500 transition-all cursor-pointer"
               >
                 Enregistrer les modifications
               </button>

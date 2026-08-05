@@ -140,7 +140,7 @@ export default function ParrainagePage() {
             </div>
             <button
               onClick={handleCopy}
-              className="w-full sm:w-auto py-3 px-6 bg-[var(--color-mj-gold)] hover:bg-yellow-400 text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
+              className="w-full sm:w-auto py-3 px-6 bg-[var(--color-mj-gold)] hover:bg-yellow-400 dark:hover:bg-amber-500 text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
             >
               {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
               {copied ? "COPIÉ !" : "COPIER LE LIEN"}

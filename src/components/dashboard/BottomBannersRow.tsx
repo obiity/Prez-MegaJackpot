@@ -19,7 +19,7 @@ export function BottomBannersRow() {
             <span className="text-xs font-normal text-gray-200">pendant 36 mois</span>
           </p>
           <Link href="/tickets">
-            <button className="px-6 py-2.5 bg-[var(--color-mj-gold)] hover:bg-yellow-400 text-black font-heading font-bold text-xs uppercase tracking-wider rounded-lg shadow-md transition-all cursor-pointer">
+            <button className="px-6 py-2.5 bg-[var(--color-mj-gold)] hover:bg-yellow-400 dark:hover:bg-amber-500 text-black font-heading font-bold text-xs uppercase tracking-wider rounded-lg shadow-md transition-all cursor-pointer">
               DÉCOUVRIR
             </button>
           </Link>

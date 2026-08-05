@@ -180,7 +180,7 @@ export function DrawCalendarSection() {
                   <span className="font-mono text-xs text-amber-200 dark:text-gray-400 font-bold block mt-0.5">
                     {event.year}
                   </span>
-                  <div className="mt-1 pt-1 border-t border-white/20 dark:border-white/10 text-[9px] font-mono text-rose-100 dark:text-gray-400 flex items-center justify-center gap-1">
+                  <div className="mt-1 pt-1 border-t border-white/20 dark:border-white/10 text-[9px] font-mono text-red-100 dark:text-gray-400 flex items-center justify-center gap-1">
                     <Clock className="w-2.5 h-2.5 text-[var(--color-mj-gold)]" />
                     {event.time}
                   </div>
@@ -205,7 +205,7 @@ export function DrawCalendarSection() {
                     {event.prize}
                   </h3>
 
-                  <div className="flex items-center gap-4 text-xs font-mono text-rose-100 dark:text-gray-300 pt-1">
+                  <div className="flex items-center gap-4 text-xs font-mono text-red-100 dark:text-gray-300 pt-1">
                     <span className="flex items-center gap-1 text-[var(--color-mj-gold)] font-bold">
                       <CalendarIcon className="w-3.5 h-3.5" />
                       {event.date}
@@ -240,7 +240,7 @@ export function DrawCalendarSection() {
                 </button>
 
                 <Link href="/tickets" onClick={() => playSound.click()}>
-                  <button className="px-5 py-2 bg-gradient-to-r from-[var(--color-mj-gold)] to-yellow-400 hover:from-yellow-400 hover:to-[var(--color-mj-gold)] text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer active:scale-95">
+                  <button className="px-5 py-2 bg-gradient-to-r from-[var(--color-mj-gold)] to-yellow-400 dark:to-amber-500 hover:from-yellow-400 dark:hover:from-amber-500 hover:to-[var(--color-mj-gold)] text-black font-heading font-black text-xs uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer active:scale-95">
                     <span>RÉSERVER</span>
                     <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
                   </button>

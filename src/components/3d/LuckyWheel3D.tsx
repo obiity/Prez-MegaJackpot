@@ -101,7 +101,7 @@ export function LuckyWheel3D() {
             <div
               key={i}
               className={`absolute w-3 h-3 rounded-full border border-black transition-all ${
-                isSpinning ? "bg-yellow-300 animate-ping" : "bg-[var(--color-mj-gold)] shadow-[0_0_8px_#fbb505]"
+                isSpinning ? "bg-yellow-300 dark:bg-amber-400 animate-ping" : "bg-[var(--color-mj-gold)] shadow-[0_0_8px_#fbb505]"
               }`}
               style={{
                 transform: `rotate(${i * 22.5}deg) translate(195px)`,
@@ -147,7 +147,7 @@ export function LuckyWheel3D() {
           <button
             onClick={handleSpin}
             disabled={isSpinning}
-            className="absolute z-20 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-b from-[var(--color-mj-gold)] to-yellow-600 text-black border-4 border-white font-heading font-black text-sm sm:text-base uppercase tracking-wider shadow-[0_0_30px_rgba(251,181,5,0.8)] hover:scale-105 active:scale-95 transition-all duration-300 flex flex-col items-center justify-center gap-1 cursor-pointer disabled:opacity-80"
+            className="absolute z-20 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-b from-[var(--color-mj-gold)] to-yellow-600 dark:to-amber-700 text-black border-4 border-white font-heading font-black text-sm sm:text-base uppercase tracking-wider shadow-[0_0_30px_rgba(251,181,5,0.8)] hover:scale-105 active:scale-95 transition-all duration-300 flex flex-col items-center justify-center gap-1 cursor-pointer disabled:opacity-80"
           >
             <Dices className={`w-6 h-6 ${isSpinning ? "animate-spin" : ""}`} />
             <span>{isSpinning ? "EN COURS" : "TOURNER"}</span>

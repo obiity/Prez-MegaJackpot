@@ -26,35 +26,38 @@ export function ResultatsTiragesWidget() {
         
         {/* 1. LATEST FEATURED GRAND RESULT: OPPORTUNITÉ BUSINESS */}
         <div className="relative group">
-          <div className="absolute -left-[21px] top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-[var(--color-mj-gold)] border-2 border-white dark:border-[#04112c] shadow-md z-10 transition-transform duration-300 group-hover:scale-125 flex items-center justify-center">
+          <div className="absolute -left-[21px] top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-[var(--color-mj-red)] border-2 border-white dark:border-[#04112c] shadow-md z-10 transition-transform duration-300 group-hover:scale-125 flex items-center justify-center">
             <span className="w-1.5 h-1.5 rounded-full bg-black animate-ping" />
           </div>
 
-          <div className="p-4 rounded-2xl bg-black/40 border border-white/20 dark:border-white/15 hover:border-[var(--color-mj-gold)]/60 transition-all space-y-2.5 shadow-md">
-            <div className="flex items-center justify-between">
+          <div className="relative overflow-hidden p-4 rounded-2xl border border-white/20 dark:border-white/15 hover:border-[var(--color-mj-red)]/60 transition-all shadow-md min-h-[160px] sm:min-h-[180px] flex flex-col justify-between">
+            {/* Same background image as the Résultats page's Opportunité Business highlight */}
+            <div
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat group-hover:scale-105 transition-transform duration-500 will-change-transform backface-hidden"
+              style={{ backgroundImage: "url('/hero_victory_dream.jpg')" }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
+
+            <div className="relative z-10 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-[var(--color-mj-gold)]/20 text-[var(--color-mj-gold)] flex items-center justify-center shrink-0 border border-[#fbb505]/40">
+                <div className="w-7 h-7 rounded-lg bg-[var(--color-mj-red)]/20 text-[var(--color-mj-red)] flex items-center justify-center shrink-0 border border-[#da151f]/40">
                   <Plane className="w-4 h-4" />
                 </div>
                 <div>
                   <h4 className="font-heading font-extrabold text-xs text-white leading-none">Opportunité Business</h4>
-                  <span className="text-[9px] font-mono text-rose-100 dark:text-gray-400 block mt-0.5">Dubaï 2026 • Hier à 20h00</span>
+                  <span className="text-[9px] font-mono text-gray-300 block mt-0.5">Dubaï 2026 • Hier à 20h00</span>
                 </div>
               </div>
-              <span className="font-mono text-[9px] font-extrabold text-black bg-[var(--color-mj-gold)] px-2.5 py-0.5 rounded-full shadow-sm">
+              <span className="font-mono text-[9px] font-extrabold text-white bg-[var(--color-mj-red)] px-2.5 py-0.5 rounded-full shadow-sm">
                 MJ-2026-BUS-9901
               </span>
             </div>
 
-            <div className="pt-2 border-t border-white/20 dark:border-white/10 flex items-center justify-between text-xs">
-              <div className="flex items-center gap-1 font-extrabold text-[var(--color-mj-gold)]">
+            <div className="relative z-10 pt-2 border-t border-white/20 flex items-center text-xs">
+              <div className="flex items-center gap-1 font-extrabold text-[var(--color-mj-red)]">
                 <Trophy className="w-3.5 h-3.5" />
                 <span>15 Millions FCFA + Voyage Dubaï</span>
-              </div>
-              <div className="flex items-center gap-1 text-[11px] text-white font-mono font-bold">
-                <span>Awa N.</span>
-                <span className="text-amber-200/60">•</span>
-                <span className="text-rose-100 dark:text-gray-400">Thiès</span>
               </div>
             </div>
           </div>
@@ -74,7 +77,7 @@ export function ResultatsTiragesWidget() {
                 </div>
                 <div>
                   <h4 className="font-heading font-bold text-xs text-white leading-none">Opportunité Maison</h4>
-                  <span className="text-[9px] font-mono text-rose-100 dark:text-gray-400 block mt-0.5">15 Déc 2025</span>
+                  <span className="text-[9px] font-mono text-red-100 dark:text-gray-400 block mt-0.5">15 Déc 2025</span>
                 </div>
               </div>
               <span className="font-mono text-[9px] font-bold text-[var(--color-mj-gold)] bg-black/40 px-2 py-0.5 rounded border border-amber-300/30">
@@ -90,7 +93,7 @@ export function ResultatsTiragesWidget() {
               <div className="flex items-center gap-1 text-[10px] text-white font-mono">
                 <span>Mamadou S.</span>
                 <span className="text-amber-200/60">•</span>
-                <span className="text-rose-100 dark:text-gray-400">Dakar</span>
+                <span className="text-red-100 dark:text-gray-400">Dakar</span>
               </div>
             </div>
           </div>
@@ -110,7 +113,7 @@ export function ResultatsTiragesWidget() {
                 </div>
                 <div>
                   <h4 className="font-heading font-bold text-xs text-white leading-none">Opportunité Famille</h4>
-                  <span className="text-[9px] font-mono text-rose-100 dark:text-gray-400 block mt-0.5">20 Fév 2026</span>
+                  <span className="text-[9px] font-mono text-red-100 dark:text-gray-400 block mt-0.5">20 Fév 2026</span>
                 </div>
               </div>
               <span className="font-mono text-[9px] font-bold text-blue-200 bg-black/40 px-2 py-0.5 rounded border border-blue-300/30">
@@ -126,7 +129,7 @@ export function ResultatsTiragesWidget() {
               <div className="flex items-center gap-1 text-[10px] text-white font-mono">
                 <span>Cheikh S.</span>
                 <span className="text-amber-200/60">•</span>
-                <span className="text-rose-100 dark:text-gray-400">St-Louis</span>
+                <span className="text-red-100 dark:text-gray-400">St-Louis</span>
               </div>
             </div>
           </div>

@@ -142,7 +142,7 @@ export function TicketSimulator() {
           <Zap className="w-3.5 h-3.5 text-[var(--color-mj-gold)] animate-pulse" /> SIMULATEUR DE CHANCE INTERACTIF
         </div>
         <h2 className="text-2xl sm:text-4xl md:text-5xl font-heading font-black text-[#021a3c] dark:text-white uppercase tracking-tight">
-          TESTEZ VOTRE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-mj-gold)] via-yellow-400 to-[var(--color-mj-gold)]">CHANCE</span>
+          TESTEZ VOTRE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-mj-gold)] via-yellow-400 dark:via-amber-500 to-[var(--color-mj-gold)]">CHANCE</span>
         </h2>
         <p className="text-slate-600 dark:text-gray-300 max-w-xl mx-auto mt-2 text-xs sm:text-sm md:text-base font-medium leading-relaxed px-2">
           Sélectionnez votre opportunité de rêve, générez votre numéro de série fétiche et réservez instantanément votre participation.
@@ -320,8 +320,6 @@ export function TicketSimulator() {
                     isSpinning ? "border-amber-400 shadow-[0_0_40px_rgba(251,181,5,0.7)] scale-[1.01]" : "border-[#fbb505]/60 shadow-[0_0_35px_rgba(251,181,5,0.35)]"
                   } transition-all duration-200 flex items-center justify-center overflow-hidden group`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[shimmer_2s_infinite] skew-x-12 pointer-events-none" />
-
                   <div className="w-full text-center py-0.5 select-none flex items-center justify-center">
                     <AnimatePresence mode="wait">
                       <motion.span
@@ -403,7 +401,7 @@ export function TicketSimulator() {
                   playSound.winFanfare();
                   toast.success(`Ticket ${serialNumber} réservé avec succès !`);
                 }}
-                className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-gradient-to-r from-[var(--color-mj-gold)] to-yellow-400 hover:from-yellow-400 hover:to-[var(--color-mj-gold)] text-black font-heading font-black text-xs uppercase tracking-wider rounded-2xl shadow-[0_0_25px_rgba(251,181,5,0.5)] transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shrink-0 active:scale-95"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-gradient-to-r from-[var(--color-mj-gold)] to-yellow-400 dark:to-amber-500 hover:from-yellow-400 dark:hover:from-amber-500 hover:to-[var(--color-mj-gold)] text-black font-heading font-black text-xs uppercase tracking-wider rounded-2xl shadow-[0_0_25px_rgba(251,181,5,0.5)] transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shrink-0 active:scale-95"
               >
                 <span>VALIDER CE TICKET</span>
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />

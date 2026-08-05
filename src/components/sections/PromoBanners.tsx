@@ -38,7 +38,7 @@ export function PromoBanners() {
               <Sparkles className="w-3 h-3 text-[var(--color-mj-gold)]" /> NOUVEAU JOUEUR
             </div>
             <h3 className="font-heading text-3xl mb-3 drop-shadow-md">Offre de Bienvenue</h3>
-            <p className="text-rose-100 font-medium mb-6 max-w-sm mx-auto leading-relaxed drop-shadow-sm">
+            <p className="text-red-100 font-medium mb-6 max-w-sm mx-auto leading-relaxed drop-shadow-sm">
               Inscrivez-vous aujourd&apos;hui et recevez votre{" "}
               <strong className="text-white">premier ticket 100% offert</strong>.
             </p>
@@ -95,7 +95,7 @@ export function PromoBanners() {
                 const section = document.getElementById("jeux");
                 if (section) section.scrollIntoView({ behavior: "smooth" });
               }}
-              className="bg-[var(--color-mj-gold)] text-[var(--color-mj-blue-dark)] hover:bg-yellow-400 font-bold rounded-xl px-8 shadow-[0_4px_14px_0_rgba(251,181,5,0.39)] hover:shadow-[0_6px_20px_rgba(251,181,5,0.23)] border-none transition-all"
+              className="bg-[var(--color-mj-gold)] text-[var(--color-mj-blue-dark)] hover:bg-yellow-400 dark:hover:bg-amber-500 font-bold rounded-xl px-8 shadow-[0_4px_14px_0_rgba(251,181,5,0.39)] hover:shadow-[0_6px_20px_rgba(251,181,5,0.23)] border-none transition-all"
             >
               Découvrir
             </Button>

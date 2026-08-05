@@ -136,7 +136,7 @@ export function WinnersCarousel() {
                           </div>
                           <div>
                             <h4 className="font-bold text-white transition-colors">{winner.name}</h4>
-                            <div className="flex items-center text-xs text-rose-100 dark:text-gray-400 font-mono transition-colors">
+                            <div className="flex items-center text-xs text-red-100 dark:text-gray-400 font-mono transition-colors">
                               <MapPin className="w-3.5 h-3.5 mr-1 text-[var(--color-mj-gold)]" />
                               {winner.city}
                             </div>
@@ -149,7 +149,7 @@ export function WinnersCarousel() {
                     }
                   >
                     <div className="relative flex-1 pt-2">
-                      <p className="text-rose-100 dark:text-gray-300 text-sm italic relative z-10 pl-1 leading-relaxed font-medium">
+                      <p className="text-red-100 dark:text-gray-300 text-sm italic relative z-10 pl-1 leading-relaxed font-medium">
                         &quot;{winner.quote}&quot;
                       </p>
                     </div>
