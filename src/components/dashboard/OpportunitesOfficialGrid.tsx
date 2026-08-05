@@ -69,9 +69,9 @@ export function OpportunitesOfficialGrid() {
         {cards.map((card) => {
           const Icon = card.icon;
           return (
-            <Link key={card.id} href="/tickets" className="group block">
+            <Link key={card.id} href="/tickets" className="group block h-full">
               <div
-                className="rounded-3xl bg-gradient-to-b from-[#da151f] via-[#a00c17] to-[#60050c] dark:from-[#0c1e40] dark:via-[#051128] dark:to-[#010919] text-white shadow-xl hover:shadow-2xl border border-amber-400/40 dark:border-white/15 transition-all duration-300 overflow-hidden flex flex-col justify-between min-h-[350px] hover:-translate-y-1.5 group-hover:border-[var(--color-mj-gold)]"
+                className="h-full rounded-3xl bg-gradient-to-b from-[#da151f] via-[#a00c17] to-[#60050c] dark:from-[#0c1e40] dark:via-[#051128] dark:to-[#010919] text-white shadow-xl hover:shadow-2xl border border-amber-400/40 dark:border-white/15 transition-all duration-300 overflow-hidden flex flex-col justify-between min-h-[350px] hover:-translate-y-1.5 group-hover:border-[var(--color-mj-gold)]"
               >
                 {/* Product Image Cover Header */}
                 <div className="relative w-full h-44 overflow-hidden">
