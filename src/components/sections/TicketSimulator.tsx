@@ -141,10 +141,10 @@ export function TicketSimulator() {
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gradient-to-r from-[#fbb505]/20 via-[#da151f]/20 to-[#3b82f6]/20 border border-[#fbb505]/40 text-[var(--color-mj-gold)] text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest mb-3 shadow-[0_0_15px_rgba(251,181,5,0.2)]">
           <Zap className="w-3.5 h-3.5 text-[var(--color-mj-gold)] animate-pulse" /> SIMULATEUR DE CHANCE INTERACTIF
         </div>
-        <h2 className="text-2xl sm:text-4xl md:text-5xl font-heading font-black text-white uppercase tracking-tight">
-          TESTEZ VOTRE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-mj-gold)] via-yellow-200 to-[var(--color-mj-gold)]">CHANCE</span>
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-heading font-black text-[#021a3c] dark:text-white uppercase tracking-tight">
+          TESTEZ VOTRE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-mj-gold)] via-yellow-400 to-[var(--color-mj-gold)]">CHANCE</span>
         </h2>
-        <p className="text-gray-300 max-w-xl mx-auto mt-2 text-xs sm:text-sm md:text-base font-medium leading-relaxed px-2">
+        <p className="text-slate-600 dark:text-gray-300 max-w-xl mx-auto mt-2 text-xs sm:text-sm md:text-base font-medium leading-relaxed px-2">
           Sélectionnez votre opportunité de rêve, générez votre numéro de série fétiche et réservez instantanément votre participation.
         </p>
       </div>
@@ -153,18 +153,18 @@ export function TicketSimulator() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
         
         {/* Left Column: Product Selection & Controls */}
-        <div className="lg:col-span-5 flex flex-col justify-between space-y-5 bg-gradient-to-b from-[#091838] to-[#030c22] p-5 sm:p-6 md:p-8 rounded-3xl border border-white/15 shadow-2xl backdrop-blur-2xl relative overflow-hidden">
+        <div className="lg:col-span-5 flex flex-col justify-between space-y-5 bg-gradient-to-b from-[#da151f] via-[#a00c17] to-[#7a060d] dark:from-[#091838] dark:to-[#030c22] text-white p-5 sm:p-6 md:p-8 rounded-3xl border border-amber-400/40 dark:border-white/15 shadow-xl relative overflow-hidden transition-colors">
           
           {/* Decorative Laser Glow */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-mj-gold)]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-mj-gold)]/20 rounded-full blur-3xl pointer-events-none" />
 
           <div className="space-y-4 relative z-10">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-mono font-bold uppercase text-gray-300 tracking-wider flex items-center gap-2">
+              <h3 className="text-xs font-mono font-bold uppercase text-white tracking-wider flex items-center gap-2">
                 <span className="w-5 h-5 rounded-full bg-[var(--color-mj-gold)] text-black flex items-center justify-center text-[11px] font-black">1</span>
                 Choisissez l&apos;opportunité
               </h3>
-              <span className="text-[10px] font-mono text-[var(--color-mj-gold)] bg-[var(--color-mj-gold)]/10 px-2 py-0.5 rounded border border-[#fbb505]/30">
+              <span className="text-[10px] font-mono text-[var(--color-mj-gold)] bg-black/40 px-2 py-0.5 rounded border border-[#fbb505]/40 font-bold">
                 {product.chances}
               </span>
             </div>
@@ -185,16 +185,15 @@ export function TicketSimulator() {
                     }}
                     className={`w-full text-left p-3.5 sm:p-4 rounded-2xl border transition-all duration-300 relative overflow-hidden cursor-pointer group ${
                       isSelected
-                        ? `${item.accentBorder} ${item.accentBg} shadow-[0_0_25px_rgba(251,181,5,0.2)]`
-                        : "border-white/10 bg-black/40 hover:border-white/25 hover:bg-black/60"
+                        ? "border-amber-300 bg-black/40 shadow-[0_0_20px_rgba(251,181,5,0.3)]"
+                        : "border-white/20 bg-black/20 hover:border-white/40 hover:bg-black/35"
                     }`}
                   >
                     {/* Active Glow Bar */}
                     {isSelected && (
                       <motion.div
                         layoutId="activeGlow"
-                        className="absolute left-0 top-0 bottom-0 w-1.5"
-                        style={{ backgroundColor: item.accentHex }}
+                        className="absolute left-0 top-0 bottom-0 w-1.5 bg-[var(--color-mj-gold)]"
                       />
                     )}
 
@@ -203,10 +202,9 @@ export function TicketSimulator() {
                         <div
                           className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 ${
                             isSelected
-                              ? "shadow-md border"
-                              : "bg-white/5 text-gray-300 border border-white/10"
+                              ? "bg-[var(--color-mj-gold)] text-black border border-amber-200"
+                              : "bg-white/10 text-white border border-white/20"
                           }`}
-                          style={isSelected ? { color: item.accentHex, backgroundColor: `${item.accentHex}20`, borderColor: `${item.accentHex}60` } : {}}
                         >
                           <ItemIcon className="w-5 h-5" />
                         </div>
@@ -215,7 +213,7 @@ export function TicketSimulator() {
                           <div className="font-heading font-extrabold text-xs sm:text-sm text-white flex items-center gap-2">
                             {item.name}
                           </div>
-                          <div className="text-[11px] sm:text-xs font-bold mt-0.5" style={{ color: item.accentHex }}>
+                          <div className="text-[11px] sm:text-xs font-bold mt-0.5 text-amber-200">
                             {item.prize}
                           </div>
                         </div>
@@ -223,14 +221,13 @@ export function TicketSimulator() {
 
                       {isSelected ? (
                         <div
-                          className="w-6 h-6 rounded-full flex items-center justify-center text-black shrink-0 font-bold shadow-md"
-                          style={{ backgroundColor: item.accentHex }}
+                          className="w-6 h-6 rounded-full flex items-center justify-center text-black bg-[var(--color-mj-gold)] shrink-0 font-bold shadow-md"
                         >
                           <Check className="w-3.5 h-3.5 stroke-[3]" />
                         </div>
                       ) : (
-                        <div className="w-6 h-6 rounded-full border border-white/20 flex items-center justify-center shrink-0 group-hover:border-white/40">
-                          <span className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-white/50" />
+                        <div className="w-6 h-6 rounded-full border border-white/30 flex items-center justify-center shrink-0 group-hover:border-white/60">
+                          <span className="w-1.5 h-1.5 rounded-full bg-white/30 group-hover:bg-white/70" />
                         </div>
                       )}
                     </div>
@@ -262,7 +259,7 @@ export function TicketSimulator() {
 
         {/* Right Column: Holographic Physical Ticket Forge */}
         <div ref={ticketCardRef} className="lg:col-span-7 flex flex-col scroll-mt-24">
-          <div className="relative h-full flex flex-col justify-between rounded-3xl bg-gradient-to-br from-[#0c1f44] via-[#05132e] to-[#081736] border border-[#fbb505]/40 shadow-[0_10px_40px_rgba(0,0,0,0.6)] text-white overflow-hidden p-5 sm:p-6 space-y-4">
+          <div className="relative h-full flex flex-col justify-between rounded-3xl bg-gradient-to-br from-[#da151f] via-[#b80d17] to-[#7a060d] dark:from-[#0c1f44] dark:via-[#05132e] dark:to-[#081736] border border-amber-400/50 dark:border-[#fbb505]/40 shadow-xl text-white overflow-hidden p-5 sm:p-6 space-y-4">
             
             {/* Holographic Laser Background Grid */}
             <div className="absolute inset-0 bg-[radial-gradient(#fbb505_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />

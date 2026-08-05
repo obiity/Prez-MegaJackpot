@@ -1,57 +1,77 @@
 import { HeroSpotlightOfficial } from "@/components/dashboard/HeroSpotlightOfficial";
 import { HeroSUVCard } from "@/components/dashboard/HeroSUVCard";
 import { OpportunitesOfficialGrid } from "@/components/dashboard/OpportunitesOfficialGrid";
-import { MonPortefeuilleWidget } from "@/components/dashboard/MonPortefeuilleWidget";
 import { TicketSimulator } from "@/components/sections/TicketSimulator";
 import { StepsSection } from "@/components/sections/StepsSection";
 import { DrawCalendarSection } from "@/components/sections/DrawCalendarSection";
 import { LiveTicker } from "@/components/sections/LiveTicker";
 import { WinnersCarousel } from "@/components/sections/WinnersCarousel";
 import { PromoBanners } from "@/components/sections/PromoBanners";
-import { SidebarDashboard } from "@/components/dashboard/SidebarDashboard";
+import { ChangerDeVieSection } from "@/components/sections/ChangerDeVieSection";
+import { ResultatsTiragesWidget } from "@/components/dashboard/ResultatsTiragesWidget";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#010919] text-white">
+    <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)] transition-colors duration-300">
       {/* 100% Edge-to-Edge Full Screen Hero Spotlight */}
       <HeroSpotlightOfficial />
 
-      {/* Dashboard Main Container */}
-      <div className="container mx-auto px-4 max-w-7xl pt-10 pb-12 md:pb-16 space-y-12">
-        {/* Balanced 2-Column Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Main Content Column (~68% width) */}
-          <div className="lg:col-span-8 space-y-10">
-            {/* Mobile-only Mon Portefeuille Widget (placé juste AVANT "CHOISISSEZ VOTRE DESTIN") */}
-            <div className="block lg:hidden">
-              <MonPortefeuilleWidget />
-            </div>
+      {/* Dashboard Main Container (Centered Max Width 7xl) */}
+      <div className="container mx-auto px-4 max-w-7xl pt-10 pb-12 md:pb-16 space-y-16 text-center">
+        
+        {/* Nos 3 Opportunités Phares Grid */}
+        <div className="mx-auto">
+          <OpportunitesOfficialGrid />
+        </div>
 
-            <OpportunitesOfficialGrid />
-            <TicketSimulator />
-            <StepsSection />
+        {/* 2-Column Row: Changer De Vie (Left, No Box) + Résultats des Tirages (Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center text-left py-2">
+          {/* Left: Chaque Ticket, Une Chance De Changer De Vie (Pas de case derrière) */}
+          <div className="lg:col-span-6 px-2 sm:px-4">
+            <ChangerDeVieSection />
           </div>
 
-          {/* Right Sidebar Dashboard Column (~32% width) */}
-          <div className="lg:col-span-4 sticky top-24">
-            <SidebarDashboard />
+          {/* Right: Résultats Des Tirages */}
+          <div className="lg:col-span-6">
+            <ResultatsTiragesWidget />
           </div>
         </div>
 
+        {/* Simulateur de Tickets ("TESTEZ VOTRE CHANCE") - Centré, séparé */}
+        <div className="max-w-5xl mx-auto text-center">
+          <TicketSimulator />
+        </div>
+
+        {/* Comment Ça Marche ("JOUER EN 3 ÉTAPES SIMPLES") - Centré, séparé */}
+        <div className="max-w-5xl mx-auto text-center">
+          <StepsSection />
+        </div>
+
         {/* Full-Width Live Animated Winners Ticker */}
-        <LiveTicker />
+        <div className="mx-auto">
+          <LiveTicker />
+        </div>
 
         {/* Full-Width Tirage Du Mois Banner (GAGNEZ 1 SUV) */}
-        <HeroSUVCard />
+        <div className="mx-auto">
+          <HeroSUVCard />
+        </div>
 
         {/* Full-Width Calendrier des Prochains Tirages */}
-        <DrawCalendarSection />
+        <div className="mx-auto">
+          <DrawCalendarSection />
+        </div>
 
         {/* Full-Width Winners & Testimonials ("ILS ONT CHANGÉ DE VIE") */}
-        <WinnersCarousel />
+        <div className="mx-auto">
+          <WinnersCarousel />
+        </div>
 
         {/* Full-Width Promotional Banners */}
-        <PromoBanners />
+        <div className="mx-auto">
+          <PromoBanners />
+        </div>
+
       </div>
     </div>
   );

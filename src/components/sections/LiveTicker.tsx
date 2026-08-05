@@ -16,10 +16,10 @@ export function LiveTicker() {
   if (winners.length === 0) return null;
 
   return (
-    <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-[#0a0a0a] dark:bg-black border-y border-white/10 overflow-hidden flex items-center h-11 group z-20 shadow-xl">
+    <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-black border-y border-white/10 overflow-hidden flex items-center h-11 group z-20 shadow-md transition-colors">
       {/* Gradient Fades for Smooth Edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#0a0a0a] dark:from-black to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#0a0a0a] dark:from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
       
       {/* Marquee Wrapper */}
       <div className="flex w-max animate-[scrollX_30s_linear_infinite] hover:[animation-play-state:paused] active:[animation-play-state:paused] motion-reduce:animate-none motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:w-full motion-reduce:py-2">
@@ -51,15 +51,15 @@ function TickerItem({ winner }: { winner: DrawResult }) {
       ) : winner.productId === 'maison' ? (
         <Gift className="w-4 h-4 text-[var(--color-mj-gold)] shrink-0" />
       ) : (
-        <Trophy className="w-4 h-4 text-[var(--color-mj-blue)] shrink-0" />
+        <Trophy className="w-4 h-4 text-blue-400 shrink-0" />
       )}
-      <span className="font-mono text-[10px] md:text-xs text-white/70 whitespace-nowrap uppercase tracking-widest">
+      <span className="font-mono text-[10px] md:text-xs text-gray-300 whitespace-nowrap uppercase tracking-widest">
         <span className="text-white font-heading font-bold text-xs md:text-sm">{winner.winnerName}</span> ({winner.winnerCity}) a gagné
       </span>
       <span className={`font-mono text-[10px] md:text-xs font-bold whitespace-nowrap uppercase tracking-widest ${
-        winner.productId === 'maison' ? 'text-[var(--color-mj-gold)] drop-shadow-[0_0_10px_rgba(251,181,5,0.6)]' :
-        winner.productId === 'business' ? 'text-[var(--color-mj-red)] drop-shadow-[0_0_10px_rgba(218,21,31,0.6)]' :
-        'text-[var(--color-mj-blue)] drop-shadow-[0_0_10px_rgba(16,42,88,0.6)]'
+        winner.productId === 'maison' ? 'text-[var(--color-mj-gold)]' :
+        winner.productId === 'business' ? 'text-[var(--color-mj-red)]' :
+        'text-blue-400'
       }`}>
         — {winner.prizeDescription}
       </span>

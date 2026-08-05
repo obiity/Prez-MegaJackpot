@@ -1,7 +1,7 @@
 export const PRODUCTS = [
   {
     id: "maison",
-    title: "OPPORTUNITÉS MAISON",
+    title: "DEVENEZ PROPRIÉTAIRE",
     frequency: "2 tirages annuels",
     grandLotTitle: "1 Grand lot",
     grandLot: [
@@ -22,7 +22,7 @@ export const PRODUCTS = [
   },
   {
     id: "business",
-    title: "OPPORTUNITÉS BUSINESS",
+    title: "DÉVELOPPEZ VOTRE PROPRE BUSINESS",
     frequency: "4 tirages annuels",
     grandLotTitle: "2 Grand lot",
     grandLot: [
@@ -45,7 +45,7 @@ export const PRODUCTS = [
   },
   {
     id: "famille",
-    title: "OPPORTUNITÉS FAMILLE",
+    title: "SÉCURISEZ LE QUOTIDIEN DE VOTRE FAMILLE",
     frequency: "3 tirage annuel",
     grandLotTitle: "3 Grand lot",
     grandLot: [

@@ -41,7 +41,7 @@ export function HeroSpotlightOfficial() {
   }, [emblaApi]);
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#021a3c] shadow-[0_20px_50px_rgba(0,0,0,0.6)] pt-0 transition-all">
+    <section className="relative w-full overflow-hidden bg-[var(--bg-surface)] shadow-lg pt-0 transition-all">
       {/* Embla Drag Carousel */}
       <div className="overflow-hidden cursor-grab active:cursor-grabbing select-none" ref={emblaRef}>
         <div className="flex w-full">
@@ -67,7 +67,7 @@ export function HeroSpotlightOfficial() {
                   />
                   {/* Full screen gradient overlays */}
                   <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#010919] via-transparent to-black/50" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-base)] via-transparent to-black/50" />
                 </div>
 
                 {/* Inner Content Container */}

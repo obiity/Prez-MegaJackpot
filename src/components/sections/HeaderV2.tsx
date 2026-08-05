@@ -88,14 +88,14 @@ export function HeaderV2() {
   return (
     <>
       <header 
-        className={`fixed top-0 z-50 w-full text-white transition-all duration-300 ${
+        className={`fixed top-0 z-50 w-full transition-all duration-300 ${
           isScrolled 
-            ? "bg-[#021a3c]/90 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.5)]" 
-            : "bg-transparent"
+            ? "bg-gradient-to-r from-white via-slate-50 to-white dark:from-[#021a3c]/95 dark:via-[#021a3c]/95 dark:to-[#021a3c]/95 backdrop-blur-md shadow-md border-b border-slate-200 dark:border-white/10 text-[#021a3c] dark:text-white" 
+            : "bg-gradient-to-r from-white/95 via-slate-50/95 to-white/95 dark:from-transparent dark:via-transparent dark:to-transparent text-[#021a3c] dark:text-white border-b border-slate-200/60 dark:border-transparent backdrop-blur-md dark:backdrop-blur-none"
         }`}
       >
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          {/* Left: Logo */}
+          {/* Left: Logo & Slogan */}
           <div className="flex items-center gap-3 shrink-0">
             <Link href="/" className="flex items-center gap-2 group">
               <Image 
@@ -115,6 +115,13 @@ export function HeaderV2() {
                 priority
               />
             </Link>
+
+            {/* Slogan officiel en ROUGE */}
+            <div className="hidden lg:flex items-center pl-4 border-l-2 border-[var(--color-mj-red)]/40 dark:border-[var(--color-mj-gold)]/50 py-0.5">
+              <span className="text-xs sm:text-sm font-heading font-black tracking-wider uppercase text-[var(--color-mj-red)] dark:text-[var(--color-mj-gold)] drop-shadow-sm leading-snug">
+                « CHAQUE TICKET, UNE CHANCE DE CHANGER DE VIE »
+              </span>
+            </div>
           </div>
 
           {/* Right: Actions */}
@@ -189,11 +196,11 @@ export function HeaderV2() {
               ) : (
                 <button
                   onClick={() => setIsSearchOpen(true)}
-                  className="p-2 text-[var(--text-secondary)] hover:text-[var(--color-mj-gold)] transition-colors rounded-full cursor-pointer"
+                  className="p-2.5 text-[var(--text-secondary)] hover:text-[var(--color-mj-gold)] transition-colors cursor-pointer"
                   aria-label="Recherche"
                   title="Rechercher dans la plateforme"
                 >
-                  <Search className="h-5 w-5" />
+                  <Search className="w-6 h-6 stroke-[2.2]" />
                 </button>
               )}
             </div>
@@ -202,14 +209,14 @@ export function HeaderV2() {
             <div className="relative">
               <button 
                 onClick={() => setIsNotifOpen(!isNotifOpen)} 
-                className={`relative p-2 transition-colors rounded-full cursor-pointer ${isNotifOpen ? 'bg-black/5 dark:bg-white/10 text-[var(--color-mj-gold)]' : 'text-[var(--text-secondary)] hover:text-[var(--color-mj-gold)]'}`} 
+                className={`relative p-2.5 transition-colors cursor-pointer ${isNotifOpen ? 'text-[var(--color-mj-gold)]' : 'text-[var(--text-secondary)] hover:text-[var(--color-mj-gold)]'}`} 
                 aria-label="Notifications"
               >
-                <Bell className="h-5 w-5" />
+                <Bell className="w-6 h-6 stroke-[2.2]" />
                 {unreadCount > 0 && (
-                  <span className="absolute top-1 right-1 flex h-2.5 w-2.5">
+                  <span className="absolute top-1.5 right-1.5 flex h-3 w-3">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-mj-red)] opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--color-mj-red)]"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-[var(--color-mj-red)]"></span>
                   </span>
                 )}
               </button>
@@ -223,14 +230,17 @@ export function HeaderV2() {
               />
             </div>
 
+            {/* Theme Toggle (Mode Jour / Mode Nuit) */}
+            <ThemeToggle />
+
             {/* Profile Dropdown */}
             <div className="relative flex">
               <button 
                 onClick={() => setIsAccountOpen(!isAccountOpen)}
-                className={`h-8 w-8 rounded-full border flex items-center justify-center transition-all cursor-pointer ${isAccountOpen ? 'border-[#fbb505] text-[var(--color-mj-gold)] bg-[#fbb505]/10' : 'border-white/20 hover:border-[#fbb505] hover:text-[var(--color-mj-gold)]'}`} 
+                className={`p-2.5 flex items-center justify-center transition-all cursor-pointer ${isAccountOpen ? 'text-[var(--color-mj-gold)]' : 'text-[var(--text-secondary)] hover:text-[var(--color-mj-gold)]'}`} 
                 aria-label="Profil"
               >
-                <User className="h-4 w-4" />
+                <User className="w-6 h-6 stroke-[2.2]" />
               </button>
               
               <AccountDropdown 

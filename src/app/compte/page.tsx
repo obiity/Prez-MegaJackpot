@@ -38,31 +38,22 @@ export default function ComptePage() {
           <div className="md:col-span-7 space-y-6">
             
             {/* MON PORTEFEUILLE CARD */}
-            <div className="bg-gradient-to-br from-[#0c1836] via-[#051128] to-[#010919] rounded-3xl p-6 sm:p-8 text-white shadow-2xl border border-white/10 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-[#0c1836] via-[#051128] to-[#010919] rounded-3xl p-6 sm:p-8 text-white shadow-2xl border border-white/10 relative overflow-hidden text-center">
               <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
-              
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-10 h-10 rounded-xl bg-[var(--color-mj-gold)] text-black flex items-center justify-center font-bold shadow-md">
-                      <Wallet className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h2 className="font-heading font-bold text-lg text-white uppercase tracking-wider">Mon Portefeuille</h2>
-                      <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-widest bg-emerald-500/10 px-2 py-0.5 rounded">
-                        Compte Vérifié
-                      </span>
-                    </div>
-                  </div>
 
-                  <button
-                    onClick={() => setShowBalance(!showBalance)}
-                    className="p-2 text-gray-300 hover:text-white transition-colors rounded-lg bg-white/5 hover:bg-white/10"
-                    title="Masquer/Afficher le solde"
-                  >
-                    {showBalance ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
-                  </button>
+              <div className="relative z-10 flex flex-col items-center">
+                <button
+                  onClick={() => setShowBalance(!showBalance)}
+                  className="absolute top-0 right-0 p-2 text-gray-300 hover:text-white transition-colors rounded-lg bg-white/5 hover:bg-white/10"
+                  title="Masquer/Afficher le solde"
+                >
+                  {showBalance ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                </button>
+
+                <div className="w-10 h-10 rounded-xl bg-[var(--color-mj-gold)] text-black flex items-center justify-center font-bold shadow-md mb-2">
+                  <Wallet className="w-5 h-5" />
                 </div>
+                <h2 className="font-heading font-bold text-lg text-white uppercase tracking-wider">Mon Portefeuille</h2>
 
                 {/* Balance Display */}
                 <div className="my-6">
@@ -73,7 +64,7 @@ export default function ComptePage() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="grid grid-cols-2 gap-3 mb-6">
+                <div className="grid grid-cols-2 gap-3 w-full">
                   <button
                     onClick={() => toast.info("Ouverture du module de rechargement...")}
                     className="py-3 bg-[var(--color-mj-red)] hover:bg-red-600 text-white font-heading font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
@@ -86,17 +77,6 @@ export default function ComptePage() {
                   >
                     <ArrowUpRight className="w-4 h-4" /> RETIRER
                   </button>
-                </div>
-
-                {/* Supported Payment Gateways */}
-                <div className="pt-4 border-t border-white/10 text-left">
-                  <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest block mb-2">Moyens de paiement acceptés</span>
-                  <div className="flex items-center gap-2 flex-wrap text-xs font-mono text-gray-300">
-                    <span className="px-2.5 py-1 bg-white/5 rounded-lg border border-white/10">Wave</span>
-                    <span className="px-2.5 py-1 bg-white/5 rounded-lg border border-white/10">Orange Money</span>
-                    <span className="px-2.5 py-1 bg-white/5 rounded-lg border border-white/10">Free Money</span>
-                    <span className="px-2.5 py-1 bg-white/5 rounded-lg border border-white/10">Carte Visa/Mastercard</span>
-                  </div>
                 </div>
               </div>
             </div>

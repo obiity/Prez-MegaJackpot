@@ -57,13 +57,18 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                document.documentElement.classList.add('dark');
+                var t = localStorage.getItem('mj_theme');
+                if (t === 'light') {
+                  document.documentElement.classList.remove('dark');
+                } else {
+                  document.documentElement.classList.add('dark');
+                }
               } catch (_) {}
             `,
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans bg-[#010919] text-white">
+      <body className="min-h-full flex flex-col font-sans bg-[var(--bg-base)] text-[var(--text-primary)] transition-colors duration-300">
         <ThemeProvider
           defaultTheme="dark"
           disableTransitionOnChange

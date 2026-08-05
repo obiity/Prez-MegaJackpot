@@ -19,7 +19,7 @@ export function HeroSUVCard() {
   }, []);
 
   return (
-    <section className="relative w-full rounded-3xl overflow-hidden bg-[#07132a] border border-white/15 hover:border-[var(--color-mj-red)]/70 shadow-[0_20px_50px_rgba(0,0,0,0.6)] hover:shadow-[0_25px_60px_rgba(218,21,31,0.4)] my-8 min-h-[440px] sm:min-h-[480px] flex flex-col justify-between group transition-all duration-500">
+    <section className="relative w-full rounded-3xl overflow-hidden bg-white dark:bg-[#07132a] border border-slate-200 dark:border-white/15 hover:border-[var(--color-mj-red)]/70 shadow-xl hover:shadow-2xl my-8 min-h-[440px] sm:min-h-[480px] flex flex-col justify-between group transition-all duration-500">
       
       {/* 100% Full-Frame Background Image with Interactive Hover Scale */}
       <div className="absolute inset-0 z-0 w-full h-full overflow-hidden">

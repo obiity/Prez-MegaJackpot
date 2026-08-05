@@ -13,7 +13,7 @@ export function BottomNav() {
   const isCompte = pathname === "/compte";
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[100] w-full pb-[env(safe-area-inset-bottom)] bg-[#030d22]/95 backdrop-blur-2xl border-t border-[#fbb505]/30 shadow-[0_-8px_30px_rgba(0,0,0,0.8)]">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[100] w-full pb-[env(safe-area-inset-bottom)] bg-white/95 dark:bg-[#030d22]/95 backdrop-blur-2xl border-t border-slate-200 dark:border-[#fbb505]/30 shadow-lg transition-colors">
       {/* Grid container ensuring equal 20% width per item */}
       <div className="grid grid-cols-5 items-center h-16 px-1 max-w-md mx-auto">
         {/* 1. Accueil */}
@@ -22,7 +22,7 @@ export function BottomNav() {
           className={`flex flex-col items-center justify-center gap-0.5 py-1 transition-all ${
             isHome
               ? "text-[var(--color-mj-gold)] font-bold scale-105"
-              : "text-gray-300 hover:text-white"
+              : "text-slate-600 dark:text-gray-300 hover:text-[var(--color-mj-gold)]"
           }`}
         >
           <Home className="h-5 w-5" />
@@ -37,7 +37,7 @@ export function BottomNav() {
           className={`flex flex-col items-center justify-center gap-0.5 py-1 transition-all ${
             isTickets
               ? "text-[var(--color-mj-gold)] font-bold scale-105"
-              : "text-gray-400 hover:text-white"
+              : "text-slate-500 dark:text-gray-400 hover:text-[var(--color-mj-gold)]"
           }`}
         >
           <Ticket className="h-5 w-5" />
@@ -48,7 +48,7 @@ export function BottomNav() {
 
         {/* 3. Central Play Button */}
         <div className="flex justify-center items-center relative -top-3">
-          <div className="p-1 rounded-full border border-white/20 bg-[#030d22] backdrop-blur-xl shadow-lg">
+          <div className="p-1 rounded-full border border-slate-300 dark:border-white/20 bg-white dark:bg-[#030d22] backdrop-blur-xl shadow-lg">
             <button
               onClick={() => {
                 const el = document.getElementById("jeux");
@@ -70,7 +70,7 @@ export function BottomNav() {
           className={`flex flex-col items-center justify-center gap-0.5 py-1 transition-all ${
             isResultats
               ? "text-[var(--color-mj-gold)] font-bold scale-105"
-              : "text-gray-400 hover:text-white"
+              : "text-slate-500 dark:text-gray-400 hover:text-[var(--color-mj-gold)]"
           }`}
         >
           <Trophy className="h-5 w-5" />
@@ -85,7 +85,7 @@ export function BottomNav() {
           className={`flex flex-col items-center justify-center gap-0.5 py-1 transition-all ${
             isCompte
               ? "text-[var(--color-mj-gold)] font-bold scale-105"
-              : "text-gray-400 hover:text-white"
+              : "text-slate-500 dark:text-gray-400 hover:text-[var(--color-mj-gold)]"
           }`}
         >
           <User className="h-5 w-5" />
