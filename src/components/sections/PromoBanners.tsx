@@ -33,14 +33,14 @@ export function PromoBanners() {
             <Gift className="w-48 h-48" />
           </div>
 
-          <div className="relative z-10">
+          <div className="relative z-10 flex flex-col items-center text-center">
             <div className="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full mb-6 border border-white/30 shadow-sm uppercase tracking-wider">
               <Sparkles className="w-3 h-3 text-[var(--color-mj-gold)]" /> NOUVEAU JOUEUR
             </div>
             <h3 className="font-heading text-3xl mb-3 drop-shadow-md">Offre de Bienvenue</h3>
-            <p className="text-rose-100 font-medium mb-8 max-w-xs drop-shadow-sm">
+            <p className="text-rose-100 font-medium mb-6 max-w-sm mx-auto leading-relaxed drop-shadow-sm">
               Inscrivez-vous aujourd&apos;hui et recevez votre{" "}
-              <strong className="text-white">premier ticket 100% offert</strong> pour le tirage de votre choix.
+              <strong className="text-white">premier ticket 100% offert</strong>.
             </p>
 
             <Link href="/inscription">
@@ -78,16 +78,16 @@ export function PromoBanners() {
             <Share2 className="w-48 h-48" />
           </div>
 
-          <div className="relative z-10">
+          <div className="relative z-10 flex flex-col items-center text-center">
             <div className="inline-block bg-[var(--color-mj-gold)]/10 backdrop-blur-md text-[var(--color-mj-gold)] text-[10px] font-bold px-3 py-1 rounded-full border border-[#fbb505]/40 mb-6 shadow-sm uppercase tracking-wider">
               PROGRAMME FIDÉLITÉ
             </div>
             <h3 className="font-heading text-3xl mb-3 text-[var(--color-mj-gold)] drop-shadow-md">
               Parrainez et Gagnez
             </h3>
-            <p className="text-blue-100 font-medium mb-8 max-w-xs drop-shadow-sm">
-              Invitez vos amis à jouer. Pour chaque filleul inscrit, recevez{" "}
-              <strong className="text-white">des tickets gratuits</strong>.
+            <p className="text-blue-100 font-medium mb-6 max-w-sm mx-auto leading-relaxed drop-shadow-sm">
+              Invitez vos amis et recevez{" "}
+              <strong className="text-white">des tickets gratuits</strong> pour chaque filleul inscrit.
             </p>
 
             <Button

@@ -201,7 +201,7 @@ export function DrawCalendarSection() {
                     )}
                   </div>
 
-                  <h3 className="font-heading font-extrabold text-base sm:text-lg text-white">
+                  <h3 className="font-heading font-extrabold text-sm sm:text-base leading-snug text-balance text-white min-h-[2.5rem] sm:min-h-[2.75rem] flex items-center">
                     {event.prize}
                   </h3>
 

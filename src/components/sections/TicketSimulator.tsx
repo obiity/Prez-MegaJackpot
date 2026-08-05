@@ -153,7 +153,7 @@ export function TicketSimulator() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
         
         {/* Left Column: Product Selection & Controls */}
-        <div className="lg:col-span-5 flex flex-col justify-between space-y-5 bg-gradient-to-b from-[#da151f] via-[#a00c17] to-[#7a060d] dark:from-[#091838] dark:to-[#030c22] text-white p-5 sm:p-6 md:p-8 rounded-3xl border border-amber-400/40 dark:border-white/15 shadow-xl relative overflow-hidden transition-colors">
+        <div className="lg:col-span-5 flex flex-col justify-between space-y-5 bg-gradient-to-b from-[#da151f] via-[#a00c17] to-[#7a060d] dark:from-[#0c1a3a] dark:via-[#061430] dark:to-[#04112c] text-white p-5 sm:p-6 md:p-8 rounded-3xl border border-amber-400/40 dark:border-white/10 shadow-xl relative overflow-hidden transition-colors">
           
           {/* Decorative Laser Glow */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-mj-gold)]/20 rounded-full blur-3xl pointer-events-none" />
@@ -259,7 +259,7 @@ export function TicketSimulator() {
 
         {/* Right Column: Holographic Physical Ticket Forge */}
         <div ref={ticketCardRef} className="lg:col-span-7 flex flex-col scroll-mt-24">
-          <div className="relative h-full flex flex-col justify-between rounded-3xl bg-gradient-to-br from-[#da151f] via-[#b80d17] to-[#7a060d] dark:from-[#0c1f44] dark:via-[#05132e] dark:to-[#081736] border border-amber-400/50 dark:border-[#fbb505]/40 shadow-xl text-white overflow-hidden p-5 sm:p-6 space-y-4">
+          <div className="relative h-full flex flex-col justify-between rounded-3xl bg-gradient-to-br from-[#da151f] via-[#b80d17] to-[#7a060d] dark:from-[#0c1a3a] dark:via-[#061430] dark:to-[#04112c] border border-amber-400/50 dark:border-[#fbb505]/40 shadow-xl text-white overflow-hidden p-5 sm:p-6 space-y-4">
             
             {/* Holographic Laser Background Grid */}
             <div className="absolute inset-0 bg-[radial-gradient(#fbb505_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />

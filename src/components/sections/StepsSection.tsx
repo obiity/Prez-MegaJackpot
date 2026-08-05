@@ -58,7 +58,7 @@ export function StepsSection() {
           <motion.div
             key={step.id}
             variants={itemVariants}
-            className="flex flex-col items-center text-center p-6 rounded-3xl bg-gradient-to-b from-[#da151f] via-[#a00c17] to-[#60050c] dark:from-[#0c1a3a] dark:to-[#04112c] border border-amber-400/40 dark:border-white/10 text-white shadow-xl group hover:border-[#fbb505] transition-all"
+            className="flex flex-col items-center text-center p-6 rounded-3xl bg-gradient-to-b from-[#da151f] via-[#a00c17] to-[#60050c] dark:from-[#0c1a3a] dark:via-[#061430] dark:to-[#04112c] border border-amber-400/40 dark:border-white/10 text-white shadow-xl group hover:border-[#fbb505] transition-all"
           >
             <div className="w-16 h-16 rounded-2xl bg-black/40 border border-amber-400/40 text-[var(--color-mj-gold)] flex items-center justify-center shadow-md mb-4 relative group-hover:scale-105 transition-transform">
               <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[var(--color-mj-gold)] text-black font-mono font-black text-xs flex items-center justify-center shadow-md">

@@ -30,7 +30,7 @@ export function ChangerDeVieSection() {
         <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#021a3c] dark:text-white uppercase tracking-wide leading-tight">
           CHAQUE TICKET,
         </h2>
-        <h2 className="font-heading font-black text-2xl sm:text-3xl text-[var(--color-mj-red)] uppercase tracking-wide leading-tight drop-shadow-sm">
+        <h2 className="font-heading font-black text-2xl sm:text-3xl text-[var(--color-mj-red)] dark:text-[var(--color-mj-gold)] uppercase tracking-wide leading-tight drop-shadow-sm">
           UNE CHANCE DE CHANGER DE VIE
         </h2>
       </div>

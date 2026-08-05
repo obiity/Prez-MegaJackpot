@@ -127,7 +127,7 @@ export function WinnersCarousel() {
               {winners.map((winner) => (
                 <div key={winner.id} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333333%] min-w-0 pl-6 group">
                   <TicketCard
-                    className="h-full bg-gradient-to-br from-[#da151f] via-[#b80d17] to-[#7a060d] dark:from-[#021a3c] dark:to-[#021a3c] border border-amber-400/40 dark:border-white/10 text-white shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group overflow-hidden"
+                    className="h-full bg-gradient-to-br from-[#da151f] via-[#b80d17] to-[#7a060d] dark:from-[#0c1a3a] dark:via-[#061430] dark:to-[#04112c] border border-amber-400/40 dark:border-white/10 text-white shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group overflow-hidden"
                     headerContent={
                       <div className="p-6 pb-2 flex justify-between items-start">
                         <div className="flex items-center gap-3">
