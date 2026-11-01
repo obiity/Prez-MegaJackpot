@@ -12,7 +12,7 @@ import { ResultatsTiragesWidget } from "@/components/dashboard/ResultatsTiragesW
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)] transition-colors duration-300">
+    <div id="top" className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)] transition-colors duration-300">
       {/* 100% Edge-to-Edge Full Screen Hero Spotlight */}
       <HeroSpotlightOfficial />
 
@@ -20,13 +20,13 @@ export default function Home() {
       <div className="container mx-auto px-4 max-w-7xl pt-10 pb-12 md:pb-16 space-y-16 text-center">
         
         {/* Nos 3 Opportunités Phares Grid */}
-        <div className="mx-auto">
+        <div id="jeux" className="mx-auto scroll-mt-24">
           <OpportunitesOfficialGrid />
         </div>
 
         {/* 2-Column Row: Changer De Vie (Left, No Box) + Résultats des Tirages (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center text-left py-2">
-          {/* Left: Chaque Ticket, Une Chance De Changer De Vie (Pas de case derrière) */}
+          {/* Left: Chaque Ticket, Une Chance De Changer De Vie */}
           <div className="lg:col-span-6 px-2 sm:px-4">
             <ChangerDeVieSection />
           </div>
@@ -37,13 +37,13 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Simulateur de Tickets ("TESTEZ VOTRE CHANCE") - Centré, séparé */}
+        {/* Simulateur de Tickets ("TESTEZ VOTRE CHANCE") */}
         <div className="max-w-5xl mx-auto text-center">
           <TicketSimulator />
         </div>
 
-        {/* Comment Ça Marche ("JOUER EN 3 ÉTAPES SIMPLES") - Centré, séparé */}
-        <div className="max-w-5xl mx-auto text-center">
+        {/* Comment Ça Marche ("JOUER EN 3 ÉTAPES SIMPLES") */}
+        <div id="comment-jouer" className="max-w-5xl mx-auto text-center scroll-mt-24">
           <StepsSection />
         </div>
 
@@ -63,7 +63,7 @@ export default function Home() {
         </div>
 
         {/* Full-Width Winners & Testimonials ("ILS ONT CHANGÉ DE VIE") */}
-        <div className="mx-auto">
+        <div id="gagnants" className="mx-auto scroll-mt-24">
           <WinnersCarousel />
         </div>
 

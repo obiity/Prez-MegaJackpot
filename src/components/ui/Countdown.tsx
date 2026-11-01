@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function Countdown({ className }: { className?: string }) {
+  const { t } = useLanguage();
   const [timeLeft, setTimeLeft] = useState({
     days: 3,
     hours: 14,
@@ -45,10 +47,10 @@ export function Countdown({ className }: { className?: string }) {
   }, []);
 
   const timeBlocks = [
-    { label: "Jours", value: timeLeft.days },
-    { label: "Heures", value: timeLeft.hours },
-    { label: "Min", value: timeLeft.minutes },
-    { label: "Sec", value: timeLeft.seconds },
+    { label: t.common.days, value: timeLeft.days },
+    { label: t.common.hours, value: timeLeft.hours },
+    { label: t.common.min, value: timeLeft.minutes },
+    { label: t.common.sec, value: timeLeft.seconds },
   ];
 
   if (!mounted) {

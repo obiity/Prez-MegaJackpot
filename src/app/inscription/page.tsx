@@ -17,18 +17,19 @@ import {
   FileText,
   Smartphone,
   ChevronRight,
-  Plus,
-  ArrowUpRight,
   Bell,
   Upload,
-  FileUp,
   X,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
 export default function InscriptionPage() {
+  const { t } = useLanguage();
+  const ins = t.inscriptionPage;
+
   const [currentStep, setCurrentStep] = useState<Step>(1);
 
   // Step 1 Form state
@@ -59,7 +60,7 @@ export default function InscriptionPage() {
   // OTP countdown timer
   useEffect(() => {
     if (currentStep === 2 && otpTimer > 0) {
-      const interval = setInterval(() => setOtpTimer((t) => t - 1), 1000);
+      const interval = setInterval(() => setOtpTimer((prev) => prev - 1), 1000);
       return () => clearInterval(interval);
     }
   }, [currentStep, otpTimer]);
@@ -67,10 +68,10 @@ export default function InscriptionPage() {
   const handleStep1Submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!over18 || !acceptTerms) {
-      toast.error("Veuillez accepter les conditions et confirmer votre âge.");
+      toast.error(ins.toastAcceptTerms);
       return;
     }
-    toast.success("Code de vérification envoyé par SMS !");
+    toast.success(ins.toastSmsSent);
     setCurrentStep(2);
   };
 
@@ -80,7 +81,6 @@ export default function InscriptionPage() {
     newOtp[index] = value;
     setOtp(newOtp);
 
-    // Auto-focus next input field
     if (value && index < 5) {
       const nextInput = document.getElementById(`otp-input-${index + 1}`);
       nextInput?.focus();
@@ -89,16 +89,16 @@ export default function InscriptionPage() {
 
   const handleStep2Submit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Numéro de téléphone vérifié avec succès !");
+    toast.success(ins.toastPhoneVerified);
     setCurrentStep(3);
   };
 
   const handleStep3Submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!rectoFile && !versoFile && !selfieFile) {
-      toast.info("Validation automatique des documents de démonstration.");
+      toast.info(ins.toastAutoDemo);
     }
-    toast.success("Documents soumis et vérifiés avec succès !");
+    toast.success(ins.toastDocsVerified);
     setCurrentStep(4);
   };
 
@@ -109,61 +109,57 @@ export default function InscriptionPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#010919] text-white pt-24 pb-32">
+    <div className="min-h-screen bg-[#021a3c] text-white pt-24 pb-32">
       <div className="container mx-auto px-4 max-w-4xl">
-        
         {/* Step Stepper Progress Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between max-w-2xl mx-auto mb-4 px-2">
-            {[
-              { num: 1, title: "Informations" },
-              { num: 2, title: "Vérification OTP" },
-              { num: 3, title: "Identité KYC" },
-              { num: 4, title: "Validation" },
-              { num: 5, title: "Portefeuille" },
-            ].map((s) => (
-              <button
-                key={s.num}
-                onClick={() => setCurrentStep(s.num as Step)}
-                className={`flex flex-col items-center gap-1 cursor-pointer transition-all ${
-                  currentStep === s.num
-                    ? "text-[var(--color-mj-gold)] font-bold scale-105"
-                    : currentStep > s.num
-                    ? "text-emerald-400 font-semibold"
-                    : "text-gray-400"
-                }`}
-              >
-                <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center font-heading text-xs font-bold transition-all ${
-                    currentStep === s.num
-                      ? "bg-[var(--color-mj-gold)] text-black shadow-md"
-                      : currentStep > s.num
-                      ? "bg-emerald-500 text-white"
-                      : "bg-white/10 text-gray-400 border border-white/10"
+            {ins.steps.map((stepTitle, index) => {
+              const stepNum = (index + 1) as Step;
+              return (
+                <button
+                  key={stepNum}
+                  type="button"
+                  onClick={() => setCurrentStep(stepNum)}
+                  className={`flex flex-col items-center gap-1 cursor-pointer transition-all min-w-[44px] min-h-[44px] justify-center ${
+                    currentStep === stepNum
+                      ? "text-[#fbb505] font-bold scale-105"
+                      : currentStep > stepNum
+                      ? "text-white font-semibold"
+                      : "text-gray-400"
                   }`}
                 >
-                  {currentStep > s.num ? "✓" : s.num}
-                </div>
-                <span className="text-[10px] hidden sm:block font-mono uppercase tracking-tight">
-                  {s.title}
-                </span>
-              </button>
-            ))}
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center font-heading text-xs font-bold transition-all ${
+                      currentStep === stepNum
+                        ? "bg-[#fbb505] text-[#021a3c] shadow-md"
+                        : currentStep > stepNum
+                        ? "bg-[#da151f] text-white"
+                        : "bg-white/10 text-gray-300 border border-white/10"
+                    }`}
+                  >
+                    {currentStep > stepNum ? "✓" : stepNum}
+                  </div>
+                  <span className="text-[10px] hidden sm:block font-mono uppercase tracking-tight">
+                    {stepTitle}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
           <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden max-w-2xl mx-auto">
             <div
-              className="bg-gradient-to-r from-[var(--color-mj-gold)] to-[var(--color-mj-red)] h-full transition-all duration-500"
+              className="bg-gradient-to-r from-[#fbb505] to-[#da151f] h-full transition-all duration-500"
               style={{ width: `${(currentStep / 5) * 100}%` }}
             />
           </div>
         </div>
 
-        {/* STEP 1: CRÉATION DE COMPTE (Dark Charter Aesthetics) */}
+        {/* STEP 1: CRÉATION DE COMPTE */}
         {currentStep === 1 && (
           <div className="max-w-md mx-auto animate-in fade-in zoom-in-95 duration-300">
-            <div className="bg-[#04112c] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/15 relative overflow-hidden">
-              
+            <div className="bg-[#102a58] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/15 relative overflow-hidden">
               {/* Header Logo */}
               <div className="text-center mb-6">
                 <Image
@@ -174,46 +170,44 @@ export default function InscriptionPage() {
                   className="h-8 w-auto mx-auto mb-2 object-contain"
                   priority
                 />
-                <p className="text-xs font-mono text-gray-300">
-                  Chaque ticket, une chance de changer de vie.
-                </p>
+                <p className="text-xs font-mono text-gray-200">{ins.slogan}</p>
               </div>
 
-              {/* Form Box - Dark Charter Container */}
-              <div className="bg-[#061430] text-white rounded-2xl p-6 shadow-xl border border-white/10 space-y-4">
+              {/* Form Box */}
+              <div className="bg-[#021a3c] text-white rounded-2xl p-6 shadow-xl border border-white/10 space-y-4">
                 <div>
                   <h2 className="font-heading font-black text-xl text-white uppercase tracking-wide">
-                    Créer mon compte
+                    {ins.createAccountTitle}
                   </h2>
-                  <p className="text-xs text-gray-400 font-medium">
-                    Remplissez vos informations
+                  <p className="text-xs text-gray-300 font-medium">
+                    {ins.fillInfoSub}
                   </p>
                 </div>
 
                 <form onSubmit={handleStep1Submit} className="space-y-3.5">
                   {/* Prénom */}
                   <div className="relative">
-                    <User className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <User className="w-4 h-4 text-gray-300 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       value={prenom}
                       onChange={(e) => setPrenom(e.target.value)}
-                      placeholder="Prénom"
+                      placeholder={ins.firstNamePlaceholder}
                       required
-                      className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-white/15 bg-[#010919]/70 text-xs font-medium text-white placeholder-gray-400 focus:border-[var(--color-mj-gold)] focus:ring-1 focus:ring-[var(--color-mj-gold)] outline-none"
+                      className="w-full min-h-[44px] pl-10 pr-3 py-2.5 rounded-xl border border-white/15 bg-[#102a58]/50 text-xs font-medium text-white placeholder-gray-400 focus:border-[#fbb505] focus:ring-1 focus:ring-[#fbb505] outline-none"
                     />
                   </div>
 
                   {/* Nom */}
                   <div className="relative">
-                    <User className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <User className="w-4 h-4 text-gray-300 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       value={nom}
                       onChange={(e) => setNom(e.target.value)}
-                      placeholder="Nom"
+                      placeholder={ins.lastNamePlaceholder}
                       required
-                      className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-white/15 bg-[#010919]/70 text-xs font-medium text-white placeholder-gray-400 focus:border-[var(--color-mj-gold)] focus:ring-1 focus:ring-[var(--color-mj-gold)] outline-none"
+                      className="w-full min-h-[44px] pl-10 pr-3 py-2.5 rounded-xl border border-white/15 bg-[#102a58]/50 text-xs font-medium text-white placeholder-gray-400 focus:border-[#fbb505] focus:ring-1 focus:ring-[#fbb505] outline-none"
                     />
                   </div>
 
@@ -226,78 +220,85 @@ export default function InscriptionPage() {
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+221 77 123 45 67"
                       required
-                      className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-white/15 bg-[#010919]/70 text-xs font-mono font-bold text-white placeholder-gray-400 focus:border-[var(--color-mj-gold)] focus:ring-1 focus:ring-[var(--color-mj-gold)] outline-none"
+                      className="w-full min-h-[44px] pl-10 pr-3 py-2.5 rounded-xl border border-white/15 bg-[#102a58]/50 text-xs font-mono font-bold text-white placeholder-gray-400 focus:border-[#fbb505] focus:ring-1 focus:ring-[#fbb505] outline-none"
                     />
                   </div>
 
                   {/* Email */}
                   <div className="relative">
-                    <Mail className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <Mail className="w-4 h-4 text-gray-300 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Email (optionnel)"
-                      className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-white/15 bg-[#010919]/70 text-xs font-medium text-white placeholder-gray-400 focus:border-[var(--color-mj-gold)] focus:ring-1 focus:ring-[var(--color-mj-gold)] outline-none"
+                      placeholder={ins.emailOptionalPlaceholder}
+                      className="w-full min-h-[44px] pl-10 pr-3 py-2.5 rounded-xl border border-white/15 bg-[#102a58]/50 text-xs font-medium text-white placeholder-gray-400 focus:border-[#fbb505] focus:ring-1 focus:ring-[#fbb505] outline-none"
                     />
                   </div>
 
                   {/* Mot de passe */}
                   <div className="relative">
-                    <Lock className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <Lock className="w-4 h-4 text-gray-300 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type={showPassword ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Mot de passe"
+                      placeholder={ins.passwordPlaceholder}
                       required
-                      className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-white/15 bg-[#010919]/70 text-xs font-medium text-white placeholder-gray-400 focus:border-[var(--color-mj-gold)] focus:ring-1 focus:ring-[var(--color-mj-gold)] outline-none"
+                      className="w-full min-h-[44px] pl-10 pr-10 py-2.5 rounded-xl border border-white/15 bg-[#102a58]/50 text-xs font-medium text-white placeholder-gray-400 focus:border-[#fbb505] focus:ring-1 focus:ring-[#fbb505] outline-none"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-300 hover:text-white p-2 cursor-pointer"
                     >
-                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      {showPassword ? (
+                        <EyeOff className="w-4 h-4" />
+                      ) : (
+                        <Eye className="w-4 h-4" />
+                      )}
                     </button>
                   </div>
 
                   {/* Confirmer le mot de passe */}
                   <div className="relative">
-                    <Lock className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <Lock className="w-4 h-4 text-gray-300 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type={showPassword ? "text" : "password"}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      placeholder="Confirmer le mot de passe"
+                      placeholder={ins.confirmPasswordPlaceholder}
                       required
-                      className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-white/15 bg-[#010919]/70 text-xs font-medium text-white placeholder-gray-400 focus:border-[var(--color-mj-gold)] focus:ring-1 focus:ring-[var(--color-mj-gold)] outline-none"
+                      className="w-full min-h-[44px] pl-10 pr-10 py-2.5 rounded-xl border border-white/15 bg-[#102a58]/50 text-xs font-medium text-white placeholder-gray-400 focus:border-[#fbb505] focus:ring-1 focus:ring-[#fbb505] outline-none"
                     />
                   </div>
 
                   {/* Checkboxes */}
                   <div className="space-y-2 pt-1 text-left">
-                    <label className="flex items-center gap-2 cursor-pointer">
+                    <label className="flex items-center gap-2 cursor-pointer min-h-[32px]">
                       <input
                         type="checkbox"
                         checked={over18}
                         onChange={(e) => setOver18(e.target.checked)}
-                        className="w-4 h-4 accent-[var(--color-mj-red)] rounded"
+                        className="w-4 h-4 accent-[#da151f] rounded"
                       />
-                      <span className="text-xs font-semibold text-gray-300">
-                        J'ai plus de 18 ans
+                      <span className="text-xs font-semibold text-gray-200">
+                        {ins.over18Label}
                       </span>
                     </label>
 
-                    <label className="flex items-start gap-2 cursor-pointer">
+                    <label className="flex items-start gap-2 cursor-pointer min-h-[32px]">
                       <input
                         type="checkbox"
                         checked={acceptTerms}
                         onChange={(e) => setAcceptTerms(e.target.checked)}
-                        className="w-4 h-4 accent-[var(--color-mj-red)] rounded mt-0.5"
+                        className="w-4 h-4 accent-[#da151f] rounded mt-0.5"
                       />
-                      <span className="text-xs text-gray-300 leading-tight">
-                        J'accepte les <strong className="text-[var(--color-mj-gold)]">Conditions Générales d'utilisation</strong>
+                      <span className="text-xs text-gray-200 leading-tight">
+                        {ins.acceptTermsPrefix}
+                        <strong className="text-[#fbb505]">
+                          {ins.acceptTermsBold}
+                        </strong>
                       </span>
                     </label>
                   </div>
@@ -305,65 +306,68 @@ export default function InscriptionPage() {
                   {/* S'INSCRIRE CTA */}
                   <button
                     type="submit"
-                    className="w-full py-3.5 mt-2 bg-[var(--color-mj-red)] hover:bg-[#a00c17] text-white font-heading font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-lg transition-all cursor-pointer"
+                    className="w-full min-h-[48px] py-3.5 mt-2 bg-[#da151f] hover:bg-[#a00c17] text-white font-heading font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-lg transition-all cursor-pointer"
                   >
-                    S'INSCRIRE
+                    {ins.signUpCta}
                   </button>
                 </form>
 
                 <div className="text-center pt-2 border-t border-white/10">
-                  <span className="text-xs text-gray-400">
-                    Vous avez déjà un compte ?{" "}
-                    <Link href="/compte" className="font-bold text-[var(--color-mj-gold)] hover:underline">
-                      Se connecter
+                  <span className="text-xs text-gray-300">
+                    {ins.alreadyAccount}{" "}
+                    <Link
+                      href="/compte"
+                      className="font-bold text-[#fbb505] hover:underline"
+                    >
+                      {ins.loginLink}
                     </Link>
                   </span>
                 </div>
               </div>
-
             </div>
           </div>
         )}
 
-        {/* STEP 2: VÉRIFICATION OTP (Dark Charter Aesthetics) */}
+        {/* STEP 2: VÉRIFICATION OTP */}
         {currentStep === 2 && (
           <div className="max-w-md mx-auto animate-in fade-in zoom-in-95 duration-300">
-            <div className="bg-[#04112c] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/15 relative overflow-hidden">
-              
+            <div className="bg-[#102a58] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/15 relative overflow-hidden">
               {/* Header */}
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
                 <button
+                  type="button"
                   onClick={() => setCurrentStep(1)}
-                  className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-white transition-colors"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/15 text-white transition-colors cursor-pointer"
                 >
                   <ArrowLeft className="w-5 h-5" />
                 </button>
                 <span className="font-heading font-bold text-sm uppercase text-white tracking-wide">
-                  Vérification du numéro
+                  {ins.step2Header}
                 </span>
-                <User className="w-5 h-5 text-[var(--color-mj-gold)]" />
+                <User className="w-5 h-5 text-[#fbb505]" />
               </div>
 
               {/* Graphic Mockup */}
               <div className="my-6 text-center">
-                <div className="w-20 h-20 rounded-3xl bg-blue-600/20 border border-blue-500/40 text-blue-400 flex items-center justify-center mx-auto mb-4 relative">
-                  <Smartphone className="w-10 h-10 text-[var(--color-mj-gold)]" />
-                  <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold shadow-md">
+                <div className="w-20 h-20 rounded-3xl bg-[#021a3c] border border-[#fbb505]/40 flex items-center justify-center mx-auto mb-4 relative">
+                  <Smartphone className="w-10 h-10 text-[#fbb505]" />
+                  <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-[#da151f] text-white flex items-center justify-center text-xs font-bold shadow-md">
                     ✓
                   </div>
                 </div>
-                <p className="text-xs text-gray-300">
-                  Un code de vérification a été envoyé au
-                </p>
-                <p className="font-mono font-extrabold text-sm text-[var(--color-mj-gold)] mt-0.5">
+                <p className="text-xs text-gray-200">{ins.codeSentTo}</p>
+                <p className="font-mono font-extrabold text-sm text-[#fbb505] mt-0.5">
                   {phone}
                 </p>
               </div>
 
-              {/* Form Box - Dark Container */}
-              <form onSubmit={handleStep2Submit} className="bg-[#061430] text-white rounded-2xl p-6 shadow-xl border border-white/10 space-y-5 text-center">
-                <span className="text-xs font-bold uppercase tracking-wider text-gray-300 block">
-                  Entrez le code à 6 chiffres
+              {/* Form Box */}
+              <form
+                onSubmit={handleStep2Submit}
+                className="bg-[#021a3c] text-white rounded-2xl p-6 shadow-xl border border-white/10 space-y-5 text-center"
+              >
+                <span className="text-xs font-bold uppercase tracking-wider text-gray-200 block">
+                  {ins.enter6Digits}
                 </span>
 
                 {/* 6 OTP Input Boxes */}
@@ -376,14 +380,14 @@ export default function InscriptionPage() {
                       maxLength={1}
                       value={digit}
                       onChange={(e) => handleOtpChange(idx, e.target.value)}
-                      className="w-10 h-12 sm:w-11 sm:h-13 rounded-xl border border-white/20 text-center font-mono font-black text-lg text-white bg-[#010919]/80 focus:border-[var(--color-mj-gold)] focus:ring-2 focus:ring-[var(--color-mj-gold)]/30 outline-none"
+                      className="w-10 h-12 sm:w-11 sm:h-13 rounded-xl border border-white/20 text-center font-mono font-black text-lg text-white bg-[#102a58]/60 focus:border-[#fbb505] focus:ring-2 focus:ring-[#fbb505]/30 outline-none"
                     />
                   ))}
                 </div>
 
-                <div className="text-xs font-mono text-gray-400">
-                  Renvoyer dans{" "}
-                  <strong className="text-[var(--color-mj-gold)]">
+                <div className="text-xs font-mono text-gray-300">
+                  {ins.resendIn}{" "}
+                  <strong className="text-[#fbb505]">
                     00:{otpTimer < 10 ? `0${otpTimer}` : otpTimer}
                   </strong>
                 </div>
@@ -391,9 +395,9 @@ export default function InscriptionPage() {
                 {/* VALIDER Button */}
                 <button
                   type="submit"
-                  className="w-full py-3.5 bg-[var(--color-mj-red)] hover:bg-[#a00c17] text-white font-heading font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-lg transition-all cursor-pointer"
+                  className="w-full min-h-[48px] py-3.5 bg-[#da151f] hover:bg-[#a00c17] text-white font-heading font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-lg transition-all cursor-pointer"
                 >
-                  VALIDER
+                  {ins.validateCta}
                 </button>
 
                 <div className="pt-2">
@@ -401,41 +405,42 @@ export default function InscriptionPage() {
                     type="button"
                     onClick={() => {
                       setOtpTimer(45);
-                      toast.info("Un nouveau code a été envoyé.");
+                      toast.info(ins.toastCodeResent);
                     }}
-                    className="text-xs text-gray-400 hover:text-[var(--color-mj-gold)] transition-colors"
+                    className="text-xs text-gray-300 hover:text-[#fbb505] transition-colors cursor-pointer min-h-[44px]"
                   >
-                    Vous n'avez pas reçu le code ?{" "}
-                    <strong className="text-[var(--color-mj-gold)] underline">Renvoyer le code</strong>
+                    {ins.didNotReceive}{" "}
+                    <strong className="text-[#fbb505] underline">
+                      {ins.resendCode}
+                    </strong>
                   </button>
                 </div>
               </form>
-
             </div>
           </div>
         )}
 
-        {/* STEP 3: VÉRIFICATION D'IDENTITÉ (KYC) (Fichiers réels depuis votre dossier) */}
+        {/* STEP 3: VÉRIFICATION D'IDENTITÉ (KYC) */}
         {currentStep === 3 && (
           <div className="max-w-md mx-auto animate-in fade-in zoom-in-95 duration-300">
-            <div className="bg-[#04112c] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/15 relative overflow-hidden">
-              
+            <div className="bg-[#102a58] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/15 relative overflow-hidden">
               {/* Header */}
               <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
                 <button
+                  type="button"
                   onClick={() => setCurrentStep(2)}
-                  className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-white transition-colors"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/15 text-white transition-colors cursor-pointer"
                 >
                   <ArrowLeft className="w-5 h-5" />
                 </button>
                 <span className="font-heading font-bold text-sm uppercase text-white tracking-wide">
-                  Vérification d'identité
+                  {ins.step3Header}
                 </span>
-                <Shield className="w-5 h-5 text-emerald-400" />
+                <Shield className="w-5 h-5 text-[#fbb505]" />
               </div>
 
-              <p className="text-xs text-gray-300 text-center mb-5 leading-relaxed">
-                Votre identité est requise pour sécuriser vos transactions et vos gains.
+              <p className="text-xs text-gray-200 text-center mb-5 leading-relaxed">
+                {ins.kycIntro}
               </p>
 
               {/* Hidden HTML File Inputs */}
@@ -447,7 +452,9 @@ export default function InscriptionPage() {
                 onChange={(e) => {
                   if (e.target.files && e.target.files[0]) {
                     setRectoFile(e.target.files[0]);
-                    toast.success(`Fichier Recto chargé : ${e.target.files[0].name}`);
+                    toast.success(
+                      `${ins.toastFrontLoaded} ${e.target.files[0].name}`
+                    );
                   }
                 }}
               />
@@ -460,7 +467,9 @@ export default function InscriptionPage() {
                 onChange={(e) => {
                   if (e.target.files && e.target.files[0]) {
                     setVersoFile(e.target.files[0]);
-                    toast.success(`Fichier Verso chargé : ${e.target.files[0].name}`);
+                    toast.success(
+                      `${ins.toastBackLoaded} ${e.target.files[0].name}`
+                    );
                   }
                 }}
               />
@@ -473,36 +482,46 @@ export default function InscriptionPage() {
                 onChange={(e) => {
                   if (e.target.files && e.target.files[0]) {
                     setSelfieFile(e.target.files[0]);
-                    toast.success(`Selfie chargé : ${e.target.files[0].name}`);
+                    toast.success(
+                      `${ins.toastSelfieLoaded} ${e.target.files[0].name}`
+                    );
                   }
                 }}
               />
 
-              {/* Form Box - Dark Container */}
-              <form onSubmit={handleStep3Submit} className="bg-[#061430] text-white rounded-2xl p-6 shadow-xl border border-white/10 space-y-5 text-left">
-                
+              {/* Form Box */}
+              <form
+                onSubmit={handleStep3Submit}
+                className="bg-[#021a3c] text-white rounded-2xl p-6 shadow-xl border border-white/10 space-y-5 text-left"
+              >
                 {/* 1. Choisir le type de document */}
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-gray-300 block mb-2">
-                    1. Choisir le type de document
+                  <label className="text-xs font-bold uppercase tracking-wider text-gray-200 block mb-2">
+                    {ins.docTypeLabel}
                   </label>
                   <div className="grid grid-cols-3 gap-2">
-                    {[
-                      { id: "cni", label: "Carte Nationale d'Identité", icon: FileText },
-                      { id: "passport", label: "Passeport", icon: Shield },
-                      { id: "cedeaO", label: "Carte CEDEAO", icon: CreditCard },
-                    ].map((doc) => {
+                    {(
+                      [
+                        { id: "cni", label: ins.docCni, icon: FileText },
+                        { id: "passport", label: ins.docPassport, icon: Shield },
+                        {
+                          id: "cedeaO",
+                          label: ins.docEcowas,
+                          icon: CreditCard,
+                        },
+                      ] as const
+                    ).map((doc) => {
                       const DocIcon = doc.icon;
                       const isSelected = docType === doc.id;
                       return (
                         <button
                           key={doc.id}
                           type="button"
-                          onClick={() => setDocType(doc.id as any)}
-                          className={`p-3 rounded-xl border flex flex-col items-center justify-center gap-1.5 text-center transition-all cursor-pointer ${
+                          onClick={() => setDocType(doc.id)}
+                          className={`p-3 rounded-xl border flex flex-col items-center justify-center gap-1.5 text-center transition-all cursor-pointer min-h-[72px] ${
                             isSelected
-                              ? "border-[var(--color-mj-gold)] bg-[var(--color-mj-gold)]/15 text-[var(--color-mj-gold)] font-bold shadow-sm"
-                              : "border-white/10 bg-[#010919]/60 text-gray-400 hover:bg-white/5"
+                              ? "border-[#fbb505] bg-[#fbb505]/15 text-[#fbb505] font-bold shadow-sm"
+                              : "border-white/10 bg-[#102a58]/50 text-gray-300 hover:bg-white/5"
                           }`}
                         >
                           <DocIcon className="w-5 h-5" />
@@ -515,14 +534,14 @@ export default function InscriptionPage() {
                   </div>
                 </div>
 
-                {/* 2. Prendre / Déposer les photos du document */}
+                {/* 2. Joindre les photos du document */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="text-xs font-bold uppercase tracking-wider text-gray-300 block">
-                      2. Joindre les photos du document
+                    <label className="text-xs font-bold uppercase tracking-wider text-gray-200 block">
+                      {ins.attachPhotosLabel}
                     </label>
-                    <span className="text-[10px] font-mono text-gray-400">
-                      Formats: JPG, PNG, PDF
+                    <span className="text-[10px] font-mono text-gray-300">
+                      {ins.formatsNote}
                     </span>
                   </div>
 
@@ -530,29 +549,37 @@ export default function InscriptionPage() {
                     {/* Recto Upload Dropzone */}
                     <div
                       onClick={() => rectoInputRef.current?.click()}
-                      className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
+                      className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-2 ${
                         rectoFile
-                          ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
-                          : "border-dashed border-white/20 bg-[#010919]/60 hover:border-[var(--color-mj-gold)]/60 text-gray-300"
+                          ? "border-[#fbb505]/60 bg-[#fbb505]/10 text-[#fbb505]"
+                          : "border-dashed border-white/20 bg-[#102a58]/40 hover:border-[#fbb505]/60 text-gray-200"
                       }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${rectoFile ? "bg-emerald-500/20 text-emerald-400" : "bg-white/10 text-gray-400"}`}>
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div
+                          className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
+                            rectoFile
+                              ? "bg-[#fbb505]/20 text-[#fbb505]"
+                              : "bg-white/10 text-gray-300"
+                          }`}
+                        >
                           <Upload className="w-4 h-4" />
                         </div>
-                        <div className="text-left">
-                          <p className="text-xs font-bold leading-tight">
-                            {rectoFile ? rectoFile.name : "Déposer la photo du Recto"}
+                        <div className="text-left min-w-0">
+                          <p className="text-xs font-bold leading-tight truncate">
+                            {rectoFile ? rectoFile.name : ins.dropFront}
                           </p>
-                          <span className="text-[10px] text-gray-400">
-                            {rectoFile ? formatFileSize(rectoFile.size) : "Cliquez ou glissez votre fichier ici"}
+                          <span className="text-[10px] text-gray-300">
+                            {rectoFile
+                              ? formatFileSize(rectoFile.size)
+                              : ins.clickOrDrag}
                           </span>
                         </div>
                       </div>
                       {rectoFile ? (
-                        <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/30">
-                            Recto validé ✓
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-[10px] font-mono font-bold text-[#fbb505] bg-[#fbb505]/20 px-2 py-0.5 rounded border border-[#fbb505]/30">
+                            {ins.frontValidated}
                           </span>
                           <button
                             type="button"
@@ -560,14 +587,14 @@ export default function InscriptionPage() {
                               e.stopPropagation();
                               setRectoFile(null);
                             }}
-                            className="p-1 text-gray-400 hover:text-red-400"
+                            className="p-1 text-gray-300 hover:text-[#da151f]"
                           >
                             <X className="w-4 h-4" />
                           </button>
                         </div>
                       ) : (
-                        <span className="text-[10px] font-mono text-[var(--color-mj-gold)] underline">
-                          Parcourir...
+                        <span className="text-[10px] font-mono text-[#fbb505] underline shrink-0">
+                          {ins.browse}
                         </span>
                       )}
                     </div>
@@ -575,29 +602,37 @@ export default function InscriptionPage() {
                     {/* Verso Upload Dropzone */}
                     <div
                       onClick={() => versoInputRef.current?.click()}
-                      className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
+                      className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-2 ${
                         versoFile
-                          ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
-                          : "border-dashed border-white/20 bg-[#010919]/60 hover:border-[var(--color-mj-gold)]/60 text-gray-300"
+                          ? "border-[#fbb505]/60 bg-[#fbb505]/10 text-[#fbb505]"
+                          : "border-dashed border-white/20 bg-[#102a58]/40 hover:border-[#fbb505]/60 text-gray-200"
                       }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${versoFile ? "bg-emerald-500/20 text-emerald-400" : "bg-white/10 text-gray-400"}`}>
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div
+                          className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
+                            versoFile
+                              ? "bg-[#fbb505]/20 text-[#fbb505]"
+                              : "bg-white/10 text-gray-300"
+                          }`}
+                        >
                           <Upload className="w-4 h-4" />
                         </div>
-                        <div className="text-left">
-                          <p className="text-xs font-bold leading-tight">
-                            {versoFile ? versoFile.name : "Déposer la photo du Verso"}
+                        <div className="text-left min-w-0">
+                          <p className="text-xs font-bold leading-tight truncate">
+                            {versoFile ? versoFile.name : ins.dropBack}
                           </p>
-                          <span className="text-[10px] text-gray-400">
-                            {versoFile ? formatFileSize(versoFile.size) : "Cliquez ou glissez votre fichier ici"}
+                          <span className="text-[10px] text-gray-300">
+                            {versoFile
+                              ? formatFileSize(versoFile.size)
+                              : ins.clickOrDrag}
                           </span>
                         </div>
                       </div>
                       {versoFile ? (
-                        <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/30">
-                            Verso validé ✓
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-[10px] font-mono font-bold text-[#fbb505] bg-[#fbb505]/20 px-2 py-0.5 rounded border border-[#fbb505]/30">
+                            {ins.backValidated}
                           </span>
                           <button
                             type="button"
@@ -605,14 +640,14 @@ export default function InscriptionPage() {
                               e.stopPropagation();
                               setVersoFile(null);
                             }}
-                            className="p-1 text-gray-400 hover:text-red-400"
+                            className="p-1 text-gray-300 hover:text-[#da151f]"
                           >
                             <X className="w-4 h-4" />
                           </button>
                         </div>
                       ) : (
-                        <span className="text-[10px] font-mono text-[var(--color-mj-gold)] underline">
-                          Parcourir...
+                        <span className="text-[10px] font-mono text-[#fbb505] underline shrink-0">
+                          {ins.browse}
                         </span>
                       )}
                     </div>
@@ -621,34 +656,42 @@ export default function InscriptionPage() {
 
                 {/* 3. Selfie en direct Dropzone */}
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-gray-300 block mb-2">
-                    3. Selfie en direct
+                  <label className="text-xs font-bold uppercase tracking-wider text-gray-200 block mb-2">
+                    {ins.liveSelfieLabel}
                   </label>
                   <div
                     onClick={() => selfieInputRef.current?.click()}
-                    className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
+                    className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-2 ${
                       selfieFile
-                        ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
-                        : "border-dashed border-white/20 bg-[#010919]/60 hover:border-[var(--color-mj-gold)]/60 text-gray-300"
+                        ? "border-[#fbb505]/60 bg-[#fbb505]/10 text-[#fbb505]"
+                        : "border-dashed border-white/20 bg-[#102a58]/40 hover:border-[#fbb505]/60 text-gray-200"
                     }`}
                   >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${selfieFile ? "bg-emerald-500/20 text-emerald-400" : "bg-white/10 text-gray-400"}`}>
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div
+                        className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${
+                          selfieFile
+                            ? "bg-[#fbb505]/20 text-[#fbb505]"
+                            : "bg-white/10 text-gray-300"
+                        }`}
+                      >
                         <Camera className="w-5 h-5" />
                       </div>
-                      <div className="text-left">
-                        <p className="text-xs font-bold leading-tight">
-                          {selfieFile ? selfieFile.name : "Joindre ou prendre un selfie"}
+                      <div className="text-left min-w-0">
+                        <p className="text-xs font-bold leading-tight truncate">
+                          {selfieFile ? selfieFile.name : ins.attachSelfie}
                         </p>
-                        <span className="text-[10px] text-gray-400">
-                          {selfieFile ? formatFileSize(selfieFile.size) : "Sélectionner une photo visage nette"}
+                        <span className="text-[10px] text-gray-300">
+                          {selfieFile
+                            ? formatFileSize(selfieFile.size)
+                            : ins.clearFaceNote}
                         </span>
                       </div>
                     </div>
                     {selfieFile ? (
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/30">
-                          Selfie validé ✓
+                      <div className="flex items-center gap-2 shrink-0">
+                        <span className="text-[10px] font-mono font-bold text-[#fbb505] bg-[#fbb505]/20 px-2 py-0.5 rounded border border-[#fbb505]/30">
+                          {ins.selfieValidated}
                         </span>
                         <button
                           type="button"
@@ -656,14 +699,14 @@ export default function InscriptionPage() {
                             e.stopPropagation();
                             setSelfieFile(null);
                           }}
-                          className="p-1 text-gray-400 hover:text-red-400"
+                          className="p-1 text-gray-300 hover:text-[#da151f]"
                         >
                           <X className="w-4 h-4" />
                         </button>
                       </div>
                     ) : (
-                      <span className="text-[10px] font-mono text-[var(--color-mj-gold)] underline">
-                        Parcourir...
+                      <span className="text-[10px] font-mono text-[#fbb505] underline shrink-0">
+                        {ins.browse}
                       </span>
                     )}
                   </div>
@@ -672,50 +715,45 @@ export default function InscriptionPage() {
                 {/* SOUMETTRE Button */}
                 <button
                   type="submit"
-                  className="w-full py-3.5 mt-2 bg-[var(--color-mj-red)] hover:bg-[#a00c17] text-white font-heading font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-lg transition-all cursor-pointer"
+                  className="w-full min-h-[48px] py-3.5 mt-2 bg-[#da151f] hover:bg-[#a00c17] text-white font-heading font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-lg transition-all cursor-pointer"
                 >
-                  SOUMETTRE LES DOCUMENTS
+                  {ins.submitDocsCta}
                 </button>
               </form>
-
             </div>
           </div>
         )}
 
-        {/* STEP 4: VALIDATION KYC (Dark Charter Aesthetics) */}
+        {/* STEP 4: VALIDATION KYC */}
         {currentStep === 4 && (
           <div className="max-w-md mx-auto animate-in fade-in zoom-in-95 duration-300">
-            <div className="bg-[#04112c] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/15 text-center relative overflow-hidden">
-              
-              {/* Confetti Glow Background */}
+            <div className="bg-[#102a58] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/15 text-center relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#fbb505_1px,transparent_1px)] [background-size:16px_16px] opacity-20 pointer-events-none" />
 
-              {/* Big Green Shield Icon */}
-              <div className="relative z-10 w-24 h-24 rounded-full bg-emerald-500/20 border-2 border-emerald-400 text-emerald-400 flex items-center justify-center mx-auto mb-4 shadow-[0_0_40px_rgba(16,185,129,0.5)]">
+              {/* Validated Icon */}
+              <div className="relative z-10 w-24 h-24 rounded-full bg-[#fbb505]/20 border-2 border-[#fbb505] text-[#fbb505] flex items-center justify-center mx-auto mb-4 shadow-[0_0_40px_rgba(251,181,5,0.35)]">
                 <CheckCircle2 className="w-14 h-14" />
               </div>
 
-              <h2 className="relative z-10 font-heading font-black text-2xl sm:text-3xl text-emerald-400 uppercase tracking-tight mb-2">
-                Félicitations !
+              <h2 className="relative z-10 font-heading font-black text-2xl sm:text-3xl text-[#fbb505] uppercase tracking-tight mb-2">
+                {ins.congratsTitle}
               </h2>
               <p className="relative z-10 text-sm text-gray-200 mb-6">
-                Votre identité a été vérifiée avec succès.
+                {ins.identityVerifiedSub}
               </p>
 
-              {/* Benefits Checklist Box - Dark Container */}
-              <div className="relative z-10 bg-[#061430] border border-white/10 rounded-2xl p-5 text-left space-y-3 mb-6">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--color-mj-gold)] block mb-1">
-                  Vous avez désormais accès à :
+              {/* Benefits Checklist Box */}
+              <div className="relative z-10 bg-[#021a3c] border border-white/10 rounded-2xl p-5 text-left space-y-3 mb-6">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#fbb505] block mb-1">
+                  {ins.accessListTitle}
                 </span>
 
-                {[
-                  "Achat illimité de tickets",
-                  "Retrait rapide de vos gains",
-                  "Offres exclusives",
-                  "Programme de fidélité",
-                ].map((b) => (
-                  <div key={b} className="flex items-center gap-3 text-xs font-bold text-white">
-                    <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-black shrink-0">
+                {ins.benefits.map((b) => (
+                  <div
+                    key={b}
+                    className="flex items-center gap-3 text-xs font-bold text-white"
+                  >
+                    <div className="w-5 h-5 rounded-full bg-[#fbb505] text-[#021a3c] flex items-center justify-center text-[10px] font-black shrink-0">
                       ✓
                     </div>
                     <span>{b}</span>
@@ -725,59 +763,65 @@ export default function InscriptionPage() {
 
               {/* COMMENCER À JOUER CTA */}
               <button
+                type="button"
                 onClick={() => setCurrentStep(5)}
-                className="relative z-10 w-full py-3.5 bg-[var(--color-mj-red)] hover:bg-[#a00c17] text-white font-heading font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-xl transition-all cursor-pointer"
+                className="relative z-10 w-full min-h-[48px] py-3.5 bg-[#da151f] hover:bg-[#a00c17] text-white font-heading font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-xl transition-all cursor-pointer"
               >
-                COMMENCER À JOUER
+                {ins.startPlayingCta}
               </button>
-
             </div>
           </div>
         )}
 
-        {/* STEP 5: MON PORTEFEUILLE (Dark Charter Aesthetics) */}
+        {/* STEP 5: MON PORTEFEUILLE */}
         {currentStep === 5 && (
           <div className="max-w-md mx-auto animate-in fade-in zoom-in-95 duration-300 space-y-6">
-            <div className="bg-[#04112c] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/15 relative overflow-hidden">
-              
+            <div className="bg-[#102a58] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/15 relative overflow-hidden">
               {/* Header */}
               <div className="flex items-center justify-between mb-6 pb-3 border-b border-white/10">
                 <button
+                  type="button"
                   onClick={() => setCurrentStep(4)}
-                  className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-white transition-colors"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/15 text-white transition-colors cursor-pointer"
                 >
                   <ArrowLeft className="w-5 h-5" />
                 </button>
                 <span className="font-heading font-bold text-sm uppercase text-white tracking-wide">
-                  Mon portefeuille
+                  {ins.myWalletHeader}
                 </span>
                 <div className="relative">
-                  <Bell className="w-5 h-5 text-[var(--color-mj-gold)]" />
-                  <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-red-500" />
+                  <Bell className="w-5 h-5 text-[#fbb505]" />
+                  <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#da151f]" />
                 </div>
               </div>
 
               {/* Red Solde Principal Card */}
-              <div className="p-5 rounded-2xl bg-gradient-to-br from-[#da151f] via-[#c01019] to-[#8d0a13] text-white shadow-xl border border-red-500/50 mb-6">
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-[#da151f] to-[#a00c17] text-white shadow-xl border border-white/20 mb-6">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-white/80">
-                    SOLDE PRINCIPAL
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-white/85">
+                    {ins.mainBalance}
                   </span>
-                  <Eye className="w-4 h-4 text-white/80" />
+                  <Eye className="w-4 h-4 text-white/85" />
                 </div>
                 <div className="font-mono font-black text-3xl text-white mb-4 tracking-tight">
                   125 750 FCFA
                 </div>
 
                 <div className="grid grid-cols-2 gap-2.5">
-                  <Link href="/tickets">
-                    <button className="w-full py-2.5 bg-white text-[#da151f] hover:bg-gray-100 font-heading font-black text-xs uppercase tracking-wider rounded-full shadow-md transition-all cursor-pointer">
-                      RECHARGER
+                  <Link href="/transactions">
+                    <button
+                      type="button"
+                      className="w-full min-h-[44px] py-2.5 bg-white text-[#da151f] hover:bg-gray-100 font-heading font-black text-xs uppercase tracking-wider rounded-full shadow-md transition-all cursor-pointer"
+                    >
+                      {ins.topUp}
                     </button>
                   </Link>
-                  <Link href="/tickets">
-                    <button className="w-full py-2.5 bg-black/35 hover:bg-black/50 text-white font-heading font-extrabold text-xs uppercase tracking-wider rounded-full border border-white/20 transition-all cursor-pointer">
-                      RETIRER
+                  <Link href="/transactions">
+                    <button
+                      type="button"
+                      className="w-full min-h-[44px] py-2.5 bg-[#021a3c]/60 hover:bg-[#021a3c]/80 text-white font-heading font-extrabold text-xs uppercase tracking-wider rounded-full border border-white/20 transition-all cursor-pointer"
+                    >
+                      {ins.withdraw}
                     </button>
                   </Link>
                 </div>
@@ -785,23 +829,44 @@ export default function InscriptionPage() {
 
               {/* Méthodes de paiement */}
               <div className="space-y-2 mb-6">
-                <h4 className="text-xs font-heading font-bold uppercase tracking-wider text-gray-400 px-1">
-                  Méthodes de paiement
+                <h4 className="text-xs font-heading font-bold uppercase tracking-wider text-gray-300 px-1">
+                  {ins.paymentMethodsTitle}
                 </h4>
                 <div className="space-y-2">
                   {[
-                    { name: "Wave", badge: "Connecté", color: "text-emerald-400 bg-emerald-500/15 border-emerald-500/30" },
-                    { name: "Orange Money", badge: "Connecté", color: "text-emerald-400 bg-emerald-500/15 border-emerald-500/30" },
-                    { name: "Free Money", badge: "Connecté", color: "text-emerald-400 bg-emerald-500/15 border-emerald-500/30" },
-                    { name: "Carte bancaire (VISA)", badge: "VISA / Mastercard", color: "text-blue-400 bg-blue-500/15 border-blue-500/30" },
+                    {
+                      name: "Wave",
+                      badge: ins.connectedBadge,
+                      color:
+                        "text-[#fbb505] bg-[#fbb505]/15 border-[#fbb505]/30",
+                    },
+                    {
+                      name: "Orange Money",
+                      badge: ins.connectedBadge,
+                      color:
+                        "text-[#fbb505] bg-[#fbb505]/15 border-[#fbb505]/30",
+                    },
+                    {
+                      name: "Free Money",
+                      badge: ins.connectedBadge,
+                      color:
+                        "text-[#fbb505] bg-[#fbb505]/15 border-[#fbb505]/30",
+                    },
+                    {
+                      name: ins.bankCardLabel,
+                      badge: "VISA / Mastercard",
+                      color: "text-white bg-white/10 border-white/20",
+                    },
                   ].map((m) => (
                     <div
                       key={m.name}
-                      className="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/10 text-xs font-bold"
+                      className="flex items-center justify-between p-3 rounded-2xl bg-[#021a3c] border border-white/10 text-xs font-bold"
                     >
                       <span>{m.name}</span>
                       <div className="flex items-center gap-2">
-                        <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${m.color}`}>
+                        <span
+                          className={`text-[10px] font-mono px-2 py-0.5 rounded border ${m.color}`}
+                        >
                           {m.badge}
                         </span>
                         <ChevronRight className="w-4 h-4 text-gray-400" />
@@ -814,47 +879,58 @@ export default function InscriptionPage() {
               {/* Historique des transactions */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between px-1">
-                  <h4 className="text-xs font-heading font-bold uppercase tracking-wider text-gray-400">
-                    Historique des transactions
+                  <h4 className="text-xs font-heading font-bold uppercase tracking-wider text-gray-300">
+                    {ins.txHistoryTitle}
                   </h4>
-                  <span className="text-[10px] font-mono text-[var(--color-mj-gold)] cursor-pointer hover:underline">
-                    Voir tout
-                  </span>
+                  <Link
+                    href="/transactions"
+                    className="text-[10px] font-mono text-[#fbb505] hover:underline"
+                  >
+                    {ins.seeAll}
+                  </Link>
                 </div>
 
                 <div className="space-y-2 text-xs">
-                  {[
-                    { title: "Achat ticket Salaire Garanti", date: "02 Juin 2026 à 14:30", amount: "-2 000 FCFA", color: "text-red-400" },
-                    { title: "Recharge - Wave", date: "02 Juin 2026 à 14:25", amount: "+10 000 FCFA", color: "text-emerald-400" },
-                    { title: "Gain - Tirage Maison", date: "30 Mai 2026 à 16:15", amount: "+150 000 FCFA", color: "text-emerald-400" },
-                  ].map((tx) => (
-                    <div key={tx.title} className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5">
+                  {ins.demoTxs.map((tx) => (
+                    <div
+                      key={tx.title}
+                      className="flex items-center justify-between p-3 rounded-xl bg-[#021a3c] border border-white/10 gap-2"
+                    >
                       <div>
-                        <p className="font-bold text-white leading-tight">{tx.title}</p>
-                        <span className="text-[9px] font-mono text-gray-400">{tx.date}</span>
+                        <p className="font-bold text-white leading-tight">
+                          {tx.title}
+                        </p>
+                        <span className="text-[9px] font-mono text-gray-300">
+                          {tx.date}
+                        </span>
                       </div>
-                      <span className={`font-mono font-bold ${tx.color}`}>{tx.amount}</span>
+                      <span
+                        className={`font-mono font-bold shrink-0 ${
+                          tx.positive ? "text-[#fbb505]" : "text-[#da151f]"
+                        }`}
+                      >
+                        {tx.amount}
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Go to games button */}
-              <div className="pt-6 border-t border-white/10">
+              <div className="pt-6 border-t border-white/10 mt-6">
                 <Link href="/#jeux">
-                  <button className="w-full py-3.5 bg-[var(--color-mj-gold)] hover:bg-yellow-400 dark:hover:bg-amber-500 text-black font-heading font-black text-xs uppercase tracking-widest rounded-xl shadow-lg transition-all cursor-pointer">
-                    ACCÉDER À NOS JEUX
+                  <button
+                    type="button"
+                    className="w-full min-h-[48px] py-3.5 bg-[#fbb505] hover:opacity-90 text-[#021a3c] font-heading font-black text-xs uppercase tracking-widest rounded-xl shadow-lg transition-all cursor-pointer"
+                  >
+                    {ins.goToGamesCta}
                   </button>
                 </Link>
               </div>
-
             </div>
           </div>
         )}
-
       </div>
     </div>
   );
 }
-
-

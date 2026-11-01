@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from 'react';
 import { NotificationItem } from '@/components/ui/NotificationItem';
@@ -6,17 +6,22 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { fetchNotifications, type AppNotification } from '@/lib/mockData';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, CheckCheck } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export default function NotificationsPage() {
+  const { locale, t } = useLanguage();
   const [notifications, setNotifications] = useState<AppNotification[]>([]);
+  const [readIds, setReadIds] = useState<Set<string>>(new Set());
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function loadData() {
       setIsLoading(true);
       try {
-        const data = await fetchNotifications();
-        setNotifications(data);
+        const data = await fetchNotifications(locale);
+        setNotifications(
+          data.map((n) => (readIds.has(n.id) ? { ...n, isRead: true } : n))
+        );
       } catch (error) {
         console.error("Failed to load notifications", error);
       } finally {
@@ -24,41 +29,47 @@ export default function NotificationsPage() {
       }
     }
     loadData();
-  }, []);
+  }, [locale, readIds]);
 
   const handleMarkAsRead = (id: string) => {
+    setReadIds((prev) => new Set(prev).add(id));
     setNotifications(prev => prev.map(n => n.id === id ? { ...n, isRead: true } : n));
   };
 
   const handleMarkAllAsRead = () => {
+    setReadIds((prev) => {
+      const next = new Set(prev);
+      notifications.forEach((n) => next.add(n.id));
+      return next;
+    });
     setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
   };
 
   const unreadCount = notifications.filter(n => !n.isRead).length;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--bg-default)] text-[var(--text-primary)] pt-12 pb-32">
+    <div className="min-h-screen flex flex-col bg-[var(--bg-default)] text-[var(--text-primary)] pt-24 pb-32">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold font-heading mb-2 text-[var(--text-primary)] dark:text-white flex items-center gap-4">
-              Notifications
+              {t.notifications.title}
               {unreadCount > 0 && (
                 <span className="bg-[var(--color-mj-red)] text-white text-lg px-3 py-1 rounded-full shadow-lg">
                   {unreadCount}
                 </span>
               )}
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 text-lg">Suivez votre actualité et vos opportunités.</p>
+            <p className="text-gray-500 dark:text-gray-400 text-lg">{t.notifications.pageSubtitle}</p>
           </div>
 
           {unreadCount > 0 && (
             <button 
               onClick={handleMarkAllAsRead}
-              className="text-sm font-semibold text-[var(--color-mj-blue)] hover:text-[var(--color-mj-gold)] transition-colors flex items-center gap-2 bg-white dark:bg-white/5 px-4 py-2 rounded-full shadow-sm border border-gray-100 dark:border-white/10"
+              className="text-sm font-semibold text-[var(--color-mj-blue)] dark:text-[var(--color-mj-gold)] hover:opacity-80 transition-colors flex items-center gap-2 bg-white dark:bg-white/5 px-4 py-2 rounded-full shadow-sm border border-gray-100 dark:border-white/10"
             >
               <CheckCheck className="w-4 h-4" />
-              Tout marquer comme lu
+              {t.notifications.markAllRead}
             </button>
           )}
         </div>
@@ -83,8 +94,8 @@ export default function NotificationsPage() {
           ) : (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               <EmptyState 
-                title="Aucune notification" 
-                message="Vous êtes à jour ! Dès qu'une nouveauté concernant vos tickets ou nos jeux sera disponible, vous la trouverez ici."
+                title={t.notifications.emptyPageTitle} 
+                message={t.notifications.emptyPageMessage}
                 icon={<Bell className="w-10 h-10 text-gray-400" />}
               />
             </motion.div>

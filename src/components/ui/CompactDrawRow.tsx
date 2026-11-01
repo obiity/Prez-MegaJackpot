@@ -3,18 +3,22 @@
 import { motion } from "framer-motion";
 import { Trophy, MapPin, User, Home, Briefcase, Shield } from "lucide-react";
 import type { DrawResult } from "@/lib/mockData";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface CompactDrawRowProps {
   result: DrawResult;
 }
 
 export function CompactDrawRow({ result }: CompactDrawRowProps) {
+  const { t } = useLanguage();
   const isMaison = result.productId === 'maison';
   const isBusiness = result.productId === 'business';
   
   const accentColor = isMaison ? 'var(--color-mj-gold)' : isBusiness ? 'var(--color-mj-red)' : 'var(--color-mj-blue)';
   const Icon = isMaison ? Home : isBusiness ? Briefcase : Shield;
-  const isCurrentUser = result.winnerName.includes("Votre Ticket");
+  const isCurrentUser =
+    result.winnerName.includes("Votre Ticket") ||
+    result.winnerName.includes("Your Ticket");
 
   return (
     <motion.div
@@ -23,9 +27,8 @@ export function CompactDrawRow({ result }: CompactDrawRowProps) {
       whileHover={{ scale: 1.015, x: 4 }}
       viewport={{ once: true, margin: "-20px" }}
       transition={{ duration: 0.3, type: "spring", stiffness: 400, damping: 25 }}
-      className="group relative bg-white dark:bg-[var(--bg-surface)] hover:bg-gray-50 dark:hover:bg-[#07152b] transition-all duration-300 rounded-xl border border-gray-100 dark:border-white/10 hover:border-[var(--color-mj-gold)]/50 shadow-sm hover:shadow-xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 cursor-pointer overflow-hidden"
+      className="group relative bg-white dark:bg-[var(--bg-surface)] hover:bg-gray-50 dark:hover:bg-[#102a58]/40 transition-all duration-300 rounded-xl border border-gray-100 dark:border-white/10 hover:border-[var(--color-mj-gold)]/50 shadow-sm hover:shadow-xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 cursor-pointer overflow-hidden"
     >
-      {/* Subtle Light Sweep Flare */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 dark:via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none" />
 
       {/* Left: Date & Product */}
@@ -37,7 +40,7 @@ export function CompactDrawRow({ result }: CompactDrawRowProps) {
           <Icon className="w-5 h-5" />
         </div>
         <div>
-          <p className="text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-gray-400 mb-0.5">{result.drawDate}</p>
+          <p className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-0.5">{result.drawDate}</p>
           <h4 className="font-heading font-bold text-[var(--text-primary)] dark:text-white group-hover:text-[var(--color-mj-gold)] transition-colors">
             {result.productName}
           </h4>
@@ -46,7 +49,7 @@ export function CompactDrawRow({ result }: CompactDrawRowProps) {
 
       {/* Center: Ticket Info */}
       <div className="flex-1 flex flex-col sm:items-center relative z-10">
-        <span className="text-[10px] uppercase font-bold tracking-widest text-gray-400 mb-0.5">Ticket Gagnant</span>
+        <span className="text-[10px] uppercase font-bold tracking-widest text-gray-400 mb-0.5">{t.resultsPage.winningTicket}</span>
         <span className="font-mono text-sm font-bold text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-black/40 px-3 py-1 rounded-md border border-transparent group-hover:border-[var(--color-mj-gold)]/30 transition-all">
           {result.winningSerialNumber}
         </span>

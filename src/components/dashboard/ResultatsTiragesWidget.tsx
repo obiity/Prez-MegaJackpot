@@ -3,21 +3,24 @@
 import React from "react";
 import Link from "next/link";
 import { Trophy, ArrowUpRight, Home, Wallet, Plane } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function ResultatsTiragesWidget() {
+  const { t } = useLanguage();
+
   return (
-    <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#da151f] via-[#a00c17] to-[#60050c] dark:from-[#0c1a3a] dark:via-[#061430] dark:to-[#04112c] border border-amber-400/40 dark:border-white/15 text-white shadow-xl relative overflow-hidden transition-colors">
+    <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#da151f] to-[#a00c17] dark:from-[#102a58] dark:to-[#021a3c] border border-[#fbb505]/40 dark:border-white/15 text-white shadow-xl relative overflow-hidden transition-colors">
       
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h3 className="font-heading font-extrabold text-base uppercase text-white tracking-wide flex items-center gap-2">
-          <Trophy className="w-5 h-5 text-[var(--color-mj-gold)]" /> RÉSULTATS DES TIRAGES
+          <Trophy className="w-5 h-5 text-[var(--color-mj-gold)]" /> {t.resultsWidget.title}
         </h3>
         <Link
           href="/resultats"
           className="text-[10px] text-[var(--color-mj-gold)] font-mono hover:underline flex items-center gap-1 font-bold"
         >
-          Voir tout <ArrowUpRight className="w-3 h-3" />
+          {t.resultsWidget.seeAll} <ArrowUpRight className="w-3 h-3" />
         </Link>
       </div>
 
@@ -26,12 +29,11 @@ export function ResultatsTiragesWidget() {
         
         {/* 1. LATEST FEATURED GRAND RESULT: OPPORTUNITÉ BUSINESS */}
         <div className="relative group">
-          <div className="absolute -left-[21px] top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-[var(--color-mj-red)] border-2 border-white dark:border-[#04112c] shadow-md z-10 transition-transform duration-300 group-hover:scale-125 flex items-center justify-center">
+          <div className="absolute -left-[21px] top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-[var(--color-mj-red)] border-2 border-white dark:border-[#021a3c] shadow-md z-10 transition-transform duration-300 group-hover:scale-125 flex items-center justify-center">
             <span className="w-1.5 h-1.5 rounded-full bg-black animate-ping" />
           </div>
 
           <div className="relative overflow-hidden p-4 rounded-2xl border border-white/20 dark:border-white/15 hover:border-[var(--color-mj-red)]/60 transition-all shadow-md min-h-[160px] sm:min-h-[180px] flex flex-col justify-between">
-            {/* Same background image as the Résultats page's Opportunité Business highlight */}
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat group-hover:scale-105 transition-transform duration-500 will-change-transform backface-hidden"
               style={{ backgroundImage: "url('/hero_victory_dream.jpg')" }}
@@ -45,8 +47,8 @@ export function ResultatsTiragesWidget() {
                   <Plane className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="font-heading font-extrabold text-xs text-white leading-none">Opportunité Business</h4>
-                  <span className="text-[9px] font-mono text-gray-300 block mt-0.5">Dubaï 2026 • Hier à 20h00</span>
+                  <h4 className="font-heading font-extrabold text-xs text-white leading-none">{t.resultsWidget.businessTitle}</h4>
+                  <span className="text-[9px] font-mono text-gray-300 block mt-0.5">{t.resultsWidget.businessSub}</span>
                 </div>
               </div>
               <span className="font-mono text-[9px] font-extrabold text-white bg-[var(--color-mj-red)] px-2.5 py-0.5 rounded-full shadow-sm">
@@ -55,9 +57,9 @@ export function ResultatsTiragesWidget() {
             </div>
 
             <div className="relative z-10 pt-2 border-t border-white/20 flex items-center text-xs">
-              <div className="flex items-center gap-1 font-extrabold text-[var(--color-mj-red)]">
+              <div className="flex items-center gap-1 font-extrabold text-[var(--color-mj-gold)]">
                 <Trophy className="w-3.5 h-3.5" />
-                <span>15 Millions FCFA + Voyage Dubaï</span>
+                <span>{t.resultsWidget.businessPrize}</span>
               </div>
             </div>
           </div>
@@ -65,7 +67,7 @@ export function ResultatsTiragesWidget() {
 
         {/* 2. SECONDARY RESULT: OPPORTUNITÉ MAISON */}
         <div className="relative group">
-          <div className="absolute -left-[21px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-amber-300 border-2 border-white dark:border-[#04112c] shadow-sm z-10 transition-transform duration-300 group-hover:scale-150 flex items-center justify-center">
+          <div className="absolute -left-[21px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[var(--color-mj-gold)] border-2 border-white dark:border-[#021a3c] shadow-sm z-10 transition-transform duration-300 group-hover:scale-150 flex items-center justify-center">
             <span className="animate-ping absolute inset-0 rounded-full bg-[var(--color-mj-gold)] opacity-0 group-hover:opacity-100" />
           </div>
 
@@ -76,8 +78,8 @@ export function ResultatsTiragesWidget() {
                   <Home className="w-3.5 h-3.5" />
                 </div>
                 <div>
-                  <h4 className="font-heading font-bold text-xs text-white leading-none">Opportunité Maison</h4>
-                  <span className="text-[9px] font-mono text-red-100 dark:text-gray-400 block mt-0.5">15 Déc 2025</span>
+                  <h4 className="font-heading font-bold text-xs text-white leading-none">{t.resultsWidget.maisonTitle}</h4>
+                  <span className="text-[9px] font-mono text-red-100 dark:text-gray-400 block mt-0.5">{t.resultsWidget.maisonDate}</span>
                 </div>
               </div>
               <span className="font-mono text-[9px] font-bold text-[var(--color-mj-gold)] bg-black/40 px-2 py-0.5 rounded border border-amber-300/30">
@@ -88,7 +90,7 @@ export function ResultatsTiragesWidget() {
             <div className="pt-2 border-t border-white/15 dark:border-white/10 flex items-center justify-between text-[11px]">
               <div className="flex items-center gap-1 font-bold text-[var(--color-mj-gold)]">
                 <Trophy className="w-3 h-3" />
-                <span>Villa 100M FCFA</span>
+                <span>{t.resultsWidget.maisonPrize}</span>
               </div>
               <div className="flex items-center gap-1 text-[10px] text-white font-mono">
                 <span>Mamadou S.</span>
@@ -101,7 +103,7 @@ export function ResultatsTiragesWidget() {
 
         {/* 3. TERTIARY RESULT: OPPORTUNITÉ FAMILLE */}
         <div className="relative group">
-          <div className="absolute -left-[21px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-blue-400 border-2 border-white dark:border-[#04112c] shadow-sm z-10 transition-transform duration-300 group-hover:scale-150 flex items-center justify-center">
+          <div className="absolute -left-[21px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-blue-400 border-2 border-white dark:border-[#021a3c] shadow-sm z-10 transition-transform duration-300 group-hover:scale-150 flex items-center justify-center">
             <span className="animate-ping absolute inset-0 rounded-full bg-blue-400 opacity-0 group-hover:opacity-100" />
           </div>
 
@@ -112,8 +114,8 @@ export function ResultatsTiragesWidget() {
                   <Wallet className="w-3.5 h-3.5" />
                 </div>
                 <div>
-                  <h4 className="font-heading font-bold text-xs text-white leading-none">Opportunité Famille</h4>
-                  <span className="text-[9px] font-mono text-red-100 dark:text-gray-400 block mt-0.5">20 Fév 2026</span>
+                  <h4 className="font-heading font-bold text-xs text-white leading-none">{t.resultsWidget.familleTitle}</h4>
+                  <span className="text-[9px] font-mono text-red-100 dark:text-gray-400 block mt-0.5">{t.resultsWidget.familleDate}</span>
                 </div>
               </div>
               <span className="font-mono text-[9px] font-bold text-blue-200 bg-black/40 px-2 py-0.5 rounded border border-blue-300/30">
@@ -124,7 +126,7 @@ export function ResultatsTiragesWidget() {
             <div className="pt-2 border-t border-white/15 dark:border-white/10 flex items-center justify-between text-[11px]">
               <div className="flex items-center gap-1 font-bold text-blue-200">
                 <Trophy className="w-3 h-3" />
-                <span>2M FCFA/mois (36 mois)</span>
+                <span>{t.resultsWidget.famillePrize}</span>
               </div>
               <div className="flex items-center gap-1 text-[10px] text-white font-mono">
                 <span>Cheikh S.</span>
@@ -140,8 +142,8 @@ export function ResultatsTiragesWidget() {
       {/* Full Results CTA */}
       <div className="mt-6">
         <Link href="/resultats">
-          <button className="w-full py-3 bg-black/40 hover:bg-black/60 border border-amber-400/50 text-[var(--color-mj-gold)] font-heading font-bold text-sm uppercase tracking-wider rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md">
-            CONSULTER TOUS LES RÉSULTATS
+          <button className="w-full py-3 bg-black/40 hover:bg-black/60 border border-[#fbb505]/50 text-[var(--color-mj-gold)] font-heading font-bold text-sm uppercase tracking-wider rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md">
+            {t.resultsWidget.ctaAll}
           </button>
         </Link>
       </div>

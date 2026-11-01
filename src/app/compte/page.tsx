@@ -1,25 +1,23 @@
 "use client";
 
 import { useState } from 'react';
-import { User, Lock, Mail, HeadphonesIcon, Wallet, Eye, EyeOff, PlusCircle, ArrowUpRight, History, CreditCard, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { User, Lock, Mail, HeadphonesIcon, Wallet, Eye, EyeOff, PlusCircle, ArrowUpRight, History, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { toast } from 'sonner';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export default function ComptePage() {
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showBalance, setShowBalance] = useState(true);
 
-  const transactions = [
-    { id: 'TX-9482', type: 'Rechargement Wave', amount: '+ 25 000 FCFA', status: 'Réussi', date: '01 Août 2026', positive: true },
-    { id: 'TX-9321', type: 'Achat Ticket Tirage Maison', amount: '- 5 000 FCFA', status: 'Réussi', date: '28 Juillet 2026', positive: false },
-    { id: 'TX-8910', type: 'Gain Lot Secondaire (Bonus)', amount: '+ 10 000 FCFA', status: 'Réussi', date: '15 Juillet 2026', positive: true },
-  ];
+  const transactions = t.comptePage.txList;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Connexion réussie à votre espace !");
+    toast.success(t.comptePage.toastLoginSuccess);
   };
 
   return (
@@ -28,8 +26,8 @@ export default function ComptePage() {
         
         {/* Page Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-heading font-black uppercase tracking-wide mb-2">Mon Espace</h1>
-          <p className="text-sm text-[var(--text-secondary)]">Gérez votre portefeuille, vos tickets et votre compte MEGA JACKPOT</p>
+          <h1 className="text-3xl font-heading font-black uppercase tracking-wide mb-2">{t.comptePage.title}</h1>
+          <p className="text-sm text-[var(--text-secondary)]">{t.comptePage.subtitle}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -38,26 +36,26 @@ export default function ComptePage() {
           <div className="md:col-span-7 space-y-6">
             
             {/* MON PORTEFEUILLE CARD */}
-            <div className="bg-gradient-to-br from-[#0c1836] via-[#051128] to-[#010919] rounded-3xl p-6 sm:p-8 text-white shadow-2xl border border-white/10 relative overflow-hidden text-center">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="bg-gradient-to-br from-[#102a58] to-[#021a3c] rounded-3xl p-6 sm:p-8 text-white shadow-2xl border border-white/10 relative overflow-hidden text-center">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#da151f]/10 rounded-full blur-3xl pointer-events-none" />
 
               <div className="relative z-10 flex flex-col items-center">
                 <button
                   onClick={() => setShowBalance(!showBalance)}
                   className="absolute top-0 right-0 p-2 text-gray-300 hover:text-white transition-colors rounded-lg bg-white/5 hover:bg-white/10"
-                  title="Masquer/Afficher le solde"
+                  title={t.comptePage.toggleBalanceTitle}
                 >
                   {showBalance ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                 </button>
 
-                <div className="w-10 h-10 rounded-xl bg-[var(--color-mj-gold)] text-black flex items-center justify-center font-bold shadow-md mb-2">
+                <div className="w-10 h-10 rounded-xl bg-[var(--color-mj-gold)] text-[#021a3c] flex items-center justify-center font-bold shadow-md mb-2">
                   <Wallet className="w-5 h-5" />
                 </div>
-                <h2 className="font-heading font-bold text-lg text-white uppercase tracking-wider">Mon Portefeuille</h2>
+                <h2 className="font-heading font-bold text-lg text-white uppercase tracking-wider">{t.comptePage.walletTitle}</h2>
 
                 {/* Balance Display */}
                 <div className="my-6">
-                  <span className="text-xs font-mono text-gray-400 uppercase tracking-widest block mb-1">Solde disponible</span>
+                  <span className="text-xs font-mono text-gray-400 uppercase tracking-widest block mb-1">{t.comptePage.availableBalance}</span>
                   <div className="font-mono font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
                     {showBalance ? "125 750 FCFA" : "•••••••• FCFA"}
                   </div>
@@ -66,16 +64,16 @@ export default function ComptePage() {
                 {/* Action Buttons */}
                 <div className="grid grid-cols-2 gap-3 w-full">
                   <button
-                    onClick={() => toast.info("Ouverture du module de rechargement...")}
-                    className="py-3 bg-[var(--color-mj-red)] hover:bg-red-600 text-white font-heading font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    onClick={() => toast.info(t.comptePage.toastTopUp)}
+                    className="py-3 bg-[var(--color-mj-red)] hover:bg-[var(--color-mj-red-dark)] text-white font-heading font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <PlusCircle className="w-4 h-4" /> RECHARGER
+                    <PlusCircle className="w-4 h-4" /> {t.comptePage.topUp}
                   </button>
                   <button
-                    onClick={() => toast.info("Ouverture du module de retrait...")}
+                    onClick={() => toast.info(t.comptePage.toastWithdraw)}
                     className="py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-heading font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <ArrowUpRight className="w-4 h-4" /> RETIRER
+                    <ArrowUpRight className="w-4 h-4" /> {t.comptePage.withdraw}
                   </button>
                 </div>
               </div>
@@ -85,10 +83,10 @@ export default function ComptePage() {
             <div className="bg-white dark:bg-[var(--bg-surface)] rounded-3xl p-6 shadow-xl border border-gray-100 dark:border-white/5 text-left">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-heading font-bold text-sm uppercase tracking-wider flex items-center gap-2">
-                  <History className="w-4 h-4 text-[var(--color-mj-gold)]" /> Dernières Transactions
+                  <History className="w-4 h-4 text-[var(--color-mj-gold)]" /> {t.comptePage.recentTxTitle}
                 </h3>
-                <button onClick={() => toast.info("Historique complet des transactions...")} className="text-xs font-mono text-red-500 hover:underline">
-                  Voir tout
+                <button onClick={() => toast.info(t.comptePage.toastAllTx)} className="text-xs font-mono text-[var(--color-mj-red)] hover:underline">
+                  {t.comptePage.seeAll}
                 </button>
               </div>
 
@@ -96,7 +94,7 @@ export default function ComptePage() {
                 {transactions.map((tx) => (
                   <div key={tx.id} className="flex items-center justify-between p-3 rounded-2xl bg-gray-50 dark:bg-black/20 border border-gray-100 dark:border-white/5 text-xs">
                     <div className="flex items-center gap-3">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${tx.positive ? 'bg-emerald-500/10 text-emerald-500' : 'bg-red-500/10 text-red-500'}`}>
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${tx.positive ? 'bg-emerald-500/10 text-emerald-500' : 'bg-[#da151f]/10 text-[var(--color-mj-red)]'}`}>
                         {tx.positive ? '+' : '-'}
                       </div>
                       <div>
@@ -108,7 +106,7 @@ export default function ComptePage() {
                       <span className={`font-mono font-bold block ${tx.positive ? 'text-emerald-500' : 'text-[var(--text-primary)] dark:text-white'}`}>
                         {tx.amount}
                       </span>
-                      <span className="text-[9px] text-emerald-500 font-medium">✓ {tx.status}</span>
+                      <span className="text-[9px] text-emerald-500 font-medium">✓ {t.comptePage.statusSuccess}</span>
                     </div>
                   </div>
                 ))}
@@ -126,9 +124,9 @@ export default function ComptePage() {
                 <User className="w-8 h-8" />
               </div>
               
-              <h2 className="text-xl font-bold font-heading mb-1 uppercase tracking-wide">Se connecter</h2>
+              <h2 className="text-xl font-bold font-heading mb-1 uppercase tracking-wide">{t.comptePage.loginTitle}</h2>
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-6">
-                Accédez à votre compte joueur
+                {t.comptePage.loginSubtitle}
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-3 text-left">
@@ -141,7 +139,7 @@ export default function ComptePage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="block w-full pl-9 pr-3 py-2.5 border border-gray-200 dark:border-white/10 rounded-xl bg-gray-50 dark:bg-black/20 text-[var(--text-primary)] dark:text-white text-xs focus:ring-2 focus:ring-[var(--color-mj-gold)] outline-none" 
-                    placeholder="Adresse email" 
+                    placeholder={t.comptePage.emailPlaceholder} 
                     required
                   />
                 </div>
@@ -155,23 +153,23 @@ export default function ComptePage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="block w-full pl-9 pr-3 py-2.5 border border-gray-200 dark:border-white/10 rounded-xl bg-gray-50 dark:bg-black/20 text-[var(--text-primary)] dark:text-white text-xs focus:ring-2 focus:ring-[var(--color-mj-gold)] outline-none" 
-                    placeholder="Mot de passe" 
+                    placeholder={t.comptePage.passwordPlaceholder} 
                     required
                   />
                 </div>
 
                 <Button type="submit" variant="secondary" className="w-full h-10 text-xs rounded-xl font-heading uppercase tracking-widest hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer">
-                  Connexion
+                  {t.comptePage.loginBtn}
                 </Button>
               </form>
               
               <div className="mt-6 pt-4 border-t border-gray-100 dark:border-white/10 text-center">
                 <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
-                  Pas encore de compte ?
+                  {t.comptePage.noAccountYet}
                 </p>
                 <Link href="/inscription" className="w-full block">
                   <Button variant="default" className="w-full h-10 text-xs rounded-xl font-heading uppercase tracking-widest shadow-md hover:scale-105 transition-all cursor-pointer">
-                    S'inscrire
+                    {t.comptePage.signUpBtn}
                   </Button>
                 </Link>
               </div>
@@ -182,15 +180,15 @@ export default function ComptePage() {
               <Link href="/support" className="group block">
                 <div className="p-4 rounded-2xl bg-gradient-to-r from-[var(--color-mj-gold)]/10 via-[var(--color-mj-gold)]/20 to-[var(--color-mj-gold)]/10 border border-[var(--color-mj-gold)]/50 hover:border-[var(--color-mj-gold)] transition-all flex items-center justify-between shadow-sm">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[var(--color-mj-gold)] text-black flex items-center justify-center shrink-0 font-bold shadow-md">
+                    <div className="w-10 h-10 rounded-xl bg-[var(--color-mj-gold)] text-[#021a3c] flex items-center justify-center shrink-0 font-bold shadow-md">
                       <HeadphonesIcon className="w-5 h-5" />
                     </div>
                     <div>
                       <h4 className="font-heading font-bold text-sm text-[var(--text-primary)] dark:text-white group-hover:text-[var(--color-mj-gold)] transition-colors">
-                        Aide & Support 24/7
+                        {t.comptePage.supportTitle}
                       </h4>
                       <p className="text-xs text-[var(--text-secondary)]">
-                        Besoin d&apos;assistance ? Équipe réactive 7j/7
+                        {t.comptePage.supportSub}
                       </p>
                     </div>
                   </div>

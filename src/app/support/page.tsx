@@ -11,7 +11,6 @@ import {
   HelpCircle,
   Search,
   ChevronRight,
-  ChevronDown,
   Clock,
   ShieldCheck,
   BookOpen,
@@ -23,52 +22,17 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { toast } from "sonner";
-
-interface FAQItem {
-  id: string;
-  question: string;
-  answer: string;
-}
-
-const FAQ_LIST: FAQItem[] = [
-  {
-    id: "faq-1",
-    question: "Comment acheter un ticket ?",
-    answer:
-      "Sélectionnez le jeu de votre choix (Maison, Business, Famille), choisissez vos numéros fétiches ou laissez le système le faire pour vous, puis validez votre achat en choisissant votre moyen de paiement sécurisé (Wave, Orange Money, Free Money, Visa/Mastercard).",
-  },
-  {
-    id: "faq-2",
-    question: "Quels sont les moyens de paiement acceptés ?",
-    answer:
-      "Nous acceptons Mobile Money (Wave, Orange Money, Free Money) ainsi que les cartes bancaires Visa et Mastercard. Toutes les transactions sont 100% sécurisées.",
-  },
-  {
-    id: "faq-3",
-    question: "Comment retirer mes gains ?",
-    answer:
-      "Pour les petits lots, le versement est automatique sur votre compte Mobile Money. Pour les grands lots (Villa, Capital Business, Rente Famille), la remise s'effectue en mains propres lors de la cérémonie officielle en présence d'un Huissier de Justice.",
-  },
-  {
-    id: "faq-4",
-    question: "Comment fonctionne le parrainage ?",
-    answer:
-      "Partagez votre code de parrainage unique accessible dans la rubrique 'Mon Compte'. Pour chaque ami inscrit qui achète son premier ticket, vous recevez un ticket gratuit pour le tirage de votre choix.",
-  },
-  {
-    id: "faq-5",
-    question: "Que faire en cas de ticket non reçu ?",
-    answer:
-      "Vérifiez l'historique dans votre espace 'Mes Tickets'. Si le paiement a été débité mais que le ticket n'apparaît pas après 5 minutes, cliquez sur le bouton 'Chat en direct' ou contactez-nous via WhatsApp avec la référence de votre transaction.",
-  },
-];
+import { useLanguage, getDictionary } from "@/i18n/LanguageContext";
+import type { Locale } from "@/i18n/config";
 
 export default function SupportPage() {
+  const { locale, setLocale, t } = useLanguage();
+  const s = t.supportPage;
+
   const [searchQuery, setSearchQuery] = useState("");
   const [openFaqId, setOpenFaqId] = useState<string | null>("faq-1");
-  const [selectedLanguage, setSelectedLanguage] = useState<"fr" | "wo">("fr");
 
-  const filteredFaqs = FAQ_LIST.filter(
+  const filteredFaqs = s.faqs.filter(
     (faq) =>
       faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
       faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
@@ -78,36 +42,40 @@ export default function SupportPage() {
     setOpenFaqId(openFaqId === id ? null : id);
   };
 
+  const handleLanguageChange = (nextLocale: Locale) => {
+    if (nextLocale === locale) return;
+    setLocale(nextLocale);
+    toast.success(getDictionary(nextLocale).languageSwitcher.toastSwitched);
+  };
+
   return (
     <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)] pt-24 sm:pt-28 pb-32 px-4 transition-colors duration-300">
       <div className="container mx-auto max-w-4xl">
-        
         {/* Top Navigation Back Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-6 gap-2 flex-wrap">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--color-mj-gold)] transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[#fbb505] transition-colors min-h-[44px]"
           >
-            <ArrowLeft className="w-4 h-4" /> Retour à l&apos;accueil
+            <ArrowLeft className="w-4 h-4" /> {s.backToHome}
           </Link>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-mj-red)]/10 text-[var(--color-mj-red)] font-mono text-xs font-bold uppercase tracking-wider">
-            <LifeBuoy className="w-3.5 h-3.5" /> Centre d&apos;Aide Official
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#da151f]/10 text-[#da151f] font-mono text-xs font-bold uppercase tracking-wider">
+            <LifeBuoy className="w-3.5 h-3.5" /> {s.officialHelpBadge}
           </div>
         </div>
 
         {/* 1. Header Banner with Support Agent */}
-        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[var(--color-mj-red-dark)] via-[#da151f] to-[#a00c17] text-white p-6 sm:p-10 shadow-2xl mb-10 flex flex-col md:flex-row items-center justify-between gap-6">
-          
+        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#a00c17] via-[#da151f] to-[#a00c17] text-white p-6 sm:p-10 shadow-2xl mb-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="relative z-10 max-w-lg text-center md:text-left">
             <div className="inline-flex items-center gap-2 bg-black/40 backdrop-blur-md text-xs font-mono font-bold px-3 py-1 rounded-full mb-4 border border-white/20">
-              <span className="w-2.5 h-2.5 rounded-full bg-green-400 animate-ping" />
-              <span>En ligne • 08h – 22h</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#fbb505] animate-ping" />
+              <span>{s.onlineHoursBadge}</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-heading font-extrabold uppercase leading-tight mb-3">
-              Nous sommes là pour vous aider !
+              {s.heroTitle}
             </h1>
-            <p className="text-sm sm:text-base text-red-100 font-medium">
-              Une question, un problème ? Notre équipe support est à votre entière écoute 7j/7.
+            <p className="text-sm sm:text-base text-white/90 font-medium">
+              {s.heroSubtitle}
             </p>
           </div>
 
@@ -115,132 +83,164 @@ export default function SupportPage() {
           <div className="relative w-44 h-44 sm:w-52 sm:h-52 shrink-0 rounded-2xl overflow-hidden border-2 border-white/30 shadow-xl bg-black/20">
             <Image
               src="/support_agent.png"
-              alt="Conseillère Support Client MEGA JACKPOT"
+              alt={s.agentAlt}
               fill
               className="object-cover object-top"
               priority
             />
           </div>
-
         </div>
 
         {/* 2. Grid of 6 Support Channels */}
         <div className="mb-12">
           <h2 className="text-xl font-heading font-bold text-[var(--text-primary)] uppercase mb-6 flex items-center gap-2">
-            <MessageSquare className="w-5 h-5 text-[var(--color-mj-gold)]" />
-            Comment pouvons-nous vous aider ?
+            <MessageSquare className="w-5 h-5 text-[#fbb505]" />
+            {s.channelsHeading}
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            
             {/* Live Chat */}
-            <div
-              onClick={() => toast.info("Ouverture du Chat en direct...")}
-              className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--color-mj-gold)] transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group flex items-start justify-between"
+            <button
+              type="button"
+              onClick={() => toast.info(s.toastLiveChat)}
+              className="text-left p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[#fbb505] transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group flex items-start justify-between"
             >
               <div className="flex gap-3">
-                <div className="w-10 h-10 rounded-xl bg-red-500/10 text-[var(--color-mj-red)] flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#da151f]/10 text-[#da151f] flex items-center justify-center shrink-0">
                   <MessageSquare className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-heading font-bold text-sm text-[var(--text-primary)]">Chat en direct</h3>
-                  <span className="text-[10px] font-bold text-green-500 block mb-1">En ligne</span>
-                  <p className="text-xs text-[var(--text-secondary)]">Discutez avec nos conseillers</p>
+                  <h3 className="font-heading font-bold text-sm text-[var(--text-primary)]">
+                    {s.liveChatTitle}
+                  </h3>
+                  <span className="text-[10px] font-bold text-[#fbb505] block mb-1">
+                    {s.onlineStatus}
+                  </span>
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    {s.liveChatDesc}
+                  </p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[var(--color-mj-gold)] group-hover:translate-x-1 transition-all" />
-            </div>
+              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#fbb505] group-hover:translate-x-1 transition-all shrink-0" />
+            </button>
 
             {/* WhatsApp */}
             <a
               href="https://wa.me/221771234567"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--color-mj-gold)] transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group flex items-start justify-between"
+              className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[#fbb505] transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group flex items-start justify-between"
             >
               <div className="flex gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#102a58]/15 text-[#fbb505] flex items-center justify-center shrink-0">
                   <MessageCircle className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-heading font-bold text-sm text-[var(--text-primary)]">WhatsApp</h3>
-                  <span className="text-[11px] font-mono text-[var(--text-primary)] font-semibold block mb-1">+221 77 123 45 67</span>
-                  <p className="text-xs text-[var(--text-secondary)]">Réponse rapide sur WhatsApp</p>
+                  <h3 className="font-heading font-bold text-sm text-[var(--text-primary)]">
+                    WhatsApp
+                  </h3>
+                  <span className="text-[11px] font-mono text-[var(--text-primary)] font-semibold block mb-1">
+                    +221 77 123 45 67
+                  </span>
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    {s.whatsappDesc}
+                  </p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[var(--color-mj-gold)] group-hover:translate-x-1 transition-all" />
+              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#fbb505] group-hover:translate-x-1 transition-all shrink-0" />
             </a>
 
             {/* Phone Call */}
             <a
               href="tel:+221331234567"
-              className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--color-mj-gold)] transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group flex items-start justify-between"
+              className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[#fbb505] transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group flex items-start justify-between"
             >
               <div className="flex gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#102a58]/15 text-[#102a58] dark:text-[#fbb505] flex items-center justify-center shrink-0">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-heading font-bold text-sm text-[var(--text-primary)]">Appel téléphonique</h3>
-                  <span className="text-[11px] font-mono text-[var(--text-primary)] font-semibold block mb-1">+221 33 123 45 67</span>
-                  <p className="text-xs text-[var(--text-secondary)]">Parlez directement à un conseiller</p>
+                  <h3 className="font-heading font-bold text-sm text-[var(--text-primary)]">
+                    {s.phoneTitle}
+                  </h3>
+                  <span className="text-[11px] font-mono text-[var(--text-primary)] font-semibold block mb-1">
+                    +221 33 123 45 67
+                  </span>
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    {s.phoneDesc}
+                  </p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[var(--color-mj-gold)] group-hover:translate-x-1 transition-all" />
+              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#fbb505] group-hover:translate-x-1 transition-all shrink-0" />
             </a>
 
             {/* Email */}
             <a
               href="mailto:support@megajackpot.sn"
-              className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--color-mj-gold)] transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group flex items-start justify-between"
+              className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[#fbb505] transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group flex items-start justify-between"
             >
               <div className="flex gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#fbb505]/15 text-[#fbb505] flex items-center justify-center shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-heading font-bold text-sm text-[var(--text-primary)]">Email</h3>
-                  <span className="text-[11px] font-mono text-[var(--text-primary)] font-semibold block mb-1">support@megajackpot.sn</span>
-                  <p className="text-xs text-[var(--text-secondary)]">Réponse sous 24h ouvrables</p>
+                  <h3 className="font-heading font-bold text-sm text-[var(--text-primary)]">
+                    Email
+                  </h3>
+                  <span className="text-[11px] font-mono text-[var(--text-primary)] font-semibold block mb-1">
+                    support@megajackpot.sn
+                  </span>
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    {s.emailDesc}
+                  </p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[var(--color-mj-gold)] group-hover:translate-x-1 transition-all" />
+              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#fbb505] group-hover:translate-x-1 transition-all shrink-0" />
             </a>
 
-            {/* Reclamations */}
-            <div
-              onClick={() => toast.info("Ouverture du Centre de réclamations...")}
-              className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--color-mj-gold)] transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group flex items-start justify-between"
+            {/* Claims */}
+            <button
+              type="button"
+              onClick={() => toast.info(s.toastClaims)}
+              className="text-left p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[#fbb505] transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group flex items-start justify-between"
             >
               <div className="flex gap-3">
-                <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#da151f]/10 text-[#da151f] flex items-center justify-center shrink-0">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-heading font-bold text-sm text-[var(--text-primary)]">Centre de réclamations</h3>
-                  <p className="text-xs text-[var(--text-secondary)] mt-1">Déposez une réclamation ou un litige</p>
+                  <h3 className="font-heading font-bold text-sm text-[var(--text-primary)]">
+                    {s.claimsTitle}
+                  </h3>
+                  <p className="text-xs text-[var(--text-secondary)] mt-1">
+                    {s.claimsDesc}
+                  </p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[var(--color-mj-gold)] group-hover:translate-x-1 transition-all" />
-            </div>
+              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#fbb505] group-hover:translate-x-1 transition-all shrink-0" />
+            </button>
 
-            {/* Assistance Tickets */}
-            <div
-              onClick={() => toast.info("Chargement de vos tickets d'assistance...")}
-              className="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--color-mj-gold)] transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group flex items-start justify-between"
+            {/* Support Tickets */}
+            <button
+              type="button"
+              onClick={() => toast.info(s.toastSupportTickets)}
+              className="text-left p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[#fbb505] transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group flex items-start justify-between"
             >
               <div className="flex gap-3">
-                <div className="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-500 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#fbb505]/15 text-[#fbb505] flex items-center justify-center shrink-0">
                   <HelpCircle className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-heading font-bold text-sm text-[var(--text-primary)]">Mes tickets d&apos;assistance</h3>
-                  <p className="text-xs text-[var(--text-secondary)] mt-1">Suivi de vos demandes & réclamations</p>
+                  <h3 className="font-heading font-bold text-sm text-[var(--text-primary)]">
+                    {s.supportTicketsTitle}
+                  </h3>
+                  <p className="text-xs text-[var(--text-secondary)] mt-1">
+                    {s.supportTicketsDesc}
+                  </p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[var(--color-mj-gold)] group-hover:translate-x-1 transition-all" />
-            </div>
-
+              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#fbb505] group-hover:translate-x-1 transition-all shrink-0" />
+            </button>
           </div>
         </div>
 
@@ -248,8 +248,8 @@ export default function SupportPage() {
         <div className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-heading font-bold text-[var(--text-primary)] uppercase flex items-center gap-2">
-              <HelpCircle className="w-5 h-5 text-[var(--color-mj-gold)]" />
-              Foire Aux Questions
+              <HelpCircle className="w-5 h-5 text-[#fbb505]" />
+              {s.faqHeading}
             </h2>
           </div>
 
@@ -260,8 +260,8 @@ export default function SupportPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Rechercher une question..."
-              className="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] focus:border-[var(--color-mj-gold)] focus:outline-none text-sm text-[var(--text-primary)] transition-all shadow-sm"
+              placeholder={s.searchPlaceholder}
+              className="w-full min-h-[48px] pl-12 pr-4 py-3.5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] focus:border-[#fbb505] focus:outline-none text-sm text-[var(--text-primary)] transition-all shadow-sm"
             />
           </div>
 
@@ -277,17 +277,21 @@ export default function SupportPage() {
                   >
                     <button
                       onClick={() => toggleFaq(faq.id)}
-                      className="w-full px-6 py-4 flex items-center justify-between text-left font-heading font-bold text-sm text-[var(--text-primary)] hover:text-[var(--color-mj-gold)] transition-colors cursor-pointer"
+                      className="w-full min-h-[52px] px-6 py-4 flex items-center justify-between gap-3 text-left font-heading font-bold text-sm text-[var(--text-primary)] hover:text-[#fbb505] transition-colors cursor-pointer"
                     >
                       <span>{faq.question}</span>
                       {isOpen ? (
-                        <span className="w-6 h-6 rounded-full bg-[var(--color-mj-red)] text-white flex items-center justify-center text-xs shrink-0">−</span>
+                        <span className="w-6 h-6 rounded-full bg-[#da151f] text-white flex items-center justify-center text-xs shrink-0">
+                          −
+                        </span>
                       ) : (
-                        <span className="w-6 h-6 rounded-full bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 flex items-center justify-center text-xs shrink-0">+</span>
+                        <span className="w-6 h-6 rounded-full bg-black/5 dark:bg-white/10 text-[var(--text-primary)] flex items-center justify-center text-xs shrink-0">
+                          +
+                        </span>
                       )}
                     </button>
                     {isOpen && (
-                      <div className="px-6 pb-5 pt-1 text-sm text-[var(--text-secondary)] leading-relaxed border-t border-[var(--border-subtle)] bg-black/5 dark:bg-white/5">
+                      <div className="px-6 pb-5 pt-2 text-sm text-[var(--text-secondary)] leading-relaxed border-t border-[var(--border-subtle)] bg-black/5 dark:bg-white/5">
                         {faq.answer}
                       </div>
                     )}
@@ -296,163 +300,185 @@ export default function SupportPage() {
               })
             ) : (
               <div className="text-center py-8 text-sm text-[var(--text-secondary)]">
-                Aucune question ne correspond à votre recherche &quot;{searchQuery}&quot;.
+                {s.noFaqMatchPrefix} &quot;{searchQuery}&quot;.
               </div>
             )}
           </div>
         </div>
 
         {/* 4. Urgent Assistance Card */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-red-50 dark:bg-[var(--color-mj-red)]/10 border border-[var(--color-mj-red)]/30 text-center mb-12 shadow-sm">
-          <div className="w-14 h-14 rounded-full bg-[var(--color-mj-red)] text-white flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[var(--color-mj-red)]/30">
+        <div className="p-6 sm:p-8 rounded-3xl bg-[#da151f]/10 border border-[#da151f]/30 text-center mb-12 shadow-sm">
+          <div className="w-14 h-14 rounded-full bg-[#da151f] text-white flex items-center justify-center mx-auto mb-4 shadow-lg">
             <PhoneCall className="w-6 h-6" />
           </div>
           <h3 className="font-heading font-bold text-lg text-[var(--text-primary)] mb-1">
-            Besoin d&apos;une assistance urgente ?
+            {s.urgentTitle}
           </h3>
           <p className="text-xs sm:text-sm text-[var(--text-secondary)] mb-5">
-            Contactez immédiatement un conseiller dédié par téléphone ou WhatsApp.
+            {s.urgentDesc}
           </p>
           <a
             href="tel:+221331234567"
-            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[var(--color-mj-red)] hover:bg-red-600 text-white font-heading font-bold text-sm uppercase tracking-wider rounded-xl shadow-md transition-all transform hover:-translate-y-0.5"
+            className="inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-3.5 bg-[#da151f] hover:bg-[#a00c17] text-white font-heading font-bold text-sm uppercase tracking-wider rounded-xl shadow-md transition-all transform hover:-translate-y-0.5"
           >
-            CONTACTER UN CONSEILLER
+            {s.urgentCta}
           </a>
         </div>
 
         {/* 5. Other Solutions / Resource Links */}
         <div className="mb-12">
           <h2 className="text-xl font-heading font-bold text-[var(--text-primary)] uppercase mb-6 flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-[var(--color-mj-gold)]" />
-            Autres Solutions
+            <BookOpen className="w-5 h-5 text-[#fbb505]" />
+            {s.otherSolutionsHeading}
           </h2>
 
           <div className="space-y-3">
-            
             <Link
-              href="/comment-jouer"
-              className="p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--color-mj-gold)] transition-all flex items-center justify-between group shadow-sm"
+              href="/#comment-jouer"
+              className="p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[#fbb505] transition-all flex items-center justify-between group shadow-sm"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-[#fbb505]/15 text-[#fbb505] flex items-center justify-center shrink-0">
                   <BookOpen className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-heading font-bold text-sm text-[var(--text-primary)]">Guide d&apos;utilisation</h4>
-                  <p className="text-xs text-[var(--text-secondary)]">Apprenez à utiliser MEGAJACKPOT</p>
+                  <h4 className="font-heading font-bold text-sm text-[var(--text-primary)]">
+                    {s.userGuideTitle}
+                  </h4>
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    {s.userGuideDesc}
+                  </p>
                 </div>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[var(--color-mj-gold)] group-hover:translate-x-1 transition-all" />
+              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[#fbb505] group-hover:translate-x-1 transition-all shrink-0" />
             </Link>
 
             <Link
-              href="/support"
-              className="p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--color-mj-gold)] transition-all flex items-center justify-between group shadow-sm"
+              href="/parametres"
+              className="p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[#fbb505] transition-all flex items-center justify-between group shadow-sm"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-green-500/10 text-green-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-[#102a58]/15 text-[#fbb505] flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-heading font-bold text-sm text-[var(--text-primary)]">Sécurité & confidentialité</h4>
-                  <p className="text-xs text-[var(--text-secondary)]">Vos données personnelles sont 100% protégées</p>
+                  <h4 className="font-heading font-bold text-sm text-[var(--text-primary)]">
+                    {s.securityTitle}
+                  </h4>
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    {s.securityDesc}
+                  </p>
                 </div>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[var(--color-mj-gold)] group-hover:translate-x-1 transition-all" />
+              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[#fbb505] group-hover:translate-x-1 transition-all shrink-0" />
             </Link>
 
             <Link
               href="/support"
-              className="p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--color-mj-gold)] transition-all flex items-center justify-between group shadow-sm"
+              className="p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[#fbb505] transition-all flex items-center justify-between group shadow-sm"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-[#da151f]/10 text-[#da151f] flex items-center justify-center shrink-0">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-heading font-bold text-sm text-[var(--text-primary)]">Règlement & conditions</h4>
-                  <p className="text-xs text-[var(--text-secondary)]">Consultez nos règles du jeu et agréments officiels</p>
+                  <h4 className="font-heading font-bold text-sm text-[var(--text-primary)]">
+                    {s.rulesTitle}
+                  </h4>
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    {s.rulesDesc}
+                  </p>
                 </div>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[var(--color-mj-gold)] group-hover:translate-x-1 transition-all" />
+              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[#fbb505] group-hover:translate-x-1 transition-all shrink-0" />
             </Link>
 
             <Link
-              href="/compte"
-              className="p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--color-mj-gold)] transition-all flex items-center justify-between group shadow-sm"
+              href="/parrainage"
+              className="p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[#fbb505] transition-all flex items-center justify-between group shadow-sm"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-[#fbb505]/15 text-[#fbb505] flex items-center justify-center shrink-0">
                   <Gift className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-heading font-bold text-sm text-[var(--text-primary)]">Programme de fidélité</h4>
-                  <p className="text-xs text-[var(--text-secondary)]">Découvrez vos bonus et parrainages</p>
+                  <h4 className="font-heading font-bold text-sm text-[var(--text-primary)]">
+                    {s.loyaltyTitle}
+                  </h4>
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    {s.loyaltyDesc}
+                  </p>
                 </div>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[var(--color-mj-gold)] group-hover:translate-x-1 transition-all" />
+              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[#fbb505] group-hover:translate-x-1 transition-all shrink-0" />
             </Link>
-
           </div>
         </div>
 
-        {/* 6. Availability Hours & Language Switcher */}
+        {/* 6. Availability Hours & Global Language Switcher */}
         <div className="p-6 sm:p-8 rounded-3xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] shadow-sm">
           <div className="flex items-center gap-3 mb-4">
-            <Clock className="w-5 h-5 text-[var(--color-mj-gold)]" />
+            <Clock className="w-5 h-5 text-[#fbb505]" />
             <h3 className="font-heading font-bold text-base uppercase text-[var(--text-primary)]">
-              Horaires de Disponibilité
+              {s.hoursHeading}
             </h3>
           </div>
 
           <div className="space-y-2 text-sm text-[var(--text-secondary)] font-mono border-b border-[var(--border-subtle)] pb-4 mb-6">
             <div className="flex justify-between">
-              <span>Lundi – Vendredi</span>
-              <span className="font-bold text-[var(--text-primary)]">08h00 – 22h00</span>
+              <span>{s.monFri}</span>
+              <span className="font-bold text-[var(--text-primary)]">
+                08h00 – 22h00
+              </span>
             </div>
             <div className="flex justify-between">
-              <span>Samedi – Dimanche</span>
-              <span className="font-bold text-[var(--text-primary)]">09h00 – 20h00</span>
+              <span>{s.satSun}</span>
+              <span className="font-bold text-[var(--text-primary)]">
+                09h00 – 20h00
+              </span>
             </div>
             <div className="flex justify-between">
-              <span>Jours fériés</span>
-              <span className="font-bold text-[var(--text-primary)]">09h00 – 18h00</span>
+              <span>{s.holidays}</span>
+              <span className="font-bold text-[var(--text-primary)]">
+                09h00 – 18h00
+              </span>
             </div>
-            <p className="text-xs text-gray-400 pt-2 font-sans">Nous répondons dès que possible.</p>
+            <p className="text-xs text-[var(--text-secondary)] pt-2 font-sans">
+              {s.replyNote}
+            </p>
           </div>
 
-          {/* Language Selector */}
-          <div className="flex items-center justify-between">
+          {/* Global Site & Support Language Selector */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <span className="text-xs font-mono uppercase text-[var(--text-secondary)] flex items-center gap-1.5">
-              <Globe className="w-4 h-4" /> Langue du support
+              <Globe className="w-4 h-4 text-[#fbb505]" /> {s.siteLanguageLabel}
             </span>
             <div className="flex gap-1 p-1 bg-black/5 dark:bg-white/5 rounded-xl border border-[var(--border-subtle)]">
               <button
-                onClick={() => setSelectedLanguage("fr")}
-                className={`px-4 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
-                  selectedLanguage === "fr"
-                    ? "bg-[var(--color-mj-red)] text-white shadow-sm"
-                    : "text-[var(--text-secondary)] hover:text-white"
+                type="button"
+                onClick={() => handleLanguageChange("fr")}
+                className={`flex-1 sm:flex-none min-h-[44px] px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                  locale === "fr"
+                    ? "bg-[#da151f] text-white shadow-sm"
+                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                 }`}
               >
-                Français
+                🇫🇷 Français
               </button>
               <button
-                onClick={() => setSelectedLanguage("wo")}
-                className={`px-4 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
-                  selectedLanguage === "wo"
-                    ? "bg-[var(--color-mj-red)] text-white shadow-sm"
-                    : "text-[var(--text-secondary)] hover:text-white"
+                type="button"
+                onClick={() => handleLanguageChange("en")}
+                className={`flex-1 sm:flex-none min-h-[44px] px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                  locale === "en"
+                    ? "bg-[#da151f] text-white shadow-sm"
+                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                 }`}
               >
-                Wolof
+                🇬🇧 English
               </button>
             </div>
           </div>
-
         </div>
-
       </div>
     </div>
   );

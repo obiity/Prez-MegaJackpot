@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Chakra_Petch, Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/i18n/LanguageContext";
 import { Toaster } from "sonner";
 import { HudBackground } from "@/components/ui/HudBackground";
 import { HeaderV2 } from "@/components/sections/HeaderV2";
@@ -63,6 +64,10 @@ export default function RootLayout({
                 } else {
                   document.documentElement.classList.add('dark');
                 }
+                var l = localStorage.getItem('mj_lang');
+                if (l === 'en' || l === 'fr') {
+                  document.documentElement.lang = l;
+                }
               } catch (_) {}
             `,
           }}
@@ -73,16 +78,18 @@ export default function RootLayout({
           defaultTheme="dark"
           disableTransitionOnChange
         >
-          <HudBackground />
-          <HeaderV2 />
-          <main className="flex flex-col flex-1">
-            {children}
-          </main>
-          <Footer />
-          <BottomNav />
-          <DesktopNav />
-          <FloatingSupportButton />
-          <Toaster position="bottom-center" richColors theme="dark" />
+          <LanguageProvider>
+            <HudBackground />
+            <HeaderV2 />
+            <main className="flex flex-col flex-1">
+              {children}
+            </main>
+            <Footer />
+            <BottomNav />
+            <DesktopNav />
+            <FloatingSupportButton />
+            <Toaster position="bottom-center" richColors theme="dark" />
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

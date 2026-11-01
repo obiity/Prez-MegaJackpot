@@ -7,8 +7,10 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { ShieldCheck, ArrowRight } from "lucide-react";
 import { PRODUCTS } from "@/lib/constants";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function HeroSpotlightOfficial() {
+  const { t } = useLanguage();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" }, [
     Autoplay({ delay: 6000, stopOnInteraction: false })
   ]);
@@ -46,6 +48,8 @@ export function HeroSpotlightOfficial() {
       <div className="overflow-hidden cursor-grab active:cursor-grabbing select-none" ref={emblaRef}>
         <div className="flex w-full">
           {PRODUCTS.map((product) => {
+            const productCopy =
+              t.hero.products[product.id as keyof typeof t.hero.products];
             const imagePos =
               product.id === "maison"
                 ? "object-center"
@@ -59,7 +63,7 @@ export function HeroSpotlightOfficial() {
                 <div className="absolute inset-0 z-0 w-full h-full overflow-hidden">
                   <Image
                     src={`/${product.id.toUpperCase()}.png`}
-                    alt={product.title}
+                    alt={productCopy.title}
                     fill
                     sizes="100vw"
                     className={`object-cover ${imagePos}`}
@@ -77,28 +81,28 @@ export function HeroSpotlightOfficial() {
                     <div className="flex items-center gap-2 flex-wrap">
                       <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[var(--color-mj-red)] text-white text-xs font-mono font-bold uppercase tracking-wider rounded-full shadow-[0_0_15px_rgba(218,21,31,0.5)]">
                         <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                        {product.frequency}
+                        {productCopy.frequency}
                       </div>
 
                       <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/60 backdrop-blur-md border border-[#fbb505]/40 text-[var(--color-mj-gold)] text-[11px] font-mono font-bold uppercase tracking-wider rounded-full">
                         <ShieldCheck className="w-3.5 h-3.5" />
-                        Tirage Certifié Huissier
+                        {t.hero.certifiedBailiff}
                       </div>
                     </div>
 
                     {/* Title */}
                     <h1 className="text-3xl sm:text-4xl lg:text-6xl font-heading font-black text-white uppercase tracking-tight leading-none drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">
-                      {product.title}
+                      {productCopy.title}
                     </h1>
 
                     {/* Grand Lot Value Display */}
                     <div className="text-2xl sm:text-3xl lg:text-4xl font-heading font-extrabold text-[var(--color-mj-gold)] uppercase tracking-wide drop-shadow-[0_0_20px_rgba(251,181,5,0.6)]">
-                      {product.grandLot[0]}
+                      {productCopy.grandLot}
                     </div>
 
                     {/* Secondary Lots Checklist */}
                     <ul className="space-y-1.5 py-1 text-xs sm:text-sm font-medium text-gray-100 drop-shadow-md">
-                      {product.secondaryLots.map((lot, idx) => (
+                      {productCopy.secondaryLots.map((lot, idx) => (
                         <li key={idx} className="flex items-center gap-2">
                           <span className="w-4 h-4 rounded-full bg-[var(--color-mj-red)] text-white flex items-center justify-center text-[10px] font-bold shrink-0 shadow-md">✓</span>
                           <span className="font-semibold">{lot}</span>
@@ -108,23 +112,23 @@ export function HeroSpotlightOfficial() {
 
                     {/* Countdown Clock Block */}
                     <div className="pt-2">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-gray-200 block mb-2 font-bold drop-shadow">Tirage certifié dans</span>
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-gray-200 block mb-2 font-bold drop-shadow">{t.hero.certifiedDrawIn}</span>
                       <div className="flex items-center gap-1.5 sm:gap-2.5">
                         <div className="text-center px-2.5 sm:px-3.5 py-2 bg-black/75 backdrop-blur-md rounded-xl border border-[#fbb505]/30 min-w-[48px] sm:min-w-[54px] shadow-lg">
                           <span className="font-mono font-bold text-base sm:text-lg text-white block">{String(timeLeft.days).padStart(2, '0')}</span>
-                          <span className="text-[9px] font-mono text-[var(--color-mj-gold)] uppercase font-bold">Jours</span>
+                          <span className="text-[9px] font-mono text-[var(--color-mj-gold)] uppercase font-bold">{t.common.days}</span>
                         </div>
                         <div className="text-center px-2.5 sm:px-3.5 py-2 bg-black/75 backdrop-blur-md rounded-xl border border-[#fbb505]/30 min-w-[48px] sm:min-w-[54px] shadow-lg">
                           <span className="font-mono font-bold text-base sm:text-lg text-white block">{String(timeLeft.hours).padStart(2, '0')}</span>
-                          <span className="text-[9px] font-mono text-[var(--color-mj-gold)] uppercase font-bold">Heures</span>
+                          <span className="text-[9px] font-mono text-[var(--color-mj-gold)] uppercase font-bold">{t.common.hours}</span>
                         </div>
                         <div className="text-center px-2.5 sm:px-3.5 py-2 bg-black/75 backdrop-blur-md rounded-xl border border-[#fbb505]/30 min-w-[48px] sm:min-w-[54px] shadow-lg">
                           <span className="font-mono font-bold text-base sm:text-lg text-white block">{String(timeLeft.minutes).padStart(2, '0')}</span>
-                          <span className="text-[9px] font-mono text-[var(--color-mj-gold)] uppercase font-bold">Min</span>
+                          <span className="text-[9px] font-mono text-[var(--color-mj-gold)] uppercase font-bold">{t.common.min}</span>
                         </div>
                         <div className="text-center px-2.5 sm:px-3.5 py-2 bg-black/75 backdrop-blur-md rounded-xl border border-[#fbb505]/30 min-w-[48px] sm:min-w-[54px] shadow-lg">
                           <span className="font-mono font-bold text-base sm:text-lg text-white block">{String(timeLeft.seconds).padStart(2, '0')}</span>
-                          <span className="text-[9px] font-mono text-[var(--color-mj-gold)] uppercase font-bold">Sec</span>
+                          <span className="text-[9px] font-mono text-[var(--color-mj-gold)] uppercase font-bold">{t.common.sec}</span>
                         </div>
                       </div>
                     </div>
@@ -132,8 +136,8 @@ export function HeroSpotlightOfficial() {
                     {/* CTA Button */}
                     <div className="pt-3">
                       <Link href="/tickets">
-                        <button className="w-full sm:w-auto px-5 sm:px-8 py-3.5 bg-gradient-to-r from-[var(--color-mj-red)] via-rose-600 to-[var(--color-mj-red-dark)] hover:from-red-600 hover:to-[var(--color-mj-red)] text-white font-heading font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-[0_0_25px_rgba(218,21,31,0.6)] transition-all transform hover:scale-105 cursor-pointer flex items-center justify-center gap-2">
-                          <span>PARTICIPER À L'OPPORTUNITÉ</span>
+                        <button className="w-full sm:w-auto px-5 sm:px-8 py-3.5 bg-gradient-to-r from-[var(--color-mj-red)] to-[var(--color-mj-red-dark)] hover:brightness-110 text-white font-heading font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-[0_0_25px_rgba(218,21,31,0.6)] transition-all transform hover:scale-105 cursor-pointer flex items-center justify-center gap-2">
+                          <span>{t.hero.cta}</span>
                           <ArrowRight className="w-4 h-4" />
                         </button>
                       </Link>
@@ -152,7 +156,7 @@ export function HeroSpotlightOfficial() {
           <button
             key={idx}
             onClick={() => scrollTo(idx)}
-            aria-label={`Aller au slide ${idx + 1}`}
+            aria-label={`${t.hero.slideAriaPrefix} ${idx + 1}`}
             className={`h-2.5 rounded-full transition-all cursor-pointer ${
               selectedIndex === idx
                 ? "w-8 bg-[var(--color-mj-gold)] shadow-[0_0_10px_rgba(251,181,5,0.8)]"

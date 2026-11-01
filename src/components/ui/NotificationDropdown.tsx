@@ -6,6 +6,7 @@ import Link from "next/link";
 import { NotificationItem } from "./NotificationItem";
 import type { AppNotification } from "@/lib/mockData";
 import { useEffect, useRef } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface NotificationDropdownProps {
   isOpen: boolean;
@@ -22,6 +23,7 @@ export function NotificationDropdown({
   onMarkAsRead,
   onMarkAllAsRead
 }: NotificationDropdownProps) {
+  const { t } = useLanguage();
   const unreadCount = notifications.filter(n => !n.isRead).length;
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -50,12 +52,12 @@ export function NotificationDropdown({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.95 }}
           transition={{ duration: 0.2, type: "spring", stiffness: 300, damping: 25 }}
-          className="fixed top-[64px] left-4 right-4 sm:absolute sm:top-full sm:right-[-10px] sm:left-auto sm:mt-2 w-auto sm:w-96 max-h-[85vh] sm:max-h-[80vh] flex flex-col bg-white dark:bg-[#0a1628] rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 overflow-hidden z-[100] origin-top sm:origin-top-right"
+          className="fixed top-[64px] left-4 right-4 sm:absolute sm:top-full sm:right-[-10px] sm:left-auto sm:mt-2 w-auto sm:w-96 max-h-[85vh] sm:max-h-[80vh] flex flex-col bg-white dark:bg-[#021a3c] rounded-2xl shadow-2xl border border-gray-100 dark:border-white/10 overflow-hidden z-[100] origin-top sm:origin-top-right"
         >
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-black/20">
             <h3 className="font-heading font-bold text-lg text-[var(--text-primary)] dark:text-white flex items-center gap-2">
-              Notifications
+              {t.notifications.title}
               {unreadCount > 0 && (
                 <span className="bg-[var(--color-mj-red)] text-white text-[10px] px-2 py-0.5 rounded-full">
                   {unreadCount}
@@ -69,7 +71,7 @@ export function NotificationDropdown({
                 className="text-xs text-gray-500 hover:text-[var(--color-mj-gold)] transition-colors flex items-center gap-1"
               >
                 <CheckCheck className="w-3.5 h-3.5" />
-                Tout marquer comme lu
+                {t.notifications.markAllRead}
               </button>
             )}
           </div>
@@ -91,7 +93,7 @@ export function NotificationDropdown({
                 <div className="w-16 h-16 rounded-full bg-gray-50 dark:bg-white/5 flex items-center justify-center mb-4">
                   <Bell className="w-8 h-8 text-gray-300 dark:text-gray-600" />
                 </div>
-                <p className="text-gray-500 dark:text-gray-400 font-medium">Aucune notification pour le moment.</p>
+                <p className="text-gray-500 dark:text-gray-400 font-medium">{t.notifications.emptyDropdown}</p>
               </div>
             )}
           </div>
@@ -101,9 +103,9 @@ export function NotificationDropdown({
             <Link 
               href="/notifications" 
               onClick={onClose}
-              className="w-full py-2.5 rounded-xl text-sm font-bold text-[var(--color-mj-blue)] dark:text-blue-400 hover:bg-[var(--color-mj-blue)]/5 dark:hover:bg-white/5 transition-colors flex items-center justify-center gap-2 group"
+              className="w-full py-2.5 rounded-xl text-sm font-bold text-[var(--color-mj-blue)] dark:text-[var(--color-mj-gold)] hover:bg-[var(--color-mj-blue)]/5 dark:hover:bg-white/5 transition-colors flex items-center justify-center gap-2 group"
             >
-              Voir toutes les notifications
+              {t.notifications.seeAll}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

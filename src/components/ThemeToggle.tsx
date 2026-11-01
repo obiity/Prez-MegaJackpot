@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { toast } from "sonner";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function ThemeToggle() {
+  const { t } = useLanguage();
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [mounted, setMounted] = useState(false);
 
@@ -29,10 +31,10 @@ export function ThemeToggle() {
 
     if (newTheme === "dark") {
       document.documentElement.classList.add("dark");
-      toast.info("Mode Nuit activé 🌙");
+      toast.info(t.themeToggle.toastNight);
     } else {
       document.documentElement.classList.remove("dark");
-      toast.info("Mode Jour activé ☀️");
+      toast.info(t.themeToggle.toastDay);
     }
   };
 
@@ -46,8 +48,8 @@ export function ThemeToggle() {
           ? "text-amber-500 hover:text-amber-600"
           : "text-[var(--color-mj-gold)] hover:text-amber-400"
       }`}
-      aria-label="Basculer Mode Jour / Nuit"
-      title={theme === "dark" ? "Activer le Mode Jour (Clair)" : "Activer le Mode Nuit (Sombre)"}
+      aria-label={t.themeToggle.aria}
+      title={theme === "dark" ? t.themeToggle.titleToLight : t.themeToggle.titleToDark}
     >
       {theme === "dark" ? (
         <Sun className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-[var(--color-mj-gold)] stroke-[2.2] animate-in zoom-in spin-in-90 duration-300" />

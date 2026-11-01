@@ -3,15 +3,17 @@
 import { useEffect, useState } from "react";
 import { Trophy, Gift, ArrowRight } from "lucide-react";
 import { fetchDrawResults, type DrawResult } from "@/lib/mockData";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function LiveTicker() {
+  const { locale, t } = useLanguage();
   const [winners, setWinners] = useState<DrawResult[]>([]);
 
   useEffect(() => {
-    fetchDrawResults().then(data => {
+    fetchDrawResults(locale).then(data => {
       setWinners(data);
     });
-  }, []);
+  }, [locale]);
 
   if (winners.length === 0) return null;
 
@@ -23,19 +25,17 @@ export function LiveTicker() {
       
       {/* Marquee Wrapper */}
       <div className="flex w-max animate-[scrollX_30s_linear_infinite] hover:[animation-play-state:paused] active:[animation-play-state:paused] motion-reduce:animate-none motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:w-full motion-reduce:py-2">
-        {/* We render the list twice to create the seamless loop. In motion-reduce mode, we only render it once. */}
-        
         {/* First Set */}
         <div className="flex items-center shrink-0 motion-reduce:flex-wrap motion-reduce:justify-center">
           {winners.map((winner, index) => (
-            <TickerItem key={`first-${winner.id}-${index}`} winner={winner} />
+            <TickerItem key={`first-${winner.id}-${index}`} winner={winner} wonLabel={t.liveTicker.won} />
           ))}
         </div>
         
         {/* Second Set (Duplicate for seamless scroll) */}
         <div aria-hidden="true" className="flex items-center shrink-0 motion-reduce:hidden">
           {winners.map((winner, index) => (
-            <TickerItem key={`second-${winner.id}-${index}`} winner={winner} />
+            <TickerItem key={`second-${winner.id}-${index}`} winner={winner} wonLabel={t.liveTicker.won} />
           ))}
         </div>
       </div>
@@ -43,7 +43,7 @@ export function LiveTicker() {
   );
 }
 
-function TickerItem({ winner }: { winner: DrawResult }) {
+function TickerItem({ winner, wonLabel }: { winner: DrawResult; wonLabel: string }) {
   return (
     <div className="flex items-center gap-2 md:gap-3 px-6 md:px-8 border-r border-white/10 last:border-none motion-reduce:border-none motion-reduce:py-1">
       {winner.productId === 'business' ? (
@@ -54,7 +54,7 @@ function TickerItem({ winner }: { winner: DrawResult }) {
         <Trophy className="w-4 h-4 text-blue-400 shrink-0" />
       )}
       <span className="font-mono text-[10px] md:text-xs text-gray-300 whitespace-nowrap uppercase tracking-widest">
-        <span className="text-white font-heading font-bold text-xs md:text-sm">{winner.winnerName}</span> ({winner.winnerCity}) a gagné
+        <span className="text-white font-heading font-bold text-xs md:text-sm">{winner.winnerName}</span> ({winner.winnerCity}) {wonLabel}
       </span>
       <span className={`font-mono text-[10px] md:text-xs font-bold whitespace-nowrap uppercase tracking-widest ${
         winner.productId === 'maison' ? 'text-[var(--color-mj-gold)]' :

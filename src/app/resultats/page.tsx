@@ -8,29 +8,30 @@ import { SegmentedPillTabs } from '@/components/ui/SegmentedPillTabs';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { fetchDrawResults, type DrawResult } from '@/lib/mockData';
 import { motion } from 'framer-motion';
-
-const FILTER_TABS = [
-  { id: 'tous', label: 'Tous les tirages' },
-  { id: 'maison', label: 'Maison' },
-  { id: 'business', label: 'Business' },
-  { id: 'famille', label: 'Famille' }
-];
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export default function ResultatsPage() {
+  const { locale, t } = useLanguage();
   const [activeTab, setActiveTab] = useState('tous');
   const [results, setResults] = useState<DrawResult[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Hover states to activate node blinking ONLY on mouse hover
   const [isNextHovered, setIsNextHovered] = useState(false);
   const [isFeaturedHovered, setIsFeaturedHovered] = useState(false);
   const [hoveredRowId, setHoveredRowId] = useState<string | null>(null);
+
+  const filterTabs = [
+    { id: 'tous', label: t.resultsPage.tabs.tous },
+    { id: 'maison', label: t.resultsPage.tabs.maison },
+    { id: 'business', label: t.resultsPage.tabs.business },
+    { id: 'famille', label: t.resultsPage.tabs.famille }
+  ];
 
   useEffect(() => {
     async function loadData() {
       setIsLoading(true);
       try {
-        const data = await fetchDrawResults();
+        const data = await fetchDrawResults(locale);
         setResults(data);
       } catch (error) {
         console.error("Failed to load results", error);
@@ -39,7 +40,7 @@ export default function ResultatsPage() {
       }
     }
     loadData();
-  }, []);
+  }, [locale]);
 
   const filteredResults = results.filter(result => 
     activeTab === 'tous' ? true : result.productId === activeTab
@@ -55,16 +56,16 @@ export default function ResultatsPage() {
         {/* Page Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl md:text-5xl font-bold font-heading mb-4 text-[var(--text-primary)] dark:text-white">
-            Résultats & Gagnants
+            {t.resultsPage.title}
           </h1>
           <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-lg">
-            Registre officiel des tirages certifiés et des heureux élus de nos différentes opportunités.
+            {t.resultsPage.subtitle}
           </p>
         </div>
 
         {/* Filters */}
         <SegmentedPillTabs 
-          tabs={FILTER_TABS} 
+          tabs={filterTabs} 
           activeTab={activeTab} 
           onTabChange={setActiveTab} 
         />
@@ -78,20 +79,19 @@ export default function ResultatsPage() {
           ) : filteredResults.length > 0 || activeTab === 'tous' ? (
             <div className="relative">
               
-              {/* TIMELINE TRUNK (Centered at 26px mobile / 38px desktop) */}
+              {/* TIMELINE TRUNK */}
               <div className="absolute left-[24.5px] md:left-[36.5px] top-8 bottom-0 w-[3px] bg-gray-200 dark:bg-white/10" />
 
               <div className="flex flex-col gap-10 md:gap-14">
                 
-                {/* 1. Upcoming Draw Node (Top of Timeline) */}
+                {/* 1. Upcoming Draw Node */}
                 {(activeTab === 'tous' || activeTab === 'business') && (
                   <div 
                     className="relative pl-16 md:pl-24"
                     onMouseEnter={() => setIsNextHovered(true)}
                     onMouseLeave={() => setIsNextHovered(false)}
                   >
-                    {/* Node Marker (Blinks ONLY when hovered) */}
-                    <div className={`absolute left-[14px] md:left-[26px] top-10 w-6 h-6 rounded-full bg-white dark:bg-[#0a1628] border-[3px] border-dashed border-[var(--color-mj-red)] shadow-[0_0_15px_rgba(218,21,31,0.5)] z-10 flex items-center justify-center transition-all duration-300 ${isNextHovered ? 'scale-125 shadow-[0_0_25px_rgba(218,21,31,0.9)]' : ''}`}>
+                    <div className={`absolute left-[14px] md:left-[26px] top-10 w-6 h-6 rounded-full bg-white dark:bg-[#021a3c] border-[3px] border-dashed border-[var(--color-mj-red)] shadow-[0_0_15px_rgba(218,21,31,0.5)] z-10 flex items-center justify-center transition-all duration-300 ${isNextHovered ? 'scale-125 shadow-[0_0_25px_rgba(218,21,31,0.9)]' : ''}`}>
                       {isNextHovered && (
                         <>
                           <div className="animate-ping absolute inset-0 rounded-full bg-[var(--color-mj-red)] opacity-75" />
@@ -100,25 +100,23 @@ export default function ResultatsPage() {
                       )}
                     </div>
 
-                    {/* Node Content */}
                     <NextDrawHighlight
-                      productName="OPPORTUNITÉ BUSINESS"
-                      prize="15 000 000 FCFA + Voyage Dubaï"
-                      date="01 Juillet 2026"
+                      productName={t.resultsPage.upcomingProduct}
+                      prize={t.resultsPage.upcomingPrize}
+                      date={t.resultsPage.upcomingDate}
                     />
                   </div>
                 )}
 
-                {/* 2. Featured Result Node (Most Recent) */}
+                {/* 2. Featured Result Node */}
                 {featuredResult && (
                   <div 
                     className="relative pl-16 md:pl-24"
                     onMouseEnter={() => setIsFeaturedHovered(true)}
                     onMouseLeave={() => setIsFeaturedHovered(false)}
                   >
-                    {/* Node Marker (Blinks ONLY when hovered) */}
                     <div 
-                      className={`absolute left-[14px] md:left-[26px] top-1/2 -translate-y-1/2 w-6 h-6 rounded-full border-4 border-white dark:border-[#0a1628] shadow-md z-10 flex items-center justify-center transition-all duration-300 ${isFeaturedHovered ? 'scale-125 shadow-[0_0_20px_rgba(251,181,5,0.9)]' : ''}`}
+                      className={`absolute left-[14px] md:left-[26px] top-1/2 -translate-y-1/2 w-6 h-6 rounded-full border-4 border-white dark:border-[#021a3c] shadow-md z-10 flex items-center justify-center transition-all duration-300 ${isFeaturedHovered ? 'scale-125 shadow-[0_0_20px_rgba(251,181,5,0.9)]' : ''}`}
                       style={{ 
                         backgroundColor: featuredResult.productId === 'maison' ? 'var(--color-mj-gold)' : 
                                          featuredResult.productId === 'business' ? 'var(--color-mj-red)' : 'var(--color-mj-blue)' 
@@ -153,9 +151,8 @@ export default function ResultatsPage() {
                           onMouseEnter={() => setHoveredRowId(result.id)}
                           onMouseLeave={() => setHoveredRowId(null)}
                         >
-                          {/* Node Marker (Blinks ONLY when hovered) */}
                           <div 
-                            className={`absolute left-[18px] md:left-[30px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-[3px] border-white dark:border-[#0a1628] shadow-sm z-10 flex items-center justify-center transition-all duration-300 ${isHovered ? 'scale-150 shadow-[0_0_15px_rgba(251,181,5,0.9)]' : ''}`}
+                            className={`absolute left-[18px] md:left-[30px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-[3px] border-white dark:border-[#021a3c] shadow-sm z-10 flex items-center justify-center transition-all duration-300 ${isHovered ? 'scale-150 shadow-[0_0_15px_rgba(251,181,5,0.9)]' : ''}`}
                             style={{ backgroundColor: nodeColor }}
                           >
                             {isHovered && (
@@ -177,10 +174,10 @@ export default function ResultatsPage() {
           ) : (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               <EmptyState 
-                title="Aucun tirage passé" 
-                message={`Aucun tirage n'a encore eu lieu pour l'opportunité ${activeTab}.`}
+                title={t.resultsPage.emptyTitle} 
+                message={`${t.resultsPage.emptyMessagePrefix}${t.resultsPage.tabs[activeTab as keyof typeof t.resultsPage.tabs]}.`}
                 actionHref="/#jeux"
-                actionText="Jouer pour le prochain tirage"
+                actionText={t.resultsPage.emptyCta}
               />
             </motion.div>
           )}

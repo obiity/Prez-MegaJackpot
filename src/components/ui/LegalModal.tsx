@@ -1,8 +1,9 @@
-﻿"use client";
+"use client";
 
 import { X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useEffect } from "react"
+import { useLanguage } from "@/i18n/LanguageContext"
 
 interface LegalModalProps {
   isOpen: boolean;
@@ -12,6 +13,8 @@ interface LegalModalProps {
 }
 
 export function LegalModal({ isOpen, onClose, title, content }: LegalModalProps) {
+  const { t } = useLanguage();
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -58,7 +61,7 @@ export function LegalModal({ isOpen, onClose, title, content }: LegalModalProps)
                 onClick={onClose}
                 className="px-6 py-2 bg-[var(--color-mj-blue)] text-white rounded-lg font-medium hover:bg-[var(--color-mj-blue-dark)] transition-colors"
               >
-                Fermer
+                {t.common.close}
               </button>
             </div>
           </motion.div>

@@ -3,26 +3,29 @@
 import { Ticket, CreditCard, Gift } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function StepsSection() {
+  const { t } = useLanguage();
+
   const steps = [
     {
       id: 1,
       icon: <Ticket className="w-7 h-7 text-[var(--color-mj-gold)]" />,
-      title: "Choisissez votre opportunité",
-      desc: "Sélectionnez le lot de vos rêves (Maison, Business, Famille) et le nombre de tickets."
+      title: t.steps.items[0].title,
+      desc: t.steps.items[0].desc,
     },
     {
       id: 2,
       icon: <CreditCard className="w-7 h-7 text-[var(--color-mj-gold)]" />,
-      title: "Validez votre participation",
-      desc: "Payez en toute sécurité via nos moyens de paiement partenaires.",
+      title: t.steps.items[1].title,
+      desc: t.steps.items[1].desc,
     },
     {
       id: 3,
       icon: <Gift className="w-7 h-7 text-[var(--color-mj-gold)]" />,
-      title: "Patientez pour le tirage",
-      desc: "Suivez le tirage en direct. Si vous gagnez, nous vous contactons immédiatement !"
+      title: t.steps.items[2].title,
+      desc: t.steps.items[2].desc,
     }
   ];
 
@@ -43,8 +46,8 @@ export function StepsSection() {
   return (
     <div className="py-8 bg-transparent text-[var(--text-primary)]">
       <div className="text-center max-w-3xl mx-auto mb-8">
-        <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#021a3c] dark:text-white uppercase mb-2">JOUER EN 3 ÉTAPES SIMPLES</h2>
-        <p className="text-xs text-slate-600 dark:text-gray-400 font-mono">Participer n&apos;a jamais été aussi facile. En quelques clics, votre ticket est validé.</p>
+        <h2 className="font-heading font-black text-2xl sm:text-3xl text-[#021a3c] dark:text-white uppercase mb-2">{t.steps.title}</h2>
+        <p className="text-xs text-slate-600 dark:text-gray-400 font-mono">{t.steps.subtitle}</p>
       </div>
 
       <motion.div
@@ -58,10 +61,10 @@ export function StepsSection() {
           <motion.div
             key={step.id}
             variants={itemVariants}
-            className="flex flex-col items-center text-center p-6 rounded-3xl bg-gradient-to-b from-[#da151f] via-[#a00c17] to-[#60050c] dark:from-[#0c1a3a] dark:via-[#061430] dark:to-[#04112c] border border-amber-400/40 dark:border-white/10 text-white shadow-xl group hover:border-[#fbb505] transition-all"
+            className="flex flex-col items-center text-center p-6 rounded-3xl bg-gradient-to-b from-[#da151f] to-[#a00c17] dark:from-[#102a58] dark:to-[#021a3c] border border-[#fbb505]/40 dark:border-white/10 text-white shadow-xl group hover:border-[#fbb505] transition-all"
           >
-            <div className="w-16 h-16 rounded-2xl bg-black/40 border border-amber-400/40 text-[var(--color-mj-gold)] flex items-center justify-center shadow-md mb-4 relative group-hover:scale-105 transition-transform">
-              <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[var(--color-mj-gold)] text-black font-mono font-black text-xs flex items-center justify-center shadow-md">
+            <div className="w-16 h-16 rounded-2xl bg-black/40 border border-[#fbb505]/40 text-[var(--color-mj-gold)] flex items-center justify-center shadow-md mb-4 relative group-hover:scale-105 transition-transform">
+              <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[var(--color-mj-gold)] text-[#021a3c] font-mono font-black text-xs flex items-center justify-center shadow-md">
                 {step.id}
               </div>
               {step.icon}
@@ -77,10 +80,10 @@ export function StepsSection() {
       <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left bg-white dark:bg-black/40 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg">
         <div>
           <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--color-mj-gold)] block font-bold">
-            PAIEMENTS 100% SÉCURISÉS
+            {t.steps.securePaymentsBadge}
           </span>
           <p className="text-xs text-slate-600 dark:text-gray-300 font-medium mt-0.5">
-            Achetez vos tickets instantanément via vos moyens locaux et cartes bancaires partenaires
+            {t.steps.securePaymentsDesc}
           </p>
         </div>
         <div className="flex items-center justify-center flex-wrap gap-4 sm:gap-6 bg-slate-100 dark:bg-white/5 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 shrink-0">

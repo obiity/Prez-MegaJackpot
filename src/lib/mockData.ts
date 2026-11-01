@@ -1,3 +1,6 @@
+import { getDictionary } from "@/i18n/LanguageContext";
+import type { Locale } from "@/i18n/config";
+
 export type ProductType = 'maison' | 'business' | 'famille';
 export type TicketStatus = 'en_attente' | 'gagnant' | 'perdu';
 
@@ -96,22 +99,31 @@ export const MOCK_RESULTS: DrawResult[] = [
   }
 ];
 
-export async function fetchUserTickets(): Promise<PlayerTicket[]> {
-  // Simulate network delay
-  return new Promise(resolve => setTimeout(() => resolve(MOCK_TICKETS), 800));
+export async function fetchUserTickets(locale: Locale = "fr"): Promise<PlayerTicket[]> {
+  const dict = getDictionary(locale);
+  const localized = MOCK_TICKETS.map((ticket) => {
+    const tr = dict.mockData.tickets[ticket.id as keyof typeof dict.mockData.tickets];
+    return tr ? { ...ticket, ...tr } : ticket;
+  });
+  return new Promise(resolve => setTimeout(() => resolve(localized), 400));
 }
 
-export async function fetchDrawResults(): Promise<DrawResult[]> {
-  // Simulate network delay
-  return new Promise(resolve => setTimeout(() => resolve(MOCK_RESULTS), 800));
+export async function fetchDrawResults(locale: Locale = "fr"): Promise<DrawResult[]> {
+  const dict = getDictionary(locale);
+  const localized = MOCK_RESULTS.map((result) => {
+    const tr = dict.mockData.results[result.id as keyof typeof dict.mockData.results];
+    return tr ? { ...result, ...tr } : result;
+  });
+  return new Promise(resolve => setTimeout(() => resolve(localized), 400));
 }
 
-export async function fetchTicketsSummary() {
-  return new Promise(resolve => setTimeout(() => resolve({
+export async function fetchTicketsSummary(locale: Locale = "fr") {
+  const dict = getDictionary(locale);
+  return new Promise<{ totalTickets: number; totalSpent: number; nextDrawDate: string }>(resolve => setTimeout(() => resolve({
     totalTickets: 4,
     totalSpent: 40000,
-    nextDrawDate: "01 Juil 2026"
-  }), 800));
+    nextDrawDate: dict.mockData.summaryNextDrawDate
+  }), 400));
 }
 
 export type NotificationType = 'gain' | 'rappel' | 'promo';
@@ -152,6 +164,11 @@ export const MOCK_NOTIFICATIONS: AppNotification[] = [
   }
 ];
 
-export async function fetchNotifications(): Promise<AppNotification[]> {
-  return new Promise(resolve => setTimeout(() => resolve([...MOCK_NOTIFICATIONS]), 500));
+export async function fetchNotifications(locale: Locale = "fr"): Promise<AppNotification[]> {
+  const dict = getDictionary(locale);
+  const localized = MOCK_NOTIFICATIONS.map((notif) => {
+    const tr = dict.mockData.notifications[notif.id as keyof typeof dict.mockData.notifications];
+    return tr ? { ...notif, ...tr } : { ...notif };
+  });
+  return new Promise(resolve => setTimeout(() => resolve(localized), 300));
 }

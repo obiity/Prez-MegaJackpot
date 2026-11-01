@@ -3,9 +3,11 @@
 import { Home, Ticket, Trophy, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function DesktopNav() {
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   const isHome = pathname === "/";
   const isTickets = pathname === "/tickets";
@@ -15,7 +17,7 @@ export function DesktopNav() {
   return (
     <nav className="hidden md:block fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-[var(--bg-surface)]/85 backdrop-blur-xl border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-colors duration-300 rounded-[40px]">
       <div className="flex items-center justify-between px-10 h-20 w-[640px] max-w-[90vw]">
-        {/* 1. Accueil */}
+        {/* 1. Accueil / Home */}
         <Link
           href="/"
           className={`flex flex-col items-center justify-center gap-1 group transition-all ${
@@ -26,7 +28,7 @@ export function DesktopNav() {
         >
           <Home className="h-6 w-6 group-hover:scale-110 transition-transform" />
           <span className={`text-[10px] uppercase tracking-wider ${isHome ? "font-black text-[var(--color-mj-gold)]" : "font-semibold"}`}>
-            Accueil
+            {t.nav.home}
           </span>
         </Link>
 
@@ -43,7 +45,7 @@ export function DesktopNav() {
           >
             <Ticket className="h-6 w-6 group-hover:scale-110 transition-transform" />
             <span className={`text-[10px] uppercase tracking-wider ${isTickets ? "font-black text-[var(--color-mj-gold)]" : "font-semibold"}`}>
-              Tickets
+              {t.nav.tickets}
             </span>
           </Link>
 
@@ -58,12 +60,12 @@ export function DesktopNav() {
               className="h-20 px-12 rounded-full bg-gradient-to-br from-[var(--color-mj-red)] to-[var(--color-mj-red-dark)] flex items-center justify-center text-white shadow-xl shadow-[var(--color-mj-red)]/40 border-[6px] border-[var(--bg-surface)] transform transition-all hover:scale-105 active:scale-95 group cursor-pointer"
             >
               <span className="font-heading text-2xl uppercase tracking-widest font-black group-hover:scale-110 transition-transform duration-300 mt-1">
-                JOUER
+                {t.nav.play}
               </span>
             </button>
           </div>
 
-          {/* 3. Résultats */}
+          {/* 3. Résultats / Results */}
           <Link
             href="/resultats"
             className={`flex flex-col items-center justify-center gap-1 group transition-all ${
@@ -74,12 +76,12 @@ export function DesktopNav() {
           >
             <Trophy className="h-6 w-6 group-hover:scale-110 transition-transform" />
             <span className={`text-[10px] uppercase tracking-wider ${isResultats ? "font-black text-[var(--color-mj-gold)]" : "font-semibold"}`}>
-              Résultats
+              {t.nav.results}
             </span>
           </Link>
         </div>
 
-        {/* 4. Compte */}
+        {/* 4. Compte / Account */}
         <Link
           href="/compte"
           className={`flex flex-col items-center justify-center gap-1 group transition-all ${
@@ -90,7 +92,7 @@ export function DesktopNav() {
         >
           <User className="h-6 w-6 group-hover:scale-110 transition-transform" />
           <span className={`text-[10px] uppercase tracking-wider ${isCompte ? "font-black text-[var(--color-mj-gold)]" : "font-semibold"}`}>
-            Compte
+            {t.nav.account}
           </span>
         </Link>
       </div>

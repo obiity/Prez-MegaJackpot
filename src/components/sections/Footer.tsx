@@ -5,8 +5,10 @@ import Link from "next/link"
 import { ShieldCheck } from "lucide-react"
 import { useState } from "react"
 import { LegalModal } from "@/components/ui/LegalModal"
+import { useLanguage } from "@/i18n/LanguageContext"
 
 export function Footer() {
+  const { t } = useLanguage();
   const [modalState, setModalState] = useState<{isOpen: boolean, title: string, content: React.ReactNode}>({
     isOpen: false,
     title: "",
@@ -22,7 +24,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-gray-100 dark:bg-[#010a18] text-gray-600 dark:text-[#94a3b8] py-16 border-t border-gray-200 dark:border-white/5 transition-colors duration-300 pb-32 md:pb-36">
+    <footer className="bg-gray-100 dark:bg-[#021a3c] text-gray-600 dark:text-[#94a3b8] py-16 border-t border-gray-200 dark:border-white/5 transition-colors duration-300 pb-32 md:pb-36">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="md:col-span-1">
@@ -41,53 +43,53 @@ export function Footer() {
               className="h-10 w-auto object-contain mb-6 opacity-90 hidden dark:block"
             />
             <p className="text-label leading-relaxed opacity-80 transition-colors">
-              Chaque ticket, une chance de changer de vie. Saisissez votre opportunité dès aujourd&apos;hui.
+              {t.footer.tagline}
             </p>
           </div>
           
           <div>
-            <h4 className="text-[var(--text-primary)] dark:text-white mb-6 text-label transition-colors">Liens Rapides</h4>
+            <h4 className="text-[var(--text-primary)] dark:text-white mb-6 text-label transition-colors">{t.footer.quickLinksTitle}</h4>
             <ul className="space-y-3 text-sm">
-              <li><button onClick={() => { const el = document.getElementById('top'); if(el) el.scrollIntoView({behavior: 'smooth'}) }} className="hover:text-[var(--color-mj-gold)] transition-colors">Accueil</button></li>
-              <li><button onClick={() => { const el = document.getElementById('jeux'); if(el) el.scrollIntoView({behavior: 'smooth'}) }} className="hover:text-[var(--color-mj-gold)] transition-colors">Nos Opportunités</button></li>
-              <li><button onClick={() => { const el = document.getElementById('comment-jouer'); if(el) el.scrollIntoView({behavior: 'smooth'}) }} className="hover:text-[var(--color-mj-gold)] transition-colors">Comment Jouer</button></li>
-              <li><button onClick={() => { const el = document.getElementById('gagnants'); if(el) el.scrollIntoView({behavior: 'smooth'}) }} className="hover:text-[var(--color-mj-gold)] transition-colors">Témoignages</button></li>
-              <li><Link href="/support" className="text-[var(--color-mj-gold)] hover:underline font-bold transition-colors">Aide & Support 24/7</Link></li>
+              <li><button onClick={() => { const el = document.getElementById('top'); if(el) el.scrollIntoView({behavior: 'smooth'}); else window.location.href = '/'; }} className="hover:text-[var(--color-mj-gold)] transition-colors">{t.footer.home}</button></li>
+              <li><button onClick={() => { const el = document.getElementById('jeux'); if(el) el.scrollIntoView({behavior: 'smooth'}); else window.location.href = '/#jeux'; }} className="hover:text-[var(--color-mj-gold)] transition-colors">{t.footer.opportunities}</button></li>
+              <li><button onClick={() => { const el = document.getElementById('comment-jouer'); if(el) el.scrollIntoView({behavior: 'smooth'}); else window.location.href = '/#comment-jouer'; }} className="hover:text-[var(--color-mj-gold)] transition-colors">{t.footer.howToPlay}</button></li>
+              <li><button onClick={() => { const el = document.getElementById('gagnants'); if(el) el.scrollIntoView({behavior: 'smooth'}); else window.location.href = '/#gagnants'; }} className="hover:text-[var(--color-mj-gold)] transition-colors">{t.footer.testimonials}</button></li>
+              <li><Link href="/support" className="text-[var(--color-mj-gold)] hover:underline font-bold transition-colors">{t.footer.support247}</Link></li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-[var(--text-primary)] dark:text-white mb-6 text-label transition-colors">Légal & Sécurité</h4>
+            <h4 className="text-[var(--text-primary)] dark:text-white mb-6 text-label transition-colors">{t.footer.legalTitle}</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <button onClick={() => openModal("Mentions légales", <p>Ces mentions légales régissent l'utilisation de la plateforme MEGA JACKPOT...</p>)} className="hover:text-[var(--color-mj-gold)] transition-colors">
-                  Mentions légales
+                <button onClick={() => openModal(t.footer.legalNotice, <p>{t.footer.legalNoticeContent}</p>)} className="hover:text-[var(--color-mj-gold)] transition-colors">
+                  {t.footer.legalNotice}
                 </button>
               </li>
               <li>
-                <button onClick={() => openModal("Conditions Générales (CGU/CGV)", <p>Les présentes Conditions Générales définissent les règles applicables aux tirages...</p>)} className="hover:text-[var(--color-mj-gold)] transition-colors">
-                  Conditions Générales (CGU/CGV)
+                <button onClick={() => openModal(t.footer.terms, <p>{t.footer.termsContent}</p>)} className="hover:text-[var(--color-mj-gold)] transition-colors">
+                  {t.footer.terms}
                 </button>
               </li>
               <li>
-                <button onClick={() => openModal("Politique de confidentialité", <p>MEGA JACKPOT s'engage à protéger vos données personnelles conformément à la législation en vigueur...</p>)} className="hover:text-[var(--color-mj-gold)] transition-colors">
-                  Politique de confidentialité
+                <button onClick={() => openModal(t.footer.privacy, <p>{t.footer.privacyContent}</p>)} className="hover:text-[var(--color-mj-gold)] transition-colors">
+                  {t.footer.privacy}
                 </button>
               </li>
               <li>
-                <button onClick={() => openModal("Règlement déposé", <p>Le règlement officiel des tirages MEGA JACKPOT est déposé chez un huissier de justice habilité...</p>)} className="hover:text-[var(--color-mj-gold)] transition-colors flex items-center gap-2">
-                  Règlement déposé <ShieldCheck className="w-3 h-3 text-[var(--color-mj-gold)]" />
+                <button onClick={() => openModal(t.footer.rules, <p>{t.footer.rulesContent}</p>)} className="hover:text-[var(--color-mj-gold)] transition-colors flex items-center gap-2">
+                  {t.footer.rules} <ShieldCheck className="w-3 h-3 text-[var(--color-mj-gold)]" />
                 </button>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-[var(--text-primary)] dark:text-white mb-6 text-label transition-colors">Contact</h4>
+            <h4 className="text-[var(--text-primary)] dark:text-white mb-6 text-label transition-colors">{t.footer.contactTitle}</h4>
             <ul className="space-y-3 text-sm font-mono opacity-90 transition-colors">
               <li>support@megajackpot.com</li>
               <li>+221 33 000 00 00</li>
-              <li>Dakar, Sénégal</li>
+              <li>{t.footer.location}</li>
             </ul>
           </div>
         </div>
@@ -96,11 +98,11 @@ export function Footer() {
           <div className="flex items-center gap-3">
             <span className="text-[var(--color-mj-red)] font-bold border border-[#da151f]/50 px-2 py-1 rounded text-[10px] bg-[var(--color-mj-red)]/10">18+</span>
             <p className="opacity-70 transition-colors">
-              Jeu Responsable : Jouer comporte des risques (endettement, isolement, dépendance). 
+              {t.footer.responsibleGaming}
             </p>
           </div>
           <p className="opacity-60 text-label transition-colors">
-            © {new Date().getFullYear()} MEGA JACKPOT. Plateforme certifiée.
+            © {new Date().getFullYear()} {t.footer.copyrightSuffix}
           </p>
         </div>
       </div>

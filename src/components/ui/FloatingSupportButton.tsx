@@ -4,8 +4,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Headphones, X, MessageSquare, PhoneCall, ChevronRight, HelpCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function FloatingSupportButton() {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -18,7 +20,7 @@ export function FloatingSupportButton() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 10 }}
             transition={{ duration: 0.2 }}
-            className="mb-3 w-72 sm:w-80 p-5 rounded-3xl bg-[#030d22]/95 border border-[#fbb505]/40 backdrop-blur-2xl shadow-[0_10px_35px_rgba(0,0,0,0.6)] text-white space-y-4"
+            className="mb-3 w-72 sm:w-80 p-5 rounded-3xl bg-[#021a3c]/95 border border-[#fbb505]/40 backdrop-blur-2xl shadow-[0_10px_35px_rgba(0,0,0,0.6)] text-white space-y-4"
           >
             {/* Drawer Header */}
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
@@ -27,9 +29,9 @@ export function FloatingSupportButton() {
                   <Headphones className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="font-heading font-extrabold text-xs text-white">Assistance 24/7</h4>
+                  <h4 className="font-heading font-extrabold text-xs text-white">{t.floatingSupport.title}</h4>
                   <span className="text-[10px] text-green-400 font-mono flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" /> Équipe en ligne
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" /> {t.floatingSupport.online}
                   </span>
                 </div>
               </div>
@@ -51,7 +53,7 @@ export function FloatingSupportButton() {
               >
                 <div className="flex items-center gap-2.5">
                   <MessageSquare className="w-4 h-4 text-green-400" />
-                  <span className="font-medium text-white">Discussion WhatsApp</span>
+                  <span className="font-medium text-white">{t.floatingSupport.whatsapp}</span>
                 </div>
                 <ChevronRight className="w-3.5 h-3.5 text-gray-400 group-hover:translate-x-1 transition-transform" />
               </a>
@@ -62,7 +64,7 @@ export function FloatingSupportButton() {
               >
                 <div className="flex items-center gap-2.5">
                   <PhoneCall className="w-4 h-4 text-blue-400" />
-                  <span className="font-medium text-white">Appel Direct Service Client</span>
+                  <span className="font-medium text-white">{t.floatingSupport.directCall}</span>
                 </div>
                 <ChevronRight className="w-3.5 h-3.5 text-gray-400 group-hover:translate-x-1 transition-transform" />
               </a>
@@ -74,7 +76,7 @@ export function FloatingSupportButton() {
               >
                 <div className="flex items-center gap-2.5">
                   <HelpCircle className="w-4 h-4" />
-                  <span>Centre d&apos;Aide & FAQ</span>
+                  <span>{t.floatingSupport.helpCenter}</span>
                 </div>
                 <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -86,15 +88,15 @@ export function FloatingSupportButton() {
       {/* Floating Main Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="group relative flex items-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-[#0c2045] to-[#04122d] border border-[#fbb505]/50 text-white shadow-[0_4px_25px_rgba(0,0,0,0.5)] hover:shadow-[0_0_25px_rgba(251,181,5,0.4)] hover:scale-105 transition-all duration-300 cursor-pointer"
-        aria-label="Aide et support"
+        className="group relative flex items-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-[#102a58] to-[#021a3c] border border-[#fbb505]/50 text-white shadow-[0_4px_25px_rgba(0,0,0,0.5)] hover:shadow-[0_0_25px_rgba(251,181,5,0.4)] hover:scale-105 transition-all duration-300 cursor-pointer"
+        aria-label={t.floatingSupport.triggerAria}
       >
         <div className="relative">
           <Headphones className="w-5 h-5 text-[var(--color-mj-gold)] group-hover:rotate-12 transition-transform" />
-          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-green-500 border-2 border-[#04122d]" />
+          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-green-500 border-2 border-[#021a3c]" />
         </div>
         <span className="hidden sm:inline font-heading font-extrabold text-xs uppercase tracking-wider text-white">
-          Aide & Support
+          {t.floatingSupport.triggerLabel}
         </span>
       </button>
     </div>
